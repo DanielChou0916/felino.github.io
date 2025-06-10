@@ -92,4 +92,21 @@ body {
     .tagline { font-size: 1rem; }
     .gif-container { height: 200px; }
   }
+
+
+.img-wrap {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin: 1.5rem auto;
+}
+.img-wrap img {
+  max-width: 100%;
+  height: auto;
+}
+/* 只讓加了 stack 的這個 img-wrap 直排 */
+.img-wrap.stack {
+  flex-direction: column;
+}
   
