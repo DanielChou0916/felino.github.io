@@ -49,40 +49,53 @@
 
       <h3>1. Regular Mode</h3>
       <p>
-        Based on conceptual definition, the increment fatigue energy is calculated by comparing current energy at two steps:
+        Based on the conceptual definition, the incremental fatigue energy is calculated by comparing the instantaneous energy at two successive steps:
       </p>
       <div>
         \[
         \Delta\bar\alpha_t =
         \begin{cases}
           \Psi_t - \Psi_{t-1}, & \Psi_t > \Psi_{t-1},\\
-          0,                   & \text{otherwise}.
+          0,                     & \text{otherwise}.
         \end{cases}
         \]
       </div>
+      <p>
+        This method is highly accurate but requires the user to pay extra attention to the time increment \(\Delta t\). The time step must be small enough to capture the maximum and minimum values of the boundary cyclic load (as indicated by the skyblue scatter markers in the figure). If \(\Delta t\) is too large—whether set manually or by an adaptive time-stepping algorithm—the fatigue accumulation may be completely missed, as shown by the light green and pink triangular markers.
+      </p>
       <div class="img-wrap">
         <img src="accumulation.png" alt="Regular Mode Illustration" />
       </div>
 
       <h3>2. Cycle-count-based Linear Accumulation (CLA)</h3>
-      <div class="img-wrap">
-        <img src="CLA.png" alt="CLA Illustration" />
-      </div>
       <p>
-        For constant peak loading, instead of energy increment \(\Delta\bar\alpha_t\), accumulated energy is directly calculated by
+        The simplest mode suitable for constant peak boundary loads. Instead of accumulating energy increments \(\Delta\bar\alpha_t\), the accumulated energy is directly computed as:
+      </p>
+      <div>
         \[
         \bar\alpha_t = N_t \times \Psi_{peak}
         \]
-        The major drawback is that it only handles constant peak load cases.
+      </div>
+      <p>
+        This approach is very fast and easy to implement, but it only handles cases with a constant peak load. Incorrectly applying CLA to complex cyclic loading scenarios with varying peak amplitudes will produce misleading or unrealistic results.
       </p>
+      <div class="img-wrap">
+        <img src="CLA.png" alt="CLA Illustration" />
+      </div>
 
       <h3>3. Incremental Cycle-count-based Accumulation (ICLA)</h3>
-      \[
-      \Delta\bar\alpha_t = \Delta N\times \Psi_t
-      \]
-      where \(Delta N = N_t - N_{t-1}\) is the cyclic count increment.
+       <p>
+        Combining the strengths of both Regular Mode and CLA, ICLA updates the accumulated energy based on the change in cycle count and the current peak energy:
+      </p>
+      <div>
+        \[
+        \Delta\bar\alpha_t = \Delta N_t \times \Psi_t,
+        \quad
+        \Delta N_t = N_t - N_{t-1}.
+        \]
+      </div>
       <p>
-        It's the most flexible mode, with adequate simplification but not too much (剩下的給你補上)
+        This is the most flexible mode, providing a balanced simplification: by multiplying each detected peak energy \(\Psi_t\) by the cycle count increment \(\Delta N_t\), ICLA adapts automatically to variable loading amplitudes and changing frequencies without requiring full cyclic boundary-condition simulations. As long as cycle increments (including partial cycles) are detected reliably, ICLA can handle realistic loading conditions where the peak load fluctuates over time.
       </p>
       <div class="img-wrap stack">
         <img src="ICLA1.png" alt="ICLA Step 1" />
