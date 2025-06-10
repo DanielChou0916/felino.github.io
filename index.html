@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Felino</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 抽屉侧边栏 -->
+  <nav id="drawer" class="drawer">
+    <ul>
+      <li><a href="#">Item 1</a></li>
+      <li><a href="#">Item 2</a></li>
+      <li><a href="#">Item 3</a></li>
+    </ul>
+  </nav>
+  <!-- 拉霸按钮 -->
+  <button id="drawerToggle" class="drawer-toggle">☰</button>
+
+  <main class="main-content">
+    <!-- Logo -->
+    <img src="logo.png" alt="Felino Logo" class="logo" />
+
+    <!-- 简介文字 -->
+    <p class="tagline">
+      An open source phase-field model based fatigue simulation tool
+    </p>
+
+    <!-- 预留 GIF 区域 -->
+    <div class="gif-container">
+      <!-- 把你的 GIF 放这里 -->
+    </div>
+  </main>
+
+  <script>
+    // 抽屉开关脚本
+    const toggle = document.getElementById('drawerToggle');
+    const drawer = document.getElementById('drawer');
+    toggle.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
