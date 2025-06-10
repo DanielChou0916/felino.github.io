@@ -1,112 +1,81 @@
 /* 全局 & 背景 */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
-    color: #FFF;
-    overflow-x: hidden;
-  }
-  
-  /* 抽屉侧边栏 */
-  .drawer {
-    position: fixed;
-    top: 0; right: 0;
-    width: 0;
-    height: 100vh;
-    background: rgba(15, 32, 39, 0.95);
-    overflow: hidden;
-    transition: width 0.3s ease;
-    z-index: 1000;
-    padding-top: 60px;
-  }
-  .drawer.open {
-    width: 240px;
-  }
-  .drawer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .drawer li {
-    margin: 20px;
-  }
-  .drawer a {
-    color: #FFB400;
-    text-decoration: none;
-    font-size: 18px;
-  }
-  
-  /* 拉霸按钮 */
-  .drawer-toggle {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    font-size: 28px;
-    background: none;
-    border: none;
-    color: #FFF;
-    cursor: pointer;
-    z-index: 1100;
-  }
-  
-  /* 主内容区 */
-  .main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 100px 20px 40px;
-    text-align: center;
-  }
-  
-  /* Logo */
-  .logo {
-    max-width: 200px;
-    margin-bottom: 24px;
-  }
-  
-  /* 简介文字 */
-  .tagline {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    color: rgba(255,255,255,0.9);
-  }
-  
-  /* GIF 容器 */
-  .gif-container {
-    width: 100%;
-    max-width: 600px;
-    height: 300px;
-    border: 2px dashed rgba(255,255,255,0.4);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255,255,255,0.6);
-    font-style: italic;
-  }
-  
-  /* 响应式微调 */
-  @media (max-width: 600px) {
-    .drawer.open { width: 200px; }
-    .tagline { font-size: 1rem; }
-    .gif-container { height: 200px; }
-  }
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
+  color: #FFF;
+  overflow-x: hidden;
+}
 
+/* 抽屉侧边栏 */
+.drawer {
+  position: fixed;
+  top: 0; right: 0;
+  width: 0;
+  height: 100vh;
+  background: rgba(15, 32, 39, 0.95);
+  overflow: hidden;
+  transition: width 0.3s ease;
+  z-index: 1000;
+  padding-top: 60px;
+}
+.drawer.open {
+  width: 240px;
+}
+.drawer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.drawer li {
+  margin: 20px;
+}
+.drawer a {
+  color: #FFB400;
+  text-decoration: none;
+  font-size: 18px;
+}
 
+/* 抽屉开关按钮 */
+.drawer-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+/* 文本容器：增加左右留白、最大宽度 */
+.sub-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+/* 图片排版：允许撑到 90% 宽度 */
 .img-wrap {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 600px;
+  max-width: 90%;
   margin: 1.5rem auto;
 }
 .img-wrap img {
   max-width: 100%;
   height: auto;
 }
-/* 只讓加了 stack 的這個 img-wrap 直排 */
+/* stack 版依然直排 */
 .img-wrap.stack {
   flex-direction: column;
 }
-  
+
+/* 手机端微调：stacked 图占满宽度 */
+@media (max-width: 600px) {
+  .drawer.open { width: 200px; }
+  .img-wrap.stack img { max-width: 100%; }
+}
