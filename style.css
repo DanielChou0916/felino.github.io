@@ -1,3 +1,17 @@
+.logo-container {
+  display: block;
+  text-align: center;
+  margin: 2rem 0;
+  padding: 1rem;
+  background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
+  border-radius: 8px;   /* 根据需要加圆角 */
+}
+.logo {
+  max-width: 200px;
+  width: 100%;
+  display: inline-block;
+}
+
 /* 全局 & 背景 */
 body {
   margin: 0;
