@@ -95,3 +95,24 @@ body {
   .drawer.open { width: 200px; }
   .img-wrap.stack img { max-width: 100%; }
 }
+
+/* Dropdown submenu inside drawer */
+.drawer ul li {
+  position: relative;
+}
+
+.drawer ul li .submenu {
+  display: none;
+  margin-top: 5px;
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 2px solid #FFB400;
+}
+
+.drawer ul li:hover .submenu {
+  display: block;
+}
+
+.drawer ul li .submenu li {
+  margin: 10px 0;
+}
