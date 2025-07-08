@@ -217,6 +217,7 @@ body {
 .code-copy-container {
   position: relative;
   margin-bottom: 1rem;
+  padding-left: 1rem;
 }
 .copy-btn {
   position: absolute;
