@@ -77,7 +77,7 @@ body {
   padding-top: 60px;
 }
 .drawer.open {
-  width: 240px;
+  width: 260px;
 }
 .drawer ul {
   list-style: none;
@@ -88,7 +88,7 @@ body {
   margin: 20px;
 }
 .drawer a {
-  color: #FFB400;
+  color: #23DAFA;
   text-decoration: none;
   font-size: 18px;
 }
@@ -132,7 +132,7 @@ body {
 
 /* 手机端微调：stacked 图占满宽度 */
 @media (max-width: 600px) {
-  .drawer.open { width: 200px; }
+  .drawer.open { width: 225px; }
   .img-wrap.stack img { max-width: 100%; }
 }
 
