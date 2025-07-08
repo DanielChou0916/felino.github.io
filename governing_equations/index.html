@@ -57,7 +57,8 @@
       <p>
         \[
         \int_\Omega \delta d \left[ g'(d)\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w'(d) \right] d\Omega
-        + \int_\Omega \nabla \delta d \cdot \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \nabla d \right) d\Omega = 0
+        + \int_\Omega \nabla \delta d \cdot \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \nabla d \right) d\Omega -\int_{\Omega} \delta d\;
+      \nabla\left(\tfrac{2G_{c}f(\bar{\alpha})\,\ell}{c_{0}}\right)\cdot\nabla d\,d\Omega = 0
         \]
       </p>
 
@@ -67,7 +68,10 @@
         \mathbf{r}_d =
         \int_{\Omega_e} \boldsymbol{N}_d \left[ g'(d)\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w'(d) \right] d\Omega
         + \int_{\Omega_e} \boldsymbol{B}_d^\mathsf{T} \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \right) \boldsymbol{B}_d \mathbf{d}_e \,d\Omega
-        \]
+        -\int_{\Omega_{e}}
+      \boldsymbol{N}_{d}
+      \Bigl[\nabla\left(\tfrac{2G_{c}f(\bar{\alpha})\,\ell}{c_{0}}\right)\cdot
+            \boldsymbol{B}_{d}\mathbf{d}_{e}\Bigr]\,d\Omega\]
       </p>
 
       <h3>Element Stiffness</h3>
@@ -76,10 +80,14 @@
         \mathbf{K}_d =
         \int_{\Omega_e} \boldsymbol{N}_d \left[ g''(d)\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w''(d) \right] \boldsymbol{N}_d^\mathsf{T} \,d\Omega
         + \int_{\Omega_e} \boldsymbol{B}_d^\mathsf{T} \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \right) \boldsymbol{B}_d \,d\Omega
+        -\int_{\Omega_{e}}\boldsymbol{N}_{d}\left[\nabla\!\left(\tfrac{2G_{c}f(\bar{\alpha})\,\ell}{c_{0}}\right)\cdot
+        \boldsymbol{B}_{d}\right]\,d\Omega.
         \]
       </p>
     </section>
-
+    
+    <hr>
+    
     <section>
       <h1>Mechanical Equilibrium</h1>
 
