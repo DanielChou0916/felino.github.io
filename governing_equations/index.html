@@ -31,6 +31,8 @@
       </ul>
       <p>
         In the expressions below, \(\boldsymbol{N}\) denotes the shape functions, \(\boldsymbol{B}\) their spatial derivatives, and the subscript “e” indicates the element-wise nodal vector of primary variables.
+        <strong>Note: Felino currently focuses on loosely coupled (staggered‐scheme) analyses only, meaning that the tangential stiffness terms between primary variables are always neglected.  
+        Users who wish to implement a fully coupled analysis without automatic differentiation must derive and develop those coupling terms manually.</strong>
       </p>
     </section>
 
