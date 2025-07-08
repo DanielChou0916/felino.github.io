@@ -34,6 +34,14 @@
   color: #DFF;  /* light green */
 }
 
+.sub-container h1 {
+  color: #23DAFA;
+  margin-top: 2rem;
+  font-size: 2rem;     
+  /*text-align: center;*/   
+}
+
+
 .sub-container h2 {
   color: #23DAFA;
   margin-top: 2rem;
@@ -179,5 +187,16 @@ body {
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), 
               0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+
+.math-block {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  border-left: 3px solid #23DAFA;
+  background: rgba(255,255,255,0.02);
+  border-radius: 4px;
 }
 
