@@ -56,6 +56,15 @@
   text-align: justify;
 }
 
+.sub-container a {
+  color: #23DAFA;        
+  text-decoration: underline;  
+}
+
+.sub-container .tcolorbox a {
+  color: #32FAD5;
+  text-decoration: underline;
+}
 
 
 .tagline {
