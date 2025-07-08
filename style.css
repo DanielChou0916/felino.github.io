@@ -28,7 +28,6 @@
 .sub-container {
   background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
   max-width: 1000px;
-  width: 100%;               /* ← 加這行確保撐滿最大寬 */
   margin: 2rem auto;
   padding: 2rem 1.5rem;
   border-radius: 10px;
