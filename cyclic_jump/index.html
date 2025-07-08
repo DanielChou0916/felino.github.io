@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fatigue Estimation | Felino</title>
+  <link rel="stylesheet" href="../style.css" />
+  <!-- MathJax for LaTeX support -->
+  <script
+    type="text/javascript"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  ></script>
+</head>
+<body>
+
+  <!-- drawer -->
+  <div include-html="../drawer_sub.html"></div>
+
+  <!-- Main content -->
+  <main class="sub-container">
+
+  <section>
+    <h1>Cycle-Jumping Strategy</h1>
+  
+    <p>
+      In long-term fatigue simulations—where you might need to model tens of thousands of cycles—using a constant, very small timestep throughout is wasteful.  
+      Felino’s cycle-jumping strategy automatically adjusts your timestep based on a damage indicator \(I^n\):
+    </p>
+  
+    <ul>
+      <li>
+        <strong>Low activity:</strong> If \(I^n < I_{\mathrm{opt}}\), the structure is essentially “coasting.”  
+        We multiply \(\Delta t\) by a growth factor \(\gamma_{\text{grow}}>1\) so the simulation “jumps” ahead faster.
+      </li>
+      <li>
+        <strong>High activity:</strong> If \(I^n > I_{\mathrm{opt}}\), crack initiation or rapid growth is occurring.  
+        We multiply \(\Delta t\) by a cutback factor \(\gamma_{\text{cut}}<1\) to slow down and preserve accuracy.
+      </li>
+      <li>
+        <strong>Balanced:</strong> When \(I^n\approx I_{\mathrm{opt}}\), we keep \(\Delta t\) unchanged for stable convergence.
+      </li>
+    </ul>
+  
+    <p>
+      This adaptive approach means you spend minimal CPU time “idling” in the high-cycle, low-damage regime, yet still retain fine resolution during critical crack-growth events.
+    </p>
+  
+    <p>
+      Below is an abridged pseudocode excerpt from our paper. For full mathematical details, see the original reference.
+    </p>
+  
+    <div class="math-block">
+      <em>Algorithm: Adaptive Cycle-Jumping</em><br>
+      Initialize <code>Δt⁰, Δtₘₐₓ, Δtₘᵢₙ, γ₍gᵣₒw₎>1, γ₍cᵤₜ₎<1, Iₒₚₜ</code>.<br>
+      <strong>for</strong> n = 0,1,2,… <strong>do</strong><br>
+      &nbsp;&nbsp;Solve phase-field on [tⁿ, tⁿ+Δtⁿ].<br>
+      &nbsp;&nbsp;Compute indicator Iⁿ.<br>
+      &nbsp;&nbsp;<strong>if</strong> Iⁿ < Iₒₚₜ:  
+        <code>Δtⁿ⁺¹ = min(γ₍gᵣₒw₎·Δtⁿ, Δtₘₐₓ)</code>.<br>
+      &nbsp;&nbsp;<strong>else if</strong> Iⁿ > Iₒₚₜ:  
+        <code>Δtⁿ⁺¹ = max(γ₍cᵤₜ₎·Δtⁿ, Δtₘᵢₙ)</code>.<br>
+      &nbsp;&nbsp;<strong>else</strong>:  
+        <code>Δtⁿ⁺¹ = Δtⁿ</code>.<br>
+      &nbsp;&nbsp;Update tⁿ⁺¹ = tⁿ + Δtⁿ.<br>
+      <strong>end for</strong>
+    </div>
+  </section>
+
+
+<!-- drawer loading script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const includeElements = document.querySelectorAll("[include-html]");
+
+    includeElements.forEach(el => {
+      const file = el.getAttribute("include-html");
+      fetch(file)
+        .then(response => {
+          if (!response.ok) throw new Error(`Could not fetch ${file}`);
+          return response.text();
+        })
+        .then(data => {
+          el.innerHTML = data;
+
+          // activate toggle 
+          const toggle = document.getElementById('drawerToggle');
+          const drawer = document.getElementById('drawer');
+          if (toggle && drawer) {
+            toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          }
+        })
+        .catch(error => {
+          el.innerHTML = `<p>Error loading ${file}</p>`;
+        });
+    });
+  });
+</script>
+    
+</body>
+</html>
