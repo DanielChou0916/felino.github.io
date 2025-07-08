@@ -213,3 +213,25 @@ body {
   text-align: center;
 }
 
+
+.code-copy-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+.copy-btn {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background: #23DAFA;
+  border: none;
+  color: #0F2027;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+.copy-btn:hover {
+  opacity: 1;
+}
+
