@@ -1,9 +1,12 @@
 .tagline {
   max-width: 800px;
-  margin: 0 auto 2rem auto;  /* 底下加空間 */
+  margin: 2rem auto;
   padding: 0 1rem;
-  text-align: center;
+  line-height: 1.7;
+  font-size: 1rem;
+  text-align: left; /* 取消 text-align: center */
 }
+
 
 
 .logo-container {
