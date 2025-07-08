@@ -28,6 +28,7 @@
 .sub-container {
   background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
   max-width: 1000px;
+  margin: 2rem auto;
   padding: 2rem 1.5rem;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.06);
