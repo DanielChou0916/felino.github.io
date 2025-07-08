@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Governing Equations | Felino</title>
+  <link rel="stylesheet" href="../style.css" />
+  <!-- MathJax for LaTeX support -->
+  <script
+    type="text/javascript"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  ></script>
+</head>
+<body>
+
+  <!-- Off-canvas drawer -->
+  <nav id="drawer" class="drawer">
+    <ul>
+      <li>
+        <a href="#">Installation</a>
+      </li>
+    
+      <li>
+        <a href="#">🔬 Technical Contents ▾</a>
+        <ul class="submenu">
+          <li><a href="https://danielchou0916.github.io/felino.github.io/governing_equations/">Governing Equations</a></li>
+          <li><a href="https://danielchou0916.github.io/felino.github.io/fatigue_accumulation/">Fatigue Accumulation</a></li>
+          <li><a href="https://danielchou0916.github.io/felino.github.io/fatigue_estimation/">Fatigue Estimation</a></li>
+        </ul>
+      </li>
+    
+      <li>
+        <a href="#">📚 Tutorials ▾</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- bar bottom -->
+  <button id="drawerToggle" class="drawer-toggle">☰</button>
+
+  <!-- Main content -->
+  <main class="sub-container">
+
+    <section>
+      <h1>Phase Field Fracture Model</h1>
+
+      <h3>Strong Form</h3>
+      <p>
+        \[
+        g'(d)\,\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w'(d)
+        - \nabla \cdot \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \nabla d \right) = 0
+        \]
+      </p>
+
+      <h3>Weak Form</h3>
+      <p>
+        \[
+        \int_\Omega \delta d \left[ g'(d)\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w'(d) \right] d\Omega
+        + \int_\Omega \nabla \delta d \cdot \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \nabla d \right) d\Omega = 0
+        \]
+      </p>
+
+      <h3>Element Residual</h3>
+      <p>
+        \[
+        \mathbf{r}_d =
+        \int_{\Omega_e} \boldsymbol{N}_d \left[ g'(d)\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w'(d) \right] d\Omega
+        + \int_{\Omega_e} \boldsymbol{B}_d^\mathsf{T} \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \right) \boldsymbol{B}_d \mathbf{d}_e \,d\Omega
+        \]
+      </p>
+
+      <h3>Element Stiffness</h3>
+      <p>
+        \[
+        \mathbf{K}_d =
+        \int_{\Omega_e} \boldsymbol{N}_d \left[ g''(d)\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w''(d) \right] \boldsymbol{N}_d^\mathsf{T} \,d\Omega
+        + \int_{\Omega_e} \boldsymbol{B}_d^\mathsf{T} \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \right) \boldsymbol{B}_d \,d\Omega
+        \]
+      </p>
+    </section>
+
+    <section>
+      <h1>Mechanical Equilibrium</h1>
+
+      <h3>Strong Form</h3>
+      <p>
+        \[
+        \nabla \cdot \boldsymbol{\sigma} + \rho \mathbf{b} = \mathbf{0}
+        \]
+      </p>
+
+      <h3>Weak Form</h3>
+      <p>
+        \[
+        \int_\Omega \nabla \delta \mathbf{u} : \boldsymbol{\sigma} \, d\Omega
+        - \int_\Omega \delta \mathbf{u} \cdot \rho \mathbf{b} \, d\Omega
+        - \int_\Gamma \delta \mathbf{u} \cdot \boldsymbol{\sigma} \mathbf{n} \, d\Gamma = 0
+        \]
+      </p>
+
+      <h3>Element Residual</h3>
+      <p>
+        \[
+        \mathbf{r}_u =
+        \int_{\Omega_e} \boldsymbol{B}_u^\mathsf{T} \boldsymbol{\sigma}_{\text{voigt}} \, d\Omega
+        - \int_{\Omega_e} \boldsymbol{N}_u^\mathsf{T} \rho \mathbf{b} \, d\Omega
+        - \int_{\Gamma_e} \boldsymbol{N}_u^\mathsf{T} \mathbf{S}(\mathbf{n}) \mathbf{C} \boldsymbol{B}_u \mathbf{u}_e \, d\Gamma
+        \]
+      </p>
+
+      <h3>Element Stiffness</h3>
+      <p>
+        \[
+        \mathbf{K}_u =
+        \int_{\Omega_e} \boldsymbol{B}_u^\mathsf{T} \mathbf{C} \boldsymbol{B}_u \, d\Omega
+        \]
+      </p>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>Heat Conduction</h2>
+
+      <h3>Strong Form</h3>
+      <p>
+        \[
+        \rho c \dot{T} - \rho r - \nabla \cdot (k \nabla T) = 0
+        \]
+      </p>
+
+      <h3>Weak Form</h3>
+      <p>
+        \[
+        \int_\Omega \delta T (\rho c \dot{T} - \rho r) \, d\Omega
+        + \int_\Omega \nabla \delta T \cdot (k \nabla T) \, d\Omega = 0
+        \]
+      </p>
+
+      <h3>Element Residual</h3>
+      <p>
+        \[
+        \mathbf{r}_T =
+        \mathbf{M}_e \dot{\mathbf{T}}_e
+        + \mathbf{K}_e \mathbf{T}_e
+        - \mathbf{f}^{\text{body}}_e
+        + \mathbf{f}^{\text{flux}}_e
+        \]
+      </p>
+
+      <h3>Element Stiffness</h3>
+      <p>
+        \[
+        \mathbf{K}_e =
+        \int_{\Omega_e} \boldsymbol{B}_T^\mathsf{T} k \boldsymbol{B}_T \, d\Omega
+        \]
+      </p>
+    </section>
+
+    <hr>
+
+  </main>
+
+  <script>
+    const toggle = document.getElementById('drawerToggle');
+    const drawer = document.getElementById('drawer');
+    toggle.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
