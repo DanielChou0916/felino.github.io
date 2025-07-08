@@ -19,11 +19,36 @@
 
   <!-- Main content -->
   <main class="sub-container">
-
     <section>
-      <h1>Phase Field Fracture Model</h1>
+      <h1>Governing Equations</h1>
+      <p>
+        This page provides a concise overview of the main governing equations solved by Felino.  For each system, you will find its strong and weak forms, as well as the element residual and stiffness contributions:
+      </p>
+      <ul class="notation-list">
+        <li><strong>Phase-Field Fracture Model:</strong> Describes damage via a continuous variable \(d\) (with \(0 \le d \le 1\)) and incorporates fatigue mechanisms.</li>
+        <li><strong>Mechanical Equilibrium:</strong> Solves for the displacement field \(\mathbf{u}\).</li>
+        <li><strong>Heat Conduction:</strong> Solves for the temperature field \(T\) using a diffusion equation.</li>
+      </ul>
+      <p>
+        In the expressions below, \(\boldsymbol{N}\) denotes the shape functions, \(\boldsymbol{B}\) their spatial derivatives, and the subscript “e” indicates the element-wise nodal vector of primary variables.
+      </p>
+    </section>
 
-      <h2>Strong Form</h2>
+
+    
+      <section>
+      <h2>Phase Field Fracture Model</h2>
+      <p>
+        The phase-field damage equation couples the mechanical energy \(\psi^e\) from the elastic system with a degradation function \(g(d)\). In its simplest form (elastic energy only), \(g(d)\) is typically chosen as \((1-d)^2\), and the fracture toughness \(G_c\) and length scale \(\ell\) govern crack resistance and width. The crack-geometry function \(w(d)\) (sometimes denoted \(\alpha(d)\)) is normalized by
+        \[
+          c_0 = \int_0^1 \sqrt{w(s)}\,ds.
+        \]
+      </p>
+      <p>
+        Fatigue effects enter via a degradation term \(f(\bar\alpha)\), where \(\bar\alpha\) represents the accumulated fatigue energy over the loading history. When \(f(\bar\alpha)=1\) and \(\nabla f(\bar\alpha)=0\), the model reduces to the standard phase-field damage equation.
+      </p>
+      
+      <h3>Strong Form</h3>
       <div class="math-block">
         \[
         g'(d)\,\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w'(d)
@@ -31,7 +56,7 @@
         \]
       </div>
 
-      <h2>Weak Form</h2>
+      <h3>Weak Form</h3>
       <div class="math-block">
         \[
         \int_\Omega \delta d \left[ g'(d)\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w'(d) \right] d\Omega
@@ -40,7 +65,7 @@
         \]
       </div>
 
-      <h2>Element Residual</h2>
+      <h3>Element Residual</h3>
       <div class="math-block">
         \[
         \mathbf{r}_d =
@@ -52,7 +77,7 @@
             \boldsymbol{B}_{d}\mathbf{d}_{e}\Bigr]\,d\Omega\]
       </div>
 
-      <h2>Element Stiffness</h2>
+      <h3>Element Stiffness</h3>
       <div class="math-block">
         \[
         \mathbf{K}_d =
@@ -67,16 +92,21 @@
     <hr>
     
     <section>
-      <h1>Mechanical Equilibrium</h1>
+    <h2>Mechanical Equilibrium</h2>
+      <p>
+        The strong form of mechanical equilibrium is derived from the principle of force balance.  
+        Here, \(\boldsymbol{\sigma}\) denotes the Cauchy stress tensor representing internal forces in the material, \(\rho\) is the mass density, and \(\mathbf{b}\) is the body force per unit mass (e.g. gravity).  
+        Physically, this equation ensures that at every point in the solid, the divergence of internal stresses exactly balances the applied body forces, yielding static equilibrium when inertial effects are negligible.
+      </p>
 
-      <h2>Strong Form</h2>
+      <h3>Strong Form</h3>
       <div class="math-block">
         \[
         \nabla \cdot \boldsymbol{\sigma} + \rho \mathbf{b} = \mathbf{0}
         \]
       </div>
 
-      <h2>Weak Form</h2>
+      <h3>Weak Form</h3>
       <div class="math-block">
         \[
         \int_\Omega \nabla \delta \mathbf{u} : \boldsymbol{\sigma} \, d\Omega
@@ -85,7 +115,7 @@
         \]
       </div>
 
-      <h2>Element Residual</h2>
+      <h3>Element Residual</h3>
       <div class="math-block">
         \[
         \mathbf{r}_u =
@@ -95,7 +125,7 @@
         \]
      </div>
 
-      <h2>Element Stiffness</h2>
+      <h3>Element Stiffness</h3>
       <div class="math-block">
         \[
         \mathbf{K}_u =
@@ -107,16 +137,21 @@
     <hr>
 
     <section>
-      <h1>Heat Conduction</h1>
-
-      <h2>Strong Form</h2>
+      <h2>Heat Conduction</h2>
+      <p>
+        The strong form of transient heat conduction is based on energy conservation.  
+        Here, \(\rho\) is the material density, \(c\) the specific heat capacity, and \(\dot{T}\) the time derivative of temperature \(T\).  
+        The term \(\rho\,r\) represents a volumetric heat source (for example internal heat generation), while \(k\) is the thermal conductivity governing heat flux \(-k\,\nabla T\).  
+        Physically, this equation states that the rate of change of internal energy \(\rho c\,\dot{T}\) minus any internal heat generation \(\rho r\) is exactly balanced by the net conductive heat flow \(\nabla\!\cdot(k\nabla T)\), ensuring energy balance in the solid.
+      </p>
+      <h3>Strong Form</h3>
       <div class="math-block">
         \[
         \rho c \dot{T} - \rho r - \nabla \cdot (k \nabla T) = 0
         \]
       </div>
 
-      <h2>Weak Form</h2>
+      <h3>Weak Form</h3>
       <div class="math-block">
         \[
         \int_\Omega \delta T (\rho c \dot{T} - \rho r) \, d\Omega
@@ -124,7 +159,7 @@
         \]
       </div>
 
-      <h2>Element Residual</h2>
+      <h3>Element Residual</h3>
       <div class="math-block">
         \[
         \mathbf{r}_T =
@@ -135,7 +170,7 @@
         \]
       </div>
 
-      <h2>Element Stiffness</h2>
+      <h3>Element Stiffness</h3>
       <div class="math-block">
         \[
         \mathbf{K}_e =
