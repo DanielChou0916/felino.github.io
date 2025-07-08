@@ -9,29 +9,7 @@
 <body>
 
   <!-- drawer -->
-  <nav id="drawer" class="drawer">
-    <ul>
-      <li>
-        <a href="#">⬇️ Installation</a>
-      </li>
-    
-      <li>
-        <a href="#">🔬 Technical Contents</a>
-        <ul class="submenu">
-          <li><a href="https://danielchou0916.github.io/felino.github.io/governing_equations/">Governing Equations</a></li>
-          <li><a href="https://danielchou0916.github.io/felino.github.io/fatigue_accumulation/">Fatigue Accumulation</a></li>
-          <li><a href="https://danielchou0916.github.io/felino.github.io/fatigue_estimation/">Fatigue Estimation</a></li>
-        </ul>
-      </li>
-    
-      <li>
-        <a href="#">📚 Tutorials</a>
-      </li>
-      
-    </ul>
-  </nav>
-  <!-- bar bottom -->
-  <button id="drawerToggle" class="drawer-toggle">☰</button>
+  <div include-html="_drawer_intro.html"></div>
 
   <main class="main-content">
     <!-- Logo -->
@@ -62,13 +40,34 @@
   </div>
 
   </main>
-<!-- drawer -->
-  <script>
-    const toggle = document.getElementById('drawerToggle');
-    const drawer = document.getElementById('drawer');
-    toggle.addEventListener('click', () => {
-      drawer.classList.toggle('open');
+<!-- drawer loading script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const includeElements = document.querySelectorAll("[include-html]");
+
+    includeElements.forEach(el => {
+      const file = el.getAttribute("include-html");
+      fetch(file)
+        .then(response => {
+          if (!response.ok) throw new Error(`Could not fetch ${file}`);
+          return response.text();
+        })
+        .then(data => {
+          el.innerHTML = data;
+
+          // 重要：插入完成後，要啟動 toggle 功能
+          const toggle = document.getElementById('drawerToggle');
+          const drawer = document.getElementById('drawer');
+          if (toggle && drawer) {
+            toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          }
+        })
+        .catch(error => {
+          el.innerHTML = `<p>Error loading ${file}</p>`;
+        });
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>
