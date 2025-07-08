@@ -16,112 +16,100 @@
 
   <!-- drawer -->
   <div include-html="../drawer_sub.html"></div>
+
   <!-- Main content -->
   <main class="sub-container">
     <section>
-      <h1>Installation for <code>Felino</code></h1>
+      <h1>Appendix A: Installation Instructions for <code>Felino</code></h1>
       <div class="tcolorbox">
         <h2>Installing <code>Felino</code> with MOOSE</h2>
+
         <p><strong>Step 1: Clone the MOOSE Framework</strong></p>
-          <div class="code-copy-container">
-            <button class="copy-btn" title="Copy code">Copy</button>
-            <pre><code>git clone https://github.com/idaholab/moose.git
-          cd moose
-          git submodule update --init --recursive</code></pre>
-          </div>
-          <p><strong>Step 2: Clone Felino Inside MOOSE (Recommended in <code>projects/</code>)</strong></p>
-          <div class="code-copy-container">
-            <button class="copy-btn" title="Copy code">Copy</button>
-            <pre><code>cd moose/projects
-          git clone https://github.com/Felino/Felino.git</code></pre>
-          </div>
-          <p><strong>Step 3: Load the MOOSE Environment</strong></p>
-          <div class="code-copy-container">
-            <button class="copy-btn" title="Copy code">Copy</button>
-            <pre><code>cd moose
-          source scripts/moose_environ.sh</code></pre>
-          </div>
-          <p><strong>Step 4: Build the Felino Application</strong></p>
-          <div class="code-copy-container">
-            <button class="copy-btn" title="Copy code">Copy</button>
-            <pre><code>cd projects/Felino
-          make -j$(nproc)</code></pre>
-          </div>
-          <p><strong>Step 5: Run an Example Simulation</strong></p>
-          <div class="code-copy-container">
-            <button class="copy-btn" title="Copy code">Copy</button>
-            <pre><code>./Felino-opt -i examples/fatigue_cyclic_loading.i</code></pre>
-          </div>
-          <p><strong>To Update MOOSE and Felino Later:</strong></p>
-          <div class="code-copy-container">
-            <button class="copy-btn" title="Copy code">Copy</button>
-            <pre><code>cd moose
-          git pull
-          git submodule update --init --recursive
-          
-          cd projects/Felino
-          git pull
-          make -j$(nproc)</code></pre>
-          </div>
-          </div>
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+          <pre><code>git clone https://github.com/idaholab/moose.git
+cd moose
+git submodule update --init --recursive</code></pre>
+        </div>
+
+        <p><strong>Step 2: Clone Felino Inside MOOSE (Recommended in <code>projects/</code>)</strong></p>
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+          <pre><code>cd moose/projects
+git clone https://github.com/Felino/Felino.git</code></pre>
+        </div>
+
+        <p><strong>Step 3: Load the MOOSE Environment</strong></p>
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+          <pre><code>cd moose
+source scripts/moose_environ.sh</code></pre>
+        </div>
+
+        <p><strong>Step 4: Build the Felino Application</strong></p>
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+          <pre><code>cd projects/Felino
+make -j$(nproc)</code></pre>
+        </div>
+
+        <p><strong>Step 5: Run an Example Simulation</strong></p>
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+          <pre><code>./Felino-opt -i examples/fatigue_cyclic_loading.i</code></pre>
+        </div>
+
+        <p><strong>To Update MOOSE and Felino Later:</strong></p>
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+          <pre><code>cd moose
+git pull
+git submodule update --init --recursive
+
+cd projects/Felino
+git pull
+make -j$(nproc)</code></pre>
+        </div>
+
         <p><strong>Notes:</strong> Ensure system dependencies (PETSc, libMesh, CMake, GCC/Clang C++14+). Use <code>Felino-opt</code> for release runs and <code>Felino-dbg</code> for debugging. 
           <a
-          href="https://mooseframework.inl.gov"
-          target="_blank"
-          rel="noopener"
-          style="color: #93EBFA; text-decoration: underline;"
-        >
-          Click here
-        </a> for full MOOSE documentation.
-          .</p>
+            href="https://mooseframework.inl.gov"
+            target="_blank"
+            rel="noopener"
+            style="color: #93EBFA; text-decoration: underline;"
+          >Full MOOSE Documentation</a>.
+        </p>
       </div>
     </section>
   </main>
 
-
-<!-- drawer loading script -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const includeElements = document.querySelectorAll("[include-html]");
-
-    includeElements.forEach(el => {
-      const file = el.getAttribute("include-html");
-      fetch(file)
-        .then(response => {
-          if (!response.ok) throw new Error(`Could not fetch ${file}`);
-          return response.text();
-        })
-        .then(data => {
-          el.innerHTML = data;
-
-          // activate toggle 
-          const toggle = document.getElementById('drawerToggle');
-          const drawer = document.getElementById('drawer');
-          if (toggle && drawer) {
-            toggle.addEventListener('click', () => drawer.classList.toggle('open'));
-          }
-        })
-        .catch(error => {
-          el.innerHTML = `<p>Error loading ${file}</p>`;
-        });
-    });
-  });
-
-  // load DOM
-  document.addEventListener('DOMContentLoaded', () => {
-    //  copy bottom
-    document.querySelectorAll('.copy-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        // 找到相邻的 <code>
-        const code = btn.nextElementSibling.innerText;
-        navigator.clipboard.writeText(code).then(() => {
-          btn.textContent = 'Copied!';
-          setTimeout(() => btn.textContent = 'Copy', 1500);
+  <!-- Copy button script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const codeEl = btn.nextElementSibling;
+          const text = codeEl.innerText.trim();
+          navigator.clipboard.writeText(text).then(() => {
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 1500);
+          });
         });
       });
+      // drawer include
+      const includeEls = document.querySelectorAll('[include-html]');
+      includeEls.forEach(el => {
+        fetch(el.getAttribute('include-html'))
+          .then(r => r.ok ? r.text() : Promise.reject(r.statusText))
+          .then(html => {
+            el.innerHTML = html;
+            const toggle = document.getElementById('drawerToggle');
+            const drawer = document.getElementById('drawer');
+            if (toggle && drawer) toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          })
+          .catch(err => el.innerHTML = `<p>Error loading drawer: ${err}</p>`);
+      });
     });
-  });
-</script>
-    
+  </script>
 </body>
 </html>
