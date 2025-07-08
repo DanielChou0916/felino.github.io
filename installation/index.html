@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Installation | Felino</title>
+  <link rel="stylesheet" href="../style.css" />
+  <!-- MathJax for LaTeX support -->
+  <script
+    type="text/javascript"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  ></script>
+</head>
+<body>
+
+  <!-- drawer -->
+  <div include-html="../drawer_sub.html"></div>
+  <!-- Main content -->
+  <main class="sub-container">
+    <section>
+      <h1>Installation for <code>Felino</code></h1>
+      <div class="tcolorbox">
+        <h2>Installing <code>Felino</code> with MOOSE</h2>
+        <p><strong>Step 1: Clone the MOOSE Framework</strong></p>
+        <pre><code>git clone https://github.com/idaholab/moose.git
+cd moose
+.git submodule update --init --recursive</code></pre>
+        <p><strong>Step 2: Clone Felino Inside MOOSE (Recommended in <code>projects/</code>)</strong></p>
+        <pre><code>cd moose/projects
+git clone https://github.com/Felino/Felino.git</code></pre>
+        <p><strong>Step 3: Load the MOOSE Environment</strong></p>
+        <pre><code>cd moose
+source scripts/moose_environ.sh</code></pre>
+        <p><strong>Step 4: Build the Felino Application</strong></p>
+        <pre><code>cd projects/Felino
+make -j$(nproc)</code></pre>
+        <p><strong>Step 5: Run an Example Simulation</strong></p>
+        <pre><code>./Felino-opt -i examples/fatigue_cyclic_loading.i</code></pre>
+        <p><strong>To Update MOOSE and Felino Later:</strong></p>
+        <pre><code>cd moose
+git pull
+git submodule update --init --recursive
+
+cd projects/Felino
+git pull
+make -j$(nproc)</code></pre>
+        <p><strong>Notes:</strong> Ensure system dependencies (PETSc, libMesh, CMake, GCC/Clang C++14+). Use <code>Felino-opt</code> for release runs and <code>Felino-dbg</code> for debugging. Full MOOSE documentation at <a href="https://mooseframework.inl.gov" target="_blank" rel="noopener">mooseframework.inl.gov</a>.</p>
+      </div>
+    </section>
+  </main>
+
+
+<!-- drawer loading script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const includeElements = document.querySelectorAll("[include-html]");
+
+    includeElements.forEach(el => {
+      const file = el.getAttribute("include-html");
+      fetch(file)
+        .then(response => {
+          if (!response.ok) throw new Error(`Could not fetch ${file}`);
+          return response.text();
+        })
+        .then(data => {
+          el.innerHTML = data;
+
+          // activate toggle 
+          const toggle = document.getElementById('drawerToggle');
+          const drawer = document.getElementById('drawer');
+          if (toggle && drawer) {
+            toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          }
+        })
+        .catch(error => {
+          el.innerHTML = `<p>Error loading ${file}</p>`;
+        });
+    });
+  });
+</script>
+    
+</body>
+</html>
