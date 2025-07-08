@@ -23,22 +23,23 @@
   <section>
     <h1>Cycle-Jumping Strategy</h1>
   
-  <p>
-    This strategy builds on our  
-    <a
-      href="https://danielchou0916.github.io/felino.github.io/fatigue_accumulation/"
-      target="_blank" rel="noopener"
-      style="color: #93EBFA; text-decoration: underline;"
-    >incremental cycle-count-based accumulation (ICLA)</a>, one of Felino’s core features.  
-    Under cyclic loading with period \(\mathcal{p}=0.01\), a fixed timestep \(\Delta t=1\) corresponds to 100 cycles  
-    (\(\Delta N_t = \Delta t / \mathcal{p} = 100\)). Felino’s adaptive time-stepping then adjusts \(\Delta t\)  
-    automatically based on a damage indicator \(I^n\).
-  </p>
+<p>
+  This strategy builds on our  
+  <a
+    href="https://danielchou0916.github.io/felino.github.io/fatigue_accumulation/"
+    target="_blank" rel="noopener"
+    style="color: #93EBFA; text-decoration: underline;"
+  >incremental cycle-count-based accumulation (ICLA)</a>, one of Felino’s core features.  
+  Under cyclic loading with period \(\mathcal{p}=0.01\), a fixed timestep \(\Delta t=1\) corresponds to 100 cycles  
+  (\(\Delta N_t = \Delta t / \mathcal{p} = 100\)). Felino’s adaptive time‐stepping then adjusts \(\Delta t\)  
+  automatically based on a damage indicator \(I^n\). By changing the loading period \(\mathcal{p}\), user can also control the jump size: smaller \(\mathcal{p}\) produces larger jumps (more cycles per step).
+</p>
+
 
   <p>
-    In practice, you only “jump” ahead quickly when damage is low, and slow down precisely when cracks begin to grow.  
+    In practice, user only “jump” ahead quickly when damage is low, and slow down precisely when cracks begin to grow. 
     Configure the optimal threshold \(I_{\mathrm{opt}}\) and the growth/cutback factors  
-    \(\gamma_{\text{grow}}>1\), \(\gamma_{\text{cut}}<1\) to suit your specific loading scenario.
+    \(\gamma_{\text{grow}}>1\), \(\gamma_{\text{cut}}<1\) to suit user's specific loading scenario.
   </p>
 
   <h2>Key Steps</h2>
