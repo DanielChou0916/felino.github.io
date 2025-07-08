@@ -23,25 +23,25 @@
     <section>
       <h1>Phase Field Fracture Model</h1>
 
-      <h3>Strong Form</h3>
-      <p>
+      <h2>Strong Form</h2>
+      <div class="math-block">
         \[
         g'(d)\,\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w'(d)
         - \nabla \cdot \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \nabla d \right) = 0
         \]
-      </p>
+      </div>
 
-      <h3>Weak Form</h3>
-      <p>
+      <h2>Weak Form</h2>
+      <div class="math-block">
         \[
         \int_\Omega \delta d \left[ g'(d)\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w'(d) \right] d\Omega
         + \int_\Omega \nabla \delta d \cdot \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \nabla d \right) d\Omega -\int_{\Omega} \delta d\;
       \nabla\left(\tfrac{2G_{c}f(\bar{\alpha})\,\ell}{c_{0}}\right)\cdot\nabla d\,d\Omega = 0
         \]
-      </p>
+      </div>
 
-      <h3>Element Residual</h3>
-      <p>
+      <h2>Element Residual</h2>
+      <div class="math-block">
         \[
         \mathbf{r}_d =
         \int_{\Omega_e} \boldsymbol{N}_d \left[ g'(d)\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w'(d) \right] d\Omega
@@ -50,10 +50,10 @@
       \boldsymbol{N}_{d}
       \Bigl[\nabla\left(\tfrac{2G_{c}f(\bar{\alpha})\,\ell}{c_{0}}\right)\cdot
             \boldsymbol{B}_{d}\mathbf{d}_{e}\Bigr]\,d\Omega\]
-      </p>
+      </div>
 
-      <h3>Element Stiffness</h3>
-      <p>
+      <h2>Element Stiffness</h2>
+      <div class="math-block">
         \[
         \mathbf{K}_d =
         \int_{\Omega_e} \boldsymbol{N}_d \left[ g''(d)\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w''(d) \right] \boldsymbol{N}_d^\mathsf{T} \,d\Omega
@@ -61,7 +61,7 @@
         -\int_{\Omega_{e}}\boldsymbol{N}_{d}\left[\nabla\!\left(\tfrac{2G_{c}f(\bar{\alpha})\,\ell}{c_{0}}\right)\cdot
         \boldsymbol{B}_{d}\right]\,d\Omega.
         \]
-      </p>
+      </div>
     </section>
     
     <hr>
@@ -69,63 +69,63 @@
     <section>
       <h1>Mechanical Equilibrium</h1>
 
-      <h3>Strong Form</h3>
-      <p>
+      <h2>Strong Form</h2>
+      <div class="math-block">
         \[
         \nabla \cdot \boldsymbol{\sigma} + \rho \mathbf{b} = \mathbf{0}
         \]
-      </p>
+      </div>
 
-      <h3>Weak Form</h3>
-      <p>
+      <h2>Weak Form</h2>
+      <div class="math-block">
         \[
         \int_\Omega \nabla \delta \mathbf{u} : \boldsymbol{\sigma} \, d\Omega
         - \int_\Omega \delta \mathbf{u} \cdot \rho \mathbf{b} \, d\Omega
         - \int_\Gamma \delta \mathbf{u} \cdot \boldsymbol{\sigma} \mathbf{n} \, d\Gamma = 0
         \]
-      </p>
+      </div>
 
-      <h3>Element Residual</h3>
-      <p>
+      <h2>Element Residual</h2>
+      <div class="math-block">
         \[
         \mathbf{r}_u =
         \int_{\Omega_e} \boldsymbol{B}_u^\mathsf{T} \boldsymbol{\sigma}_{\text{voigt}} \, d\Omega
         - \int_{\Omega_e} \boldsymbol{N}_u^\mathsf{T} \rho \mathbf{b} \, d\Omega
         - \int_{\Gamma_e} \boldsymbol{N}_u^\mathsf{T} \mathbf{S}(\mathbf{n}) \mathbf{C} \boldsymbol{B}_u \mathbf{u}_e \, d\Gamma
         \]
-      </p>
+     </div>
 
-      <h3>Element Stiffness</h3>
-      <p>
+      <h2>Element Stiffness</h2>
+      <div class="math-block">
         \[
         \mathbf{K}_u =
         \int_{\Omega_e} \boldsymbol{B}_u^\mathsf{T} \mathbf{C} \boldsymbol{B}_u \, d\Omega
         \]
-      </p>
+     </div>
     </section>
 
     <hr>
 
     <section>
-      <h2>Heat Conduction</h2>
+      <h1>Heat Conduction</h1>
 
-      <h3>Strong Form</h3>
-      <p>
+      <h2>Strong Form</h2>
+      <div class="math-block">
         \[
         \rho c \dot{T} - \rho r - \nabla \cdot (k \nabla T) = 0
         \]
-      </p>
+      </div>
 
-      <h3>Weak Form</h3>
-      <p>
+      <h2>Weak Form</h2>
+      <div class="math-block">
         \[
         \int_\Omega \delta T (\rho c \dot{T} - \rho r) \, d\Omega
         + \int_\Omega \nabla \delta T \cdot (k \nabla T) \, d\Omega = 0
         \]
-      </p>
+      </div>
 
-      <h3>Element Residual</h3>
-      <p>
+      <h2>Element Residual</h2>
+      <div class="math-block">
         \[
         \mathbf{r}_T =
         \mathbf{M}_e \dot{\mathbf{T}}_e
@@ -133,15 +133,15 @@
         - \mathbf{f}^{\text{body}}_e
         + \mathbf{f}^{\text{flux}}_e
         \]
-      </p>
+      </div>
 
-      <h3>Element Stiffness</h3>
-      <p>
+      <h2>Element Stiffness</h2>
+      <div class="math-block">
         \[
         \mathbf{K}_e =
         \int_{\Omega_e} \boldsymbol{B}_T^\mathsf{T} k \boldsymbol{B}_T \, d\Omega
         \]
-      </p>
+      </div>
     </section>
 
     <hr>
