@@ -27,6 +27,7 @@
 /* sub-pages format */
 .sub-container {
   background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  max-width: 1000px;
   padding: 2rem 1.5rem;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.06);
@@ -125,12 +126,6 @@ body {
   z-index: 1100;
 }
 
-/* 文本容器：增加左右留白、最大宽度 */
-.sub-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem;
-}
 
 /* 图片排版：允许撑到 90% 宽度 */
 .img-wrap {
