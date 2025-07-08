@@ -50,21 +50,24 @@
       Below is an abridged pseudocode excerpt from our paper. For full mathematical details, see the original reference.
     </p>
   
-    <div class="math-block">
-      <em>Algorithm: Adaptive Cycle-Jumping</em><br>
-      Initialize <code>Δt⁰, Δtₘₐₓ, Δtₘᵢₙ, γ₍gᵣₒw₎>1, γ₍cᵤₜ₎<1, Iₒₚₜ</code>.<br>
-      <strong>for</strong> n = 0,1,2,… <strong>do</strong><br>
-      &nbsp;&nbsp;Solve phase-field on [tⁿ, tⁿ+Δtⁿ].<br>
-      &nbsp;&nbsp;Compute indicator Iⁿ.<br>
-      &nbsp;&nbsp;<strong>if</strong> Iⁿ < Iₒₚₜ:  
-        <code>Δtⁿ⁺¹ = min(γ₍gᵣₒw₎·Δtⁿ, Δtₘₐₓ)</code>.<br>
-      &nbsp;&nbsp;<strong>else if</strong> Iⁿ > Iₒₚₜ:  
-        <code>Δtⁿ⁺¹ = max(γ₍cᵤₜ₎·Δtⁿ, Δtₘᵢₙ)</code>.<br>
-      &nbsp;&nbsp;<strong>else</strong>:  
-        <code>Δtⁿ⁺¹ = Δtⁿ</code>.<br>
-      &nbsp;&nbsp;Update tⁿ⁺¹ = tⁿ + Δtⁿ.<br>
-      <strong>end for</strong>
+    <div class="alg-block">
+      <p><strong>Algorithm: Adaptive Cycle-Jumping</strong></p>
+      <p>
+        Initialize \(\Delta t^0\), \(\Delta t_{\text{max}}\), \(\Delta t_{\text{min}}\), \(\gamma_{\text{grow}}>1\), \(\gamma_{\text{cut}}<1\), \(I_{\text{opt}}\).<br>
+        for \(n=0,1,2,\dots\) do:<br>
+        &nbsp;&nbsp;Solve phase-field on \([t^n, t^n + \Delta t^n]\).<br>
+        &nbsp;&nbsp;Compute indicator \(I^n\).<br>
+        &nbsp;&nbsp;if \(I^n < I_{\text{opt}}\):  
+          \(\Delta t^{n+1} = \min(\gamma_{\text{grow}}\Delta t^n, \Delta t_{\text{max}})\).<br>
+        &nbsp;&nbsp;else if \(I^n > I_{\text{opt}}\):  
+          \(\Delta t^{n+1} = \max(\gamma_{\text{cut}}\Delta t^n, \Delta t_{\text{min}})\).<br>
+        &nbsp;&nbsp;else:  
+          \(\Delta t^{n+1} = \Delta t^n\).<br>
+        &nbsp;&nbsp;Update \(t^{n+1} = t^n + \Delta t^n\).<br>
+        end for.
+      </p>
     </div>
+
   </section>
 
 
