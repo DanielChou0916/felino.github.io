@@ -1,3 +1,31 @@
+/* 美化首頁介紹區塊 */
+.intro-section {
+  background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  padding: 2rem 1.5rem;
+  border-left: 4px solid #FFB400;
+  border-radius: 8px;
+  max-width: 850px;
+  margin: 2rem auto;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  color: #EEE;
+}
+
+.intro-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #FFD966;
+  text-align: left;
+}
+
+.intro-section p {
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+
+
+
 .tagline {
   max-width: 800px;
   margin: 2rem auto;
