@@ -23,32 +23,53 @@
   <section>
     <h1>Cycle-Jumping Strategy</h1>
   
-    <p>
-      In long-term fatigue simulations—where you might need to model tens of thousands of cycles—using a constant, very small timestep throughout is wasteful.  
-      Felino’s cycle-jumping strategy automatically adjusts your timestep based on a damage indicator \(I^n\):
-    </p>
-  
-    <ul>
-      <li>
-        <strong>Low activity:</strong> If \(I^n < I_{\mathrm{opt}}\), the structure is essentially “coasting.”  
-        We multiply \(\Delta t\) by a growth factor \(\gamma_{\text{grow}}>1\) so the simulation “jumps” ahead faster.
-      </li>
-      <li>
-        <strong>High activity:</strong> If \(I^n > I_{\mathrm{opt}}\), crack initiation or rapid growth is occurring.  
-        We multiply \(\Delta t\) by a cutback factor \(\gamma_{\text{cut}}<1\) to slow down and preserve accuracy.
-      </li>
-      <li>
-        <strong>Balanced:</strong> When \(I^n\approx I_{\mathrm{opt}}\), we keep \(\Delta t\) unchanged for stable convergence.
-      </li>
-    </ul>
-  
-    <p>
-      This adaptive approach means you spend minimal CPU time “idling” in the high-cycle, low-damage regime, yet still retain fine resolution during critical crack-growth events.
-    </p>
-  
-    <p>
-      Below is an abridged pseudocode excerpt from our paper. For full mathematical details, see the original reference.
-    </p>
+  <p>
+    This strategy builds on our  
+    <a
+      href="https://danielchou0916.github.io/felino.github.io/fatigue_accumulation/"
+      target="_blank" rel="noopener"
+      style="color: #93EBFA; text-decoration: underline;"
+    >incremental cycle-count-based accumulation (ICLA)</a>, one of Felino’s core features.  
+    Under cyclic loading with period \(\mathcal{p}=0.01\), a fixed timestep \(\Delta t=1\) corresponds to 100 cycles  
+    (\(\Delta N_t = \Delta t / \mathcal{p} = 100\)). Felino’s adaptive time-stepping then adjusts \(\Delta t\)  
+    automatically based on a damage indicator \(I^n\).
+  </p>
+
+  <p>
+    In practice, you only “jump” ahead quickly when damage is low, and slow down precisely when cracks begin to grow.  
+    Configure the optimal threshold \(I_{\mathrm{opt}}\) and the growth/cutback factors  
+    \(\gamma_{\text{grow}}>1\), \(\gamma_{\text{cut}}<1\) to suit your specific loading scenario.
+  </p>
+
+  <h2>Key Steps</h2>
+  <ul>
+    <li>
+      <strong>Low activity:</strong> if \(I^n < I_{\mathrm{opt}}\), the algorithm multiplies  
+      \(\Delta t\) by \(\gamma_{\text{grow}}\), allowing larger “jumps” per step.
+    </li>
+    <li>
+      <strong>High activity:</strong> if \(I^n > I_{\mathrm{opt}}\), it multiplies  
+      \(\Delta t\) by \(\gamma_{\text{cut}}\), reducing the timestep for accuracy.
+    </li>
+    <li>
+      <strong>Balanced:</strong> when \(I^n \approx I_{\mathrm{opt}}\), \(\Delta t\) remains unchanged  
+      to maintain stable convergence.
+    </li>
+  </ul>
+
+  <p>
+    This adaptive approach minimizes wasted CPU time in the high-cycle, low-damage regime  
+    while preserving fine resolution during critical crack-growth events.
+  </p>
+
+  <p>
+    Below is an abridged pseudocode excerpt from  
+    <a
+      href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5329067"
+      target="_blank" rel="noopener"
+      style="color: #93EBFA; text-decoration: underline;"
+    >our paper</a>. For full mathematical details, see the original reference.
+  </p>
   
     <div class="alg-block">
       <p><strong>Algorithm: Adaptive Cycle-Jumping</strong></p>
