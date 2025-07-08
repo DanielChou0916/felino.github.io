@@ -213,6 +213,18 @@ body {
   text-align: center;
 }
 
+.alg-block {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 3px solid #23DAFA;
+  background: rgba(255,255,255,0.02);
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  white-space: pre;      /* 保留所有空格和换行 */
+  text-align: left;      /* 左对齐，缩排才有效 */
+}
 
 .code-copy-container {
   position: relative;
