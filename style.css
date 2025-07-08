@@ -1,3 +1,11 @@
+.tagline {
+  max-width: 800px;
+  margin: 0 auto 2rem auto;  /* 底下加空間 */
+  padding: 0 1rem;
+  text-align: center;
+}
+
+
 .logo-container {
   display: block;  
   text-align: center;
@@ -116,3 +124,14 @@ body {
 .drawer ul li .submenu li {
   margin: 10px 0;
 }
+
+.gif-border {
+  max-width: 75%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), 
+              0 0 30px rgba(255, 255, 255, 0.1);
+}
+
