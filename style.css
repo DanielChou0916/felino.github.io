@@ -34,7 +34,7 @@
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.06);
   color: #DFF;
-  display: block;            /* ← 保險起見，明確設定為 block */
+  /*display: block;*/            /* ← 保險起見，明確設定為 block */
 }
 
 
