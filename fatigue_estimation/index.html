@@ -17,11 +17,26 @@
   <!-- Off-canvas drawer -->
   <nav id="drawer" class="drawer">
     <ul>
-      <li><a href="https://danielchou0916.github.io/felino.github.io/">Main page</a></li>
-      <li><a href="https://danielchou0916.github.io/felino.github.io/fatigue_accumulation/">Fatigue Accumulation</a></li>
-      <li><a href="#">Item 3</a></li>
+      <li>
+        <a href="#">Installation</a>
+      </li>
+    
+      <li>
+        <a href="#">🔬 Technical Contents ▾</a>
+        <ul class="submenu">
+          <li><a href="governing_equations/">Governing Equations</a></li>
+          <li><a href="fatigue_accumulation/">Fatigue Accumulation</a></li>
+          <li><a href="fatigue_estimation/">Fatigue Estimation</a></li>
+        </ul>
+      </li>
+    
+      <li>
+        <a href="#">📚 Tutorials ▾</a>
+      </li>
+      
     </ul>
   </nav>
+  <!-- 拉霸按钮 -->
   <button id="drawerToggle" class="drawer-toggle">☰</button>
 
   <!-- Main content -->
@@ -99,9 +114,12 @@
     
 
   <script>
+    // 抽屉开关脚本
     const toggle = document.getElementById('drawerToggle');
     const drawer = document.getElementById('drawer');
-    toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+    toggle.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+    });
   </script>
 </body>
 </html>
