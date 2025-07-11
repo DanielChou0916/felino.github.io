@@ -257,6 +257,7 @@ body {
 
 /* 固定定位按钮 */
 .code-copy-container .copy-btn {
+  z-index: 10;
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -275,7 +276,7 @@ body {
 
 /* 可选：WebKit 浏览器下去掉竖向滚动条的小轨道 */
 .code-copy-container .code-scroll::-webkit-scrollbar:vertical {
-  display: none;
+  z-index: 0; display: none;
 }
 
 
