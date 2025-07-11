@@ -233,6 +233,7 @@ body {
   margin-bottom: 1rem;
   padding-left: 1rem;
   overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   max-width: 100%;
 }
@@ -261,5 +262,8 @@ body {
 }
 .copy-btn:hover {
   opacity: 1;
+}
+.code-copy-container::-webkit-scrollbar:vertical {
+  display: none;
 }
 
