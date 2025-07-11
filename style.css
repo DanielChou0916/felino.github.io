@@ -33,7 +33,7 @@
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.06);
   color: #DFF;
-  /*display: block;*/            /* ← 保險起見，明確設定為 block */
+  /*display: block;*/       
 }
 
 
@@ -228,26 +228,35 @@ body {
 }
 
 
+/* 容器：只负责定位按钮和留白 */
 .code-copy-container {
   position: relative;
-  margin-bottom: 1rem;
-  overflow-x: auto;
-  overflow-y: visible;
-  -webkit-overflow-scrolling: touch;
+  margin: 0.5rem 0;       /* 上下间距 */
+  padding: 1rem;          /* 四边留白 */
   max-width: 100%;
-  padding: 1.5rem 1rem 1rem;  /* 去掉多余的 padding-left */
-}
-
-/* 确保 <pre> 至少和容器等宽，滚动才有效 */
-.code-copy-container pre {
-  display: block;
-  min-width: 100%;
-  margin: 0;             /* 去掉 <pre> 默认的外边距 */
-  padding: 0;            /* 内边距统一在 .code-copy-container 上 */
-  white-space: pre;      /* 保留缩进和换行 */
   box-sizing: border-box;
 }
-.copy-btn {
+
+/* 滚动区：真正的横向滚动 */
+.code-copy-container .code-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;     /* 隐藏垂直滚动 */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 保证 <pre> 至少和容器同宽，滚动才会生效 */
+.code-copy-container .code-scroll pre {
+  display: block;
+  min-width: 100%;
+  margin: 0;              /* 去掉默认 <pre> 外边距 */
+  padding: 0;             /* 内边距统一给外层处理 */
+  white-space: pre;       /* 保留缩进和换行 */
+  font-family: 'Courier New', monospace;
+  box-sizing: border-box;
+}
+
+/* 固定定位按钮 */
+.code-copy-container .copy-btn {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -260,10 +269,13 @@ body {
   cursor: pointer;
   opacity: 0.8;
 }
-.copy-btn:hover {
+.code-copy-container .copy-btn:hover {
   opacity: 1;
 }
-.code-copy-container::-webkit-scrollbar:vertical {
+
+/* 可选：WebKit 浏览器下去掉竖向滚动条的小轨道 */
+.code-copy-container .code-scroll::-webkit-scrollbar:vertical {
   display: none;
 }
+
 
