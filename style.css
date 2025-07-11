@@ -231,11 +231,11 @@ body {
 .code-copy-container {
   position: relative;
   margin-bottom: 1rem;
-  padding-left: 1rem;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   -webkit-overflow-scrolling: touch;
   max-width: 100%;
+  padding: 1.5rem 1rem 1rem;  /* 去掉多余的 padding-left */
 }
 
 /* 确保 <pre> 至少和容器等宽，滚动才有效 */
@@ -249,8 +249,8 @@ body {
 }
 .copy-btn {
   position: absolute;
-  top: 0.25rem;
-  right: 0.25rem;
+  top: 1rem;
+  right: 1rem;
   background: #23DAFA;
   border: none;
   color: #0F2027;
