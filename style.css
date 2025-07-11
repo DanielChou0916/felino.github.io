@@ -232,6 +232,19 @@ body {
   position: relative;
   margin-bottom: 1rem;
   padding-left: 1rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+
+/* 确保 <pre> 至少和容器等宽，滚动才有效 */
+.code-copy-container pre {
+  display: block;
+  min-width: 100%;
+  margin: 0;             /* 去掉 <pre> 默认的外边距 */
+  padding: 0;            /* 内边距统一在 .code-copy-container 上 */
+  white-space: pre;      /* 保留缩进和换行 */
+  box-sizing: border-box;
 }
 .copy-btn {
   position: absolute;
