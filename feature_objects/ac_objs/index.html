@@ -42,18 +42,24 @@
     
       <div class="math-block">
         \[
-          \underline{\dot d}_{\substack{\text{TimeDerivative}\\\text{/ADTimeDerivative}}}
-          = -L\Bigl(
-              \underline{g'(d)\,\psi^e + \tfrac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w'(d)}
-                       _{\substack{\text{AllenCahn}\\\text{/ADAllenCahn}}}
+          \underbrace{\dot d}_{\text{TimeDerivative/ADTimeDerivative}}
+          +\;
+          \underbrace{
+            L\,\Bigl(
+              g'(d)\,\psi^e
+              + \tfrac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w'(d)
             \Bigr)
-          + L\Bigl(
-              \underline{\nabla\!\cdot\!\bigl(\tfrac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\,
-              \bar{\mathbf{A}}\cdot\nabla d\bigr)}
-                       _{\substack{\text{ACInterfaceGradKappa}\\\text{/ADACInterfaceGradKappa}}}
+          }_{\text{AllenCahn/ADAllenCahn}}
+          \;-\;
+          \underbrace{
+            L\,\Bigl(
+              \nabla\!\cdot\!\bigl(\tfrac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\,
+              \bar{\mathbf{A}}\cdot\nabla d\bigr)
             \Bigr)
+          }_{\text{ACInterfaceGradKappa/ADACInterfaceGradKappa}}=0
         \]
       </div>
+      
       
       <ul class="annotation-list">
         <li><strong>TimeDerivative/ADTimeDerivative:</strong> computes the time derivative <code>\(\dot d\)</code>.</li>
@@ -98,7 +104,7 @@
       use_anisotropic_matrix       = true
       anisotropic_matrix           = A_matrix
     [../]
-    []</code></pre>
+  []</code></pre>
           </div>
         </div>
     
@@ -133,7 +139,7 @@
       use_anisotropic_matrix     = true
       anisotropic_matrix_name    = A_matrix
     [../]
-    []</code></pre>
+  []</code></pre>
           </div>
         </div>
       </div>
