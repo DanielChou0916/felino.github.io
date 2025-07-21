@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Programming Objects: Phase-Field Diffusion | Felino</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <!-- MathJax for LaTeX support -->
+  <script
+    type="text/javascript"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  ></script>
+</head>
+<body>
+
+  <!-- drawer -->
+  <div include-html="../../drawer_sub.html"></div>
+
+  <!-- Main content -->
+  <main class="sub-container">
+    <section>
+      <h1>Anisotropic Matrix Programming Object</h1>
+    
+      <p>
+        In <code>Felino</code>, the material <code>AnisotropicDirector/ADAnisotropicDirector</code> lets you define
+        an inherent weak‐plane direction and include it in the phase‐field equations.
+      </p>
+    
+      <p>For the general 3D case, the anisotropic matrix is:</p>
+      <div class="math-block">
+        \[
+          \mathbf{A} = \mathbf{I} + \beta\,\bigl(\mathbf{I} - \mathbf{n}\otimes\mathbf{n}\bigr)
+        \]
+      </div>
+      <p>
+        Here, <code>\(\mathbf{n}\)</code> is the normal vector of the weak plane, and
+        <code>\(\beta\)</code> controls the strength of the anisotropy.
+      </p>
+    
+      <p>
+        This material also supports a simplified 2D input based on the plane’s inclination angle:
+      </p>
+      <div class="math-block">
+        \[
+          \mathbf{A} = \mathbf{I} + \beta\,(\mathbf{n}^t \otimes \mathbf{n}^t)
+        \]
+      </div>
+      <p>
+        In 2D, <code>\(\mathbf{n}^t = [\cos\theta,\;\sin\theta]\)</code> is the tangential direction,
+        where <code>θ</code> is the input angle in degrees, measured from the x-axis.
+      </p>
+    
+      <p>Programming object and example usages:</p>
+      <div class="tcolorbox">
+        <p><strong><code>AnisotropicDirector/ADAnisotropicDirector</code></strong></p>
+        <ul>
+          <li>
+            Set <code>normalize_director</code> to choose a normalization mode:
+            <code>trace_norm</code>, <code>det_norm</code>, <code>factorial_norm</code> (requires
+            <code>factor</code>), or <code>none</code>. See
+            <a
+              href="https://danielchou0916.github.io/felino.github.io/technical_contents/anisotropy/"
+              target="_blank" rel="noopener"
+              style="color: #93EBFA; text-decoration: underline;"
+            >anisotropic matrix</a> for details.
+          </li>
+          <li>
+            Provide a 3D normal vector with
+            <code>normal = "nx ny nz"</code>. For example, a 45° plane in the x–y plane uses
+            <code>normal = "-0.7071 0.7071 0"</code>.
+          </li>
+          <li>
+            Or set <code>input_type = xy_angle</code> and
+            <code>xy_angle_deg = 45.0</code> to achieve the same using the angle input.
+          </li>
+        </ul>
+    
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+          <div class="code-scroll">
+            <pre><code>[Materials]
+    [./anisotropy]
+      type                  = AnisotropicDirector
+      normal                = "-0.70710678 0.70710678 0"
+      coef                  = 30
+      normalize_director    = factorial_norm
+      factor                = 0.01
+      output_name           = A_matrix
+    [../]
+    []</code></pre>
+          </div>
+        </div>
+    
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+          <div class="code-scroll">
+            <pre><code>[Materials]
+    [./anisotropy]
+      type                  = AnisotropicDirector
+      input_type            = xy_angle
+      xy_angle_deg          = 45.0
+      coef                  = 30.0
+      output_name           = A_matrix
+    [../]
+    []</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+  </main>
+
+  <!-- Copy button script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const codeEl = btn.nextElementSibling;
+          const text = codeEl.innerText.trim();
+          navigator.clipboard.writeText(text).then(() => {
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 1500);
+          });
+        });
+      });
+      // drawer include
+      const includeEls = document.querySelectorAll('[include-html]');
+      includeEls.forEach(el => {
+        fetch(el.getAttribute('include-html'))
+          .then(r => r.ok ? r.text() : Promise.reject(r.statusText))
+          .then(html => {
+            el.innerHTML = html;
+            const toggle = document.getElementById('drawerToggle');
+            const drawer = document.getElementById('drawer');
+            if (toggle && drawer) toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          })
+          .catch(err => el.innerHTML = `<p>Error loading drawer: ${err}</p>`);
+      });
+    });
+  </script>
+</body>
+</html>

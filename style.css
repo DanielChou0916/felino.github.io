@@ -285,13 +285,15 @@ body {
   z-index: 0; display: none;
 }
 /* recover <code> </code> shrinking issue */
+/* 全局保留不动 */
 code {
   font-size: inherit !important;
   line-height: inherit !important;
 }
-
+/* 子页强制覆盖 */
 .sub-container code {
-  font-size: inherit !important;
-  line-height: inherit !important;
+  font-size: 1rem !important;
+  line-height: 1.4  !important;
 }
+
 
