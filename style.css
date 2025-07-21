@@ -166,7 +166,7 @@ body {
 
 /* cell phone view */
 @media (max-width: 600px) {
-  .drawer.open { width: 300px; }
+  .drawer.open { width: 350px; }
   .img-wrap.stack img { max-width: 100%; }
 }
 
