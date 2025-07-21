@@ -92,19 +92,19 @@
           <button class="copy-btn" title="Copy code">Copy</button>
           <div class="code-scroll">
             <pre><code>[Actions/PFNonconserved]
-    [./d]
-      free_energy                  = F
-      kappa                        = kappa_op
-      mobility                     = L
-      variable_mobility            = false
-      use_automatic_differentiation = true
-      use_grad_kappa               = true
-      grad_kappa_x                 = dkappa_dx
-      grad_kappa_y                 = dkappa_dy
-      use_anisotropic_matrix       = true
-      anisotropic_matrix           = A_matrix
-    [../]
-  []</code></pre>
+  [./d]
+    free_energy                  = F
+    kappa                        = kappa_op
+    mobility                     = L
+    variable_mobility            = false
+    use_automatic_differentiation = true
+    use_grad_kappa               = true
+    grad_kappa_x                 = dkappa_dx
+    grad_kappa_y                 = dkappa_dy
+    use_anisotropic_matrix       = true
+    anisotropic_matrix           = A_matrix
+  [../]
+[]</code></pre>
           </div>
         </div>
     
@@ -126,20 +126,20 @@
           <button class="copy-btn" title="Copy code">Copy</button>
           <div class="code-scroll">
             <pre><code>[Kernels]
-    [./ac_interface_gradkappa]
-      type                       = ADACInterfaceGradKappa
-      variable                   = d
-      mob_name                   = L
-      kappa_name                 = kappa_op
-      #args                      = <code>T</code>   # no need for constant L
-      grad_kappa_x               = grad_kappa_x
-      grad_kappa_y               = grad_kappa_y
-      use_grad_kappa             = true
-      variable_L                 = false
-      use_anisotropic_matrix     = true
-      anisotropic_matrix_name    = A_matrix
-    [../]
-  []</code></pre>
+  [./ac_interface_gradkappa]
+    type                       = ADACInterfaceGradKappa
+    variable                   = d
+    mob_name                   = L
+    kappa_name                 = kappa_op
+    #args                      = <code>T</code>   # no need for constant L
+    grad_kappa_x               = grad_kappa_x
+    grad_kappa_y               = grad_kappa_y
+    use_grad_kappa             = true
+    variable_L                 = false
+    use_anisotropic_matrix     = true
+    anisotropic_matrix_name    = A_matrix
+  [../]
+[]</code></pre>
           </div>
         </div>
       </div>
