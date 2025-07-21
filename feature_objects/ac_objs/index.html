@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Programming Objects: Phase-Field Diffusion | Felino</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <!-- MathJax for LaTeX support -->
+  <script
+    type="text/javascript"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  ></script>
+</head>
+<body>
+
+  <!-- drawer -->
+  <div include-html="../../drawer_sub.html"></div>
+
+  <!-- Main content -->
+  <main class="sub-container">
+    <section>
+      <h1>Allen–Cahn Programming Objects for the Phase-field Fracture Model</h1>
+    
+      <p>
+        In <code>Felino</code>, the action term in the phase-field equation is built on top of MOOSE’s implementation.
+        Below we introduce the kernels and action object used for the non-conserved phase-field diffusion.
+      </p>
+    
+      <div class="math-block">
+        \[
+          \dot d = -L\Bigl(
+            g'(d)\,\psi^e
+            + \frac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w'(d)
+            - \nabla\!\cdot\!\Bigl(\frac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\,
+            \bar{\mathbf{A}}\cdot\nabla d\Bigr)
+          \Bigr)
+        \]
+      </div>
+    
+      <p>Three kernels are used to implement this diffusion:</p>
+    
+      <div class="math-block">
+        \[
+          \underline{\dot d}_{\substack{\text{TimeDerivative}\\\text{/ADTimeDerivative}}}
+          = -L\Bigl(
+              \underline{g'(d)\,\psi^e + \tfrac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w'(d)}
+                       _{\substack{\text{AllenCahn}\\\text{/ADAllenCahn}}}
+            \Bigr)
+          + L\Bigl(
+              \underline{\nabla\!\cdot\!\bigl(\tfrac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\,
+              \bar{\mathbf{A}}\cdot\nabla d\bigr)}
+                       _{\substack{\text{ACInterfaceGradKappa}\\\text{/ADACInterfaceGradKappa}}}
+            \Bigr)
+        \]
+      </div>
+      
+      <ul class="annotation-list">
+        <li><strong>TimeDerivative/ADTimeDerivative:</strong> computes the time derivative <code>\(\dot d\)</code>.</li>
+        <li><strong>AllenCahn/ADAllenCahn:</strong> handles the reaction term <code>\(g'(d)\,\psi^e + \frac{G_c\,f(\bar\alpha)}{c_0\,\ell}w'(d)\)</code>.</li>
+        <li><strong>ACInterfaceGradKappa/ADACInterfaceGradKappa:</strong> handles the diffusion term <code>\(\nabla\cdot(\dots)\)</code>.</li>
+      </ul>
+      
+    
+      <p>The relevant programming objects are:</p>
+    
+      <div class="tcolorbox">
+        <p><strong><code>PFNonconservedAction</code></strong></p>
+        <p>
+          This action object pipelines three kernels—<code>ACInterfaceGradKappa</code>,
+          <code>TimeDerivative</code>, and <code>AllenCahn</code>—to solve the Allen–Cahn equation.
+          The <code>ACInterfaceGradKappa</code> kernel is at the heart of <code>Felino</code>.
+          <code>PFNonconservedAction</code> offers these options:
+        </p>
+        <ul>
+          <li>Set <code>use_automatic_differentiation = true</code> to enable automatic differentiation (AD).</li>
+          <li>Set <code>use_grad_kappa = true</code> to include spatial gradients of non-constant material parameters.</li>
+          <li>Handle gradient terms (\(\nabla\kappa\)) via <code>AuxKernels</code> and <code>AuxVariables</code>.</li>
+          <li>Auto-detect mesh dimension (e.g. requires <code>grad_kappa_z</code> in 3D).</li>
+          <li>Anisotropic PFF support is experimental. Set <code>use_anisotropic_matrix = true</code> and
+              specify <code>anisotropic_matrix = A_matrix</code>.</li>
+          <li>If no anisotropic matrix is defined in the material block, the model defaults to isotropic PFF.</li>
+        </ul>
+    
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+          <div class="code-scroll">
+            <pre><code>[Actions/PFNonconserved]
+    [./d]
+      free_energy                  = F
+      kappa                        = kappa_op
+      mobility                     = L
+      variable_mobility            = false
+      use_automatic_differentiation = true
+      use_grad_kappa               = true
+      grad_kappa_x                 = dkappa_dx
+      grad_kappa_y                 = dkappa_dy
+      use_anisotropic_matrix       = true
+      anisotropic_matrix           = A_matrix
+    [../]
+    []</code></pre>
+          </div>
+        </div>
+    
+        <p><strong><code>ACInterfaceGradKappa/ADACInterfaceGradKappa</code></strong></p>
+        <p>
+          This kernel handles the phase-field diffusion term (the Laplacian of \(d\)).
+          It also includes:
+        </p>
+        <ul>
+          <li>Set <code>use_grad_kappa = true</code> for spatial gradients of non-constant parameters.</li>
+          <li>Handle \(\nabla\kappa\) via <code>AuxKernels</code> and <code>AuxVariables</code>.</li>
+          <li>Auto-detect mesh dimension (e.g. <code>grad_kappa_z</code> for 3D).</li>
+          <li>Anisotropic PFF: set <code>use_anisotropic_matrix = true</code> and
+              <code>anisotropic_matrix_name = A_matrix</code>.</li>
+          <li>Without an anisotropic matrix in the material block, it falls back to isotropic PFF.</li>
+        </ul>
+    
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+          <div class="code-scroll">
+            <pre><code>[Kernels]
+    [./ac_interface_gradkappa]
+      type                       = ADACInterfaceGradKappa
+      variable                   = d
+      mob_name                   = L
+      kappa_name                 = kappa_op
+      #args                      = <code>T</code>   # no need for constant L
+      grad_kappa_x               = grad_kappa_x
+      grad_kappa_y               = grad_kappa_y
+      use_grad_kappa             = true
+      variable_L                 = false
+      use_anisotropic_matrix     = true
+      anisotropic_matrix_name    = A_matrix
+    [../]
+    []</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  </main>
+
+  <!-- Copy button script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const codeEl = btn.nextElementSibling;
+          const text = codeEl.innerText.trim();
+          navigator.clipboard.writeText(text).then(() => {
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 1500);
+          });
+        });
+      });
+      // drawer include
+      const includeEls = document.querySelectorAll('[include-html]');
+      includeEls.forEach(el => {
+        fetch(el.getAttribute('include-html'))
+          .then(r => r.ok ? r.text() : Promise.reject(r.statusText))
+          .then(html => {
+            el.innerHTML = html;
+            const toggle = document.getElementById('drawerToggle');
+            const drawer = document.getElementById('drawer');
+            if (toggle && drawer) toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          })
+          .catch(err => el.innerHTML = `<p>Error loading drawer: ${err}</p>`);
+      });
+    });
+  </script>
+</body>
+</html>
