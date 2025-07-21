@@ -43,6 +43,111 @@
 
         <h2>Programming object and example usages</h2>
         <div class="tcolorbox">
+
+          <h3>LinearElasticPFFractureStress / ADLinearElasticPFFractureStress</h3>
+          <p>
+            This object, derived from <code>ADPFFractureStressBase</code>, computes the damaged stress
+            and its free‐energy derivatives under small‐strain assumptions.
+          </p>
+          <ul>
+            <li>
+              <strong>Small‐strain only:</strong>
+              valid when <code>strain = SMALL</code> in the physics block.
+            </li>
+            <li>
+              <code>decomposition_type</code>:
+              choose from  
+              <code>none</code>,
+              <code>strain_spectral</code>,
+              <code>strain_vol_dev</code>,
+              <code>stress_spectral</code>,
+              <code>stress_dev</code>,
+              <code>rce</code>,
+              <code>strain_dp</code>.
+            </li>
+            <li>
+              <code>use_current_history_variable</code>:
+              set to <code>true</code> to use the current damage history variable.
+            </li>
+            <li>
+              <code>use_snes_vi_solver</code>:
+              set to <code>true</code> to enforce damage irreversibility (≤1) via PETSc’s SNES VI solver.
+            </li>
+            <li>
+              <code>barrier_energy</code>:
+              material‐property name for the fracture‐energy barrier.
+            </li>
+            <li>
+              <code>B</code>:
+              coefficient used by the <code>strain_dp</code> (Drucker–Prager) decomposition mode.
+            </li>
+            <li>
+              <code>E_name</code>, <code>D_name</code>, <code>I_name</code>:
+              custom names for elastic‐energy, degradation and indicator properties.
+            </li>
+            <li>
+              <code>base_name</code>:
+              optional prefix for the output damaged‐stress property.
+            </li>
+          </ul>
+          
+          <p>
+            Example: compute cracked stress directly from small‐strain elasticity and degradation:
+          </p>
+          <div class="code-copy-container">
+            <button class="copy-btn" title="Copy code">Copy</button>
+            <div class="code-scroll">
+              <pre><code>[Physics/SolidMechanics/QuasiStatic]
+  [./All]
+    add_variables                   = true
+    strain                          = SMALL
+    incremental                     = true
+    additional_generate_output      = 'stress_xx stress_yy stress_xy'
+    use_automatic_differentiation   = false
+  [../]
+[../]</code></pre>
+            </div>
+          </div>
+          
+          <p>
+            Then in the material block:
+          </p>
+          <div class="code-copy-container">
+            <button class="copy-btn" title="Copy code">Copy</button>
+            <div class="code-scroll">
+              <pre><code>[Materials]
+  [./elasticity_tensor]
+    type            = ComputeIsotropicElasticityTensor
+    poissons_ratio  = ${nu}
+    youngs_modulus  = ${E}
+  [../]
+  [./degradation]
+    type                   = DerivativeParsedMaterial
+    property_name          = degradation
+    coupled_variables      = 'd'
+    expression             = '(1-d)^p*(1-k)+k'
+    constant_names         = 'p k'
+    constant_expressions   = '2 1e-6'
+    derivative_order       = 2
+  [../]
+  [./cracked_stress]
+    type                          = LinearElasticPFFractureStress
+    c                             = d
+    decomposition_type            = none
+    use_current_history_variable  = true
+    use_snes_vi_solver            = true
+    barrier_energy                = fracture_barrier
+    B                             = 0.3
+    E_name                        = E_el
+    D_name                        = degradation
+    I_name                        = indicator
+    base_name                     = cracked
+  [../]
+[]</code></pre>
+            </div>
+          </div>
+          
+
           <h3>ComputePFFStress / ADComputePFFStress</h3>
           <ul>
             <li>
@@ -67,7 +172,7 @@
           
           <p>
             Below is an example starting from the solid-mechanics physics block:  
-            <code>strain_base_name</code> is set to <code>uncracked</code> and large‐strain is enabled.
+            <code>strain_base_name</code> is set to <code>uncracked</code> and large-strain is enabled.
           </p>
           <div class="code-copy-container">
             <button class="copy-btn" title="Copy code">Copy</button>
