@@ -290,3 +290,8 @@ code {
   line-height: inherit !important;
 }
 
+.sub-container code {
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
