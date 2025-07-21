@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phase-Field Anisotropy | Felino</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <!-- MathJax for LaTeX support -->
+  <script
+    type="text/javascript"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  ></script>
+</head>
+<body>
+
+  <!-- drawer -->
+  <div include-html="../../drawer_sub.html"></div>
+
+  <!-- Main content -->
+  <main class="sub-container">
+
+    <section>
+      <h1>Anisotropy in the Phase-Field Model</h1>
+      <p>
+        To introduce directional preference into the phase-field equation, we insert an anisotropic tensor
+        \(\bar{\mathbf{A}}\). The strong form then reads:
+      </p>
+      <div class="math-block">
+        \[
+          g'(d)\,\psi^e
+          + \frac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w'(d)
+          - \nabla\!\cdot\!\Bigl(\frac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\,
+          \bar{\mathbf{A}} \,\nabla d\Bigr)
+          = 0
+        \]
+      </div>
+      <p>
+        Below we first introduce the anisotropic tensor \(\bar{\mathbf{A}}\), then present the FEM
+        discretization step by step.
+      </p>
+    
+      <h2>Anisotropic Matrix</h2>
+      <p>
+        We start with the simpler tensor
+        \(\mathbf{A}\), defined by
+      </p>
+      <div class="math-block">
+        \[
+          \mathbf{A} = \mathbf{I} + \beta\,(\mathbf{n}^t \otimes \mathbf{n}^t)
+        \]
+      </div>
+      <ul class="notation-list">
+        <li><strong>\(\mathbf{n}^t\):</strong> Tangential vector on the crack plane.</li>
+        <li><strong>\(\mathbf{n}\):</strong> Normal vector to the crack plane.</li>
+        <li><strong>\(\beta\):</strong> Controls how strong the anisotropy is.</li>
+      </ul>
+      <p>
+        In Felino we highlight two points:
+        <ol>
+          <li>
+            In 3D there are infinitely many tangential directions, so we use a projection of
+            \(\mathbf{n}\) to define a compact form for \(\mathbf{n}^t\).
+          </li>
+          <li>
+            A large \(\beta\) not only increases anisotropy but also makes the material resist
+            fracture more strongly, which can lead to unexpected behavior. To avoid that, we normalize
+            \(\mathbf{A}\) before use:
+          </li>
+        </ol>
+      </p>
+      <div class="math-block">
+        \[
+          \mathbf{A} = \mathbf{I} + \beta\bigl(\mathbf{I} - \mathbf{n}\otimes\mathbf{n}\bigr)
+        \]
+      </div>
+    
+      <p>Felino offers three ways to normalize \(\mathbf{A}\):</p>
+      <ol>
+        <li>
+          <strong>Trace normalization:</strong>
+          We scale \(\mathbf{A}\) so that its trace equals the spatial dimension \(n_{\rm dim}\).
+          In practice:
+          <div class="math-block">
+            \[
+              \bar{\mathbf{A}}
+              = \frac{n_{\rm dim}\,\mathbf{A}}{\mathrm{tr}(\mathbf{A})}
+            \]
+          </div>
+          For example, in 3D we set \(\mathrm{tr}(\bar{\mathbf{A}})=3\).
+        </li>
+        <li>
+          <strong>Determinant normalization:</strong>
+          We divide \(\mathbf{A}\) by its determinant to the power \(1/n_{\rm dim}\), ensuring
+          \(\det(\bar{\mathbf{A}})=1\):
+          <div class="math-block">
+            \[
+              \bar{\mathbf{A}}
+              = \frac{\mathbf{A}}
+                     {\bigl(\det(\mathbf{A})\bigr)^{1/n_{\rm dim}}}
+            \]
+          </div>
+        </li>
+        <li>
+          <strong>Empirical scaling:</strong>
+          We simply multiply by a user‐chosen factor \(e_f\):
+          <div class="math-block">
+            \[
+              \bar{\mathbf{A}} = e_f \,\mathbf{A}
+            \]
+          </div>
+          This gives you direct control over how much anisotropy to impose without
+          altering fracture toughness.
+        </li>
+      </ol>
+    
+      <h2>Finite Element Discretization</h2>
+      <p>
+        Felino omits higher‐order expansion terms, so the weak form, residual, and stiffness become:
+      </p>
+      <div class="math-block">
+        \[
+          \int_\Omega \delta d \Bigl[
+            g'(d)\,\psi^e
+            + \frac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w'(d)
+          \Bigr] d\Omega
+          \;+\;
+          \int_\Omega \nabla\delta d \,\cdot\,
+          \Bigl(\frac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\,
+          \bar{\mathbf{A}}\,\nabla d\Bigr) d\Omega
+          \;-\;
+          \int_\Omega \delta d\,
+          \nabla\!\Bigl(\tfrac{2G_c\,f(\bar\alpha)\,\ell}{c_0}\Bigr)
+          \!\cdot\!(\bar{\mathbf{A}}\nabla d)\,d\Omega
+          = 0
+        \]
+      </div>
+      <div class="math-block">
+        \[
+          \mathbf{r}_d
+          = \int_{\Omega_e} \mathbf{N}_d \Bigl[
+              g'(d)\,\psi^e
+              + \frac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w'(d)
+            \Bigr] d\Omega
+          \;+\;
+          \int_{\Omega_e}
+            \Bigl(\frac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\Bigr)
+            \mathbf{B}_d^\mathsf{T}\,
+            \bar{\mathbf{A}}\,
+            \mathbf{B}_d\,
+            \mathbf{d}_e \,d\Omega
+          \;-\;
+          \int_{\Omega_e}
+            \mathbf{N}_d\,
+            \Bigl[\nabla\!\bigl(\tfrac{2G_c\,f(\bar\alpha)\,\ell}{c_0}\bigr)\!\cdot\!
+            \bar{\mathbf{A}}\,
+            \mathbf{B}_d\,\mathbf{d}_e\Bigr]\,d\Omega
+        \]
+      </div>
+      <div class="math-block">
+        \[
+          \mathbf{K}_d
+          = \int_{\Omega_e} \mathbf{N}_d
+            \Bigl[
+              g''(d)\,\psi^e
+              + \frac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w''(d)
+            \Bigr]
+            \mathbf{N}_d^\mathsf{T} \,d\Omega
+          \;+\;
+          \int_{\Omega_e}
+            \Bigl(\frac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\Bigr)
+            \mathbf{B}_d^\mathsf{T}\,
+            \bar{\mathbf{A}}\,
+            \mathbf{B}_d \,d\Omega
+          \;-\;
+          \int_{\Omega_e}
+            \mathbf{N}_d
+            \Bigl[\nabla\!\bigl(\tfrac{2G_c\,f(\bar\alpha)\,\ell}{c_0}\bigr)\!\cdot\!
+            \bar{\mathbf{A}}\,
+            \mathbf{B}_d\Bigr]\,d\Omega.
+        \]
+      </div>
+    </section>
+    
+
+
+<!-- drawer loading script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const includeElements = document.querySelectorAll("[include-html]");
+
+    includeElements.forEach(el => {
+      const file = el.getAttribute("include-html");
+      fetch(file)
+        .then(response => {
+          if (!response.ok) throw new Error(`Could not fetch ${file}`);
+          return response.text();
+        })
+        .then(data => {
+          el.innerHTML = data;
+
+          // activate toggle 
+          const toggle = document.getElementById('drawerToggle');
+          const drawer = document.getElementById('drawer');
+          if (toggle && drawer) {
+            toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          }
+        })
+        .catch(error => {
+          el.innerHTML = `<p>Error loading ${file}</p>`;
+        });
+    });
+  });
+</script>
+    
+</body>
+</html>
