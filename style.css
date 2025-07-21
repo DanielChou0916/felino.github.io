@@ -285,8 +285,8 @@ body {
   z-index: 0; display: none;
 }
 /* recover <code> </code> shrinking issue */
-.sub-container code {
-  font-size: 1rem;
-  line-height: 1.4;
+code {
+  font-size: inherit !important;
+  line-height: inherit !important;
 }
 
