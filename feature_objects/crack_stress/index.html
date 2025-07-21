@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Programming Objects: Cracked Stress | Felino</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <!-- MathJax for LaTeX support -->
+  <script
+    type="text/javascript"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  ></script>
+</head>
+<body>
+
+  <!-- drawer -->
+  <div include-html="../../drawer_sub.html"></div>
+
+  <!-- Main content -->
+  <main class="sub-container">
+    <section>
+      <h1>Damaged Stress Programming Objects</h1>
+    
+      <p>
+        Two approaches are available for computing damaged stress:
+      </p>
+      <ul>
+        <li>
+          <strong>From strain:</strong>
+          Assuming small strains, the damaged stress is computed directly from the strain using the
+          <code>(AD)LinearElasticPFFractureStress</code> object. This object supports various energy-decomposition modes under small-strain assumptions.
+        </li>
+        <li>
+          <strong>From undamaged stress:</strong>
+          First compute the undamaged stress <code>σ₀</code> with another programming object, then feed it into
+          <code>(AD)ComputePFFStress</code> to obtain the damaged stress. This stress-based approach makes no small-strain or isotropy assumptions.
+          <em>Note:</em> non-linear elasticity support is currently under development.
+        </li>
+      </ul>
+      
+    
+
+        <h2>Programming object and example usages</h2>
+        <div class="tcolorbox">
+          <h3>ComputePFFStress / ADComputePFFStress</h3>
+          <ul>
+            <li>
+              <code>uncracked_base_name</code> (required): name of the input, undamaged stress field.
+            </li>
+            <li>
+              <code>finite_strain_model</code>: set to <code>true</code> to switch on large-strain kinematics.
+            </li>
+            <li>
+              <code>use_current_history_variable</code>: set to <code>true</code> to use the current history variable instead of the previous timestep’s.
+            </li>
+            <li>
+              <code>E_name</code>, <code>D_name</code>, <code>I_name</code>: custom names for elastic energy, degradation, and indicator properties.
+            </li>
+            <li>
+              <code>decomposition</code>: choose <code>none</code> or <code>spectral</code> energy split.
+            </li>
+            <li>
+              <code>base_name</code>: optional prefix for the damaged-stress property in the output.
+            </li>
+          </ul>
+          
+          <p>
+            Below is an example starting from the solid-mechanics physics block:  
+            <code>strain_base_name</code> is set to <code>uncracked</code> and large‐strain is enabled.
+          </p>
+          <div class="code-copy-container">
+            <button class="copy-btn" title="Copy code">Copy</button>
+            <div class="code-scroll">
+              <pre><code>[Physics/SolidMechanics/QuasiStatic]
+          [./All]
+            add_variables                   = true
+            strain                          = FINITE
+            incremental                     = true
+            additional_generate_output      = 'stress_xx stress_yy stress_xy'
+            use_automatic_differentiation   = true
+            strain_base_name                = uncracked
+            decomposition_method            = EigenSolution
+          [../]
+        [../]</code></pre>
+            </div>
+          </div>
+          
+          <p>
+            Then in the material block, after defining the elasticity tensor and degradation function,
+            we compute the trial stress and finally the cracked stress:
+          </p>
+          <div class="code-copy-container">
+            <button class="copy-btn" title="Copy code">Copy</button>
+            <div class="code-scroll">
+              <pre><code>[Materials]
+          [./elasticity_tensor]
+            type                = ADComputeIsotropicElasticityTensor
+            poissons_ratio      = 0.2
+            youngs_modulus      = 7.0e4
+            base_name           = uncracked
+          [../]
+          [./degradation]
+            type                   = ADDerivativeParsedMaterial
+            property_name          = degradation
+            coupled_variables      = 'd'
+            expression             = '(1-d)^p*(1-k)+k'
+            constant_names         = 'p k'
+            constant_expressions   = '2 1e-6'
+            derivative_order       = 2
+          [../]
+          [./trial_stress]
+            type                = ADComputeFiniteStrainElasticStress
+            base_name           = uncracked
+          [../]
+          [./cracked_stress]
+            type                          = ADComputePFFStress
+            c                             = d
+            E_name                        = E_el
+            D_name                        = degradation
+            decomposition                 = none
+            use_current_history_variable  = true
+            uncracked_base_name           = uncracked
+            finite_strain_model           = true
+          [../]
+        []</code></pre>
+            </div>
+          </div>
+          
+
+
+  
+      </div>
+    </section>
+    
+    
+  </main>
+
+  <!-- Copy button script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const codeEl = btn.nextElementSibling;
+          const text = codeEl.innerText.trim();
+          navigator.clipboard.writeText(text).then(() => {
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 1500);
+          });
+        });
+      });
+      // drawer include
+      const includeEls = document.querySelectorAll('[include-html]');
+      includeEls.forEach(el => {
+        fetch(el.getAttribute('include-html'))
+          .then(r => r.ok ? r.text() : Promise.reject(r.statusText))
+          .then(html => {
+            el.innerHTML = html;
+            const toggle = document.getElementById('drawerToggle');
+            const drawer = document.getElementById('drawer');
+            if (toggle && drawer) toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          })
+          .catch(err => el.innerHTML = `<p>Error loading drawer: ${err}</p>`);
+      });
+    });
+  </script>
+</body>
+</html>
