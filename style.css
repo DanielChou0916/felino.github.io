@@ -1,4 +1,4 @@
-/* 美化首頁介紹區塊 */
+/* Intro region */
 .intro-section {
   background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
   padding: 2rem 1.5rem;
@@ -94,7 +94,7 @@
   display: inline-block;
 }
 
-/* 全局 & 背景 */
+/* background */
 body {
   margin: 0;
   padding: 0;
@@ -104,7 +104,7 @@ body {
   overflow-x: hidden;
 }
 
-/* 抽屉侧边栏 */
+/* drawer */
 .drawer {
   position: fixed;
   top: 0; right: 0;
@@ -147,7 +147,7 @@ body {
 }
 
 
-/* 图片排版：允许撑到 90% 宽度 */
+/* 90% width */
 .img-wrap {
   display: flex;
   justify-content: center;
@@ -159,12 +159,12 @@ body {
   max-width: 100%;
   height: auto;
 }
-/* stack 版依然直排 */
+/* stack  */
 .img-wrap.stack {
   flex-direction: column;
 }
 
-/* 手机端微调：stacked 图占满宽度 */
+/* cell phone view */
 @media (max-width: 600px) {
   .drawer.open { width: 225px; }
   .img-wrap.stack img { max-width: 100%; }
