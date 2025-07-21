@@ -73,16 +73,16 @@
             <button class="copy-btn" title="Copy code">Copy</button>
             <div class="code-scroll">
               <pre><code>[Physics/SolidMechanics/QuasiStatic]
-    [./All]
-      add_variables                   = true
-      strain                          = FINITE
-      incremental                     = true
-      additional_generate_output      = 'stress_xx stress_yy stress_xy'
-      use_automatic_differentiation   = true
-      strain_base_name                = uncracked
-      decomposition_method            = EigenSolution
-    [../]
-  [../]</code></pre>
+  [./All]
+    add_variables                   = true
+    strain                          = FINITE
+    incremental                     = true
+    additional_generate_output      = 'stress_xx stress_yy stress_xy'
+    use_automatic_differentiation   = true
+    strain_base_name                = uncracked
+    decomposition_method            = EigenSolution
+  [../]
+[../]</code></pre>
             </div>
           </div>
           
