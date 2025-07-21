@@ -34,12 +34,12 @@
         \]
       </div>
       <p>
-        Here, <code>\(\mathbf{n}\)</code> is the normal vector of the weak plane, and
-        <code>\(\beta\)</code> controls the strength of the anisotropy.
+        Here, \(\mathbf{n}\) is the normal vector of the weak plane, and
+        \(\beta\) controls the strength of the anisotropy.
       </p>
     
       <p>
-        This material also supports a simplified 2D input based on the plane’s inclination angle:
+        This material also supports a simplified 2D input based on the plane's inclination angle:
       </p>
       <div class="math-block">
         \[
@@ -47,8 +47,8 @@
         \]
       </div>
       <p>
-        In 2D, <code>\(\mathbf{n}^t = [\cos\theta,\;\sin\theta]\)</code> is the tangential direction,
-        where <code>θ</code> is the input angle in degrees, measured from the x-axis.
+        In 2D, \(\mathbf{n}^t = [\cos\theta,\;\sin\theta]\) is the tangential direction,
+        where \(\theta\) is the input angle in degrees, measured from the x-axis.
       </p>
     
       <p>Programming object and example usages:</p>
@@ -74,6 +74,9 @@
             Or set <code>input_type = xy_angle</code> and
             <code>xy_angle_deg = 45.0</code> to achieve the same using the angle input.
           </li>
+          <li>
+            <strong>Note:</strong> The <code>input_type = xy_angle</code> option is valid for 2D simulations only; using it in a 3D analysis will cause a termination error.
+          </li>          
         </ul>
     
         <div class="code-copy-container">
@@ -88,7 +91,7 @@
       factor                = 0.01
       output_name           = A_matrix
     [../]
-    []</code></pre>
+  []</code></pre>
           </div>
         </div>
     
@@ -103,7 +106,7 @@
       coef                  = 30.0
       output_name           = A_matrix
     [../]
-    []</code></pre>
+  []</code></pre>
           </div>
         </div>
       </div>
