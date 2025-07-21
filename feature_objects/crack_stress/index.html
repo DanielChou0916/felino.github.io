@@ -47,11 +47,11 @@
           <h3>LinearElasticPFFractureStress / ADLinearElasticPFFractureStress</h3>
           <p>
             This object, derived from <code>ADPFFractureStressBase</code>, computes the damaged stress
-            and its free‐energy derivatives under small‐strain assumptions.
+            and its free-energy derivatives under small-strain assumptions.
           </p>
           <ul>
             <li>
-              <strong>Small‐strain only:</strong>
+              <strong>Small-strain only:</strong>
               valid when <code>strain = SMALL</code> in the physics block.
             </li>
             <li>
@@ -71,28 +71,28 @@
             </li>
             <li>
               <code>use_snes_vi_solver</code>:
-              set to <code>true</code> to enforce damage irreversibility (≤1) via PETSc’s SNES VI solver.
+              set to <code>true</code> to enforce damage irreversibility via PETSc's SNES VI solver.
             </li>
             <li>
               <code>barrier_energy</code>:
-              material‐property name for the fracture‐energy barrier.
+              material-property name for the fracture-energy barrier (usually not required to input).
             </li>
             <li>
               <code>B</code>:
-              coefficient used by the <code>strain_dp</code> (Drucker–Prager) decomposition mode.
+              coefficient used by the <code>strain_dp</code> (Drucker-Prager) decomposition mode.
             </li>
             <li>
               <code>E_name</code>, <code>D_name</code>, <code>I_name</code>:
-              custom names for elastic‐energy, degradation and indicator properties.
+              custom names for elastic-energy, degradation and indicator properties.
             </li>
             <li>
               <code>base_name</code>:
-              optional prefix for the output damaged‐stress property.
+              optional prefix for the output damaged-stress property.
             </li>
           </ul>
           
           <p>
-            Example: compute cracked stress directly from small‐strain elasticity and degradation:
+            Example: compute cracked stress directly from small-strain elasticity and degradation:
           </p>
           <div class="code-copy-container">
             <button class="copy-btn" title="Copy code">Copy</button>
@@ -136,8 +136,6 @@
     decomposition_type            = none
     use_current_history_variable  = true
     use_snes_vi_solver            = true
-    barrier_energy                = fracture_barrier
-    B                             = 0.3
     E_name                        = E_el
     D_name                        = degradation
     I_name                        = indicator
