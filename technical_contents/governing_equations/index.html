@@ -89,8 +89,15 @@
         \boldsymbol{B}_{d}\right]\,d\Omega.
         \]
       </div>
+      <p>
+        <strong>Note:</strong> By default, \(\psi^e\) denotes the elastic energy density.  
+        If additional physics—such as saturated poroelastic (poro-flow) effects—are included,  
+        \(\psi^e\) is extended to account for the accumulated pore-pressure energy.  
+        Hence, it is generally more accurate to call \(\psi^e\) the <em>fracture-driving energy</em> term.
+      </p>
+      
     </section>
-    
+ 
     <hr>
     
     <section>
@@ -134,6 +141,12 @@
         \int_{\Omega_e} \boldsymbol{B}_u^\mathsf{T} \mathbf{C} \boldsymbol{B}_u \, d\Omega
         \]
      </div>
+     <p>
+      <strong>Note:</strong> In a phase-field fracture model, the damaged stress tensor is defined as
+      \(\boldsymbol{\sigma} = g(d)\,\boldsymbol{\sigma}_0\). The exact form depends on the chosen energy
+      decomposition (e.g., spectral decomposition of stress).
+    </p>
+    
     </section>
 
     <hr>
