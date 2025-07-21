@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fatigue Accumulation | Felino</title>
+  <link rel="stylesheet" href="../style.css" />
+  <!-- MathJax for LaTeX support -->
+  <script
+    type="text/javascript"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  ></script>
+</head>
+<body>
+
+  <!-- drawer -->
+  <div include-html="../drawer_sub.html"></div>
+  <!-- Main content -->
+  <main class="sub-container">
+
+    <section>
+      <h1>Fatigue Accumulation</h1>
+      <p>
+        Fatigue describes the accumulation of material degradation under cyclic loading. In Felino, you can select the accumulation behavior using the <code>accumulation_mode</code> input parameter, which supports three modes: <code>Regular</code>, <code>CLA</code>, and <code>ICLA</code>.
+      </p>
+      <p>
+        Notations used in this document:
+      </p>
+      <ul class="notation-list">
+        <li><strong>simulation time steps:</strong> \(\{1,2,..,t-1,t,t+1,...\}\)</li>
+        <li><strong>current (instantaneous) energy at time \(t\):</strong> \(\Psi_t\)</li>
+        <li><strong>accumulated energy at time \(t\):</strong> \(\bar\alpha_t\).</li>
+        <li><strong>energy increment from step \(t-1\) to step \(t\):</strong> \(\Delta\bar\alpha_t\).</li>
+        <li><strong>update equation:</strong> \(\bar\alpha_t= \bar\alpha_{t-1} + \Delta\bar\alpha_t\).</li>
+      </ul>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>Available Modes</h2>
+
+      <h3>1. Regular Mode</h3>
+      <p>
+        Based on the conceptual definition, the incremental fatigue energy is calculated by comparing the instantaneous energy at two successive steps:
+      </p>
+      <div>
+        \[
+        \Delta\bar\alpha_t =
+        \begin{cases}
+          \Psi_t - \Psi_{t-1}, & \Psi_t > \Psi_{t-1},\\
+          0,                     & \text{otherwise}.
+        \end{cases}
+        \]
+      </div>
+      <p>
+        This method is highly accurate but requires the user to pay extra attention to the time increment \(\Delta t\). The time step must be small enough to capture the maximum and minimum values of the boundary cyclic load (as indicated by the skyblue scatter markers in the figure). If \(\Delta t\) is too large—whether set manually or by an adaptive time-stepping algorithm—the fatigue accumulation may be completely missed, as shown by the light green and pink triangular markers.
+      </p>
+      <div class="img-wrap">
+        <img src="accumulation.png" alt="Regular Mode Illustration" />
+      </div>
+
+      <h3>2. Cycle-count-based Linear Accumulation (CLA)</h3>
+      <p>
+        The simplest mode suitable for constant peak boundary loads. Instead of accumulating energy increments \(\Delta\bar\alpha_t\), the accumulated energy is directly computed as:
+      </p>
+      <div>
+        \[
+        \bar\alpha_t = N_t \times \Psi_{peak}
+        \]
+      </div>
+      <p>
+        This approach is very fast and easy to implement, but it only handles cases with a constant peak load. Incorrectly applying CLA to complex cyclic loading scenarios with varying peak amplitudes will produce misleading or unrealistic results.
+      </p>
+      <div class="img-wrap">
+        <img src="CLA.png" alt="CLA Illustration" />
+      </div>
+
+      <h3>3. Incremental Cycle-count-based Accumulation (ICLA)</h3>
+       <p>
+        Combining the strengths of both Regular Mode and CLA, ICLA updates the accumulated energy based on the change in cycle count and the current peak energy:
+      </p>
+      <div>
+        \[
+        \Delta\bar\alpha_t = \Delta N_t \times \Psi_t,
+        \quad
+        \Delta N_t = N_t - N_{t-1}.
+        \]
+      </div>
+      <p>
+        This is the most flexible mode, providing a balanced simplification: by multiplying each detected peak energy \(\Psi_t\) by the cycle count increment \(\Delta N_t\), ICLA adapts automatically to variable loading amplitudes and changing frequencies without requiring full cyclic boundary-condition simulations. As long as cycle increments (including partial cycles) are detected reliably, ICLA can handle realistic loading conditions where the peak load fluctuates over time.
+      </p>
+      <div class="img-wrap stack">
+        <img src="ICLA1.png" alt="ICLA Step 1" />
+        <img src="ICLA2.png" alt="ICLA Step 2" />
+      </div>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>📋 Recommendation of Utilization</h2>
+      <ul class="recommend-list">
+        <li><strong>Regular Mode:</strong> when high precision is required and time increment \(\Delta t\) is controllable.</li>
+        <li><strong>CLA:</strong> for constant-peak loading and quick estimation.</li>
+        <li><strong>ICLA:</strong> for complex, variable loading scenarios.</li>
+      </ul>
+    </section>
+
+<!-- drawer loading script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const includeElements = document.querySelectorAll("[include-html]");
+
+    includeElements.forEach(el => {
+      const file = el.getAttribute("include-html");
+      fetch(file)
+        .then(response => {
+          if (!response.ok) throw new Error(`Could not fetch ${file}`);
+          return response.text();
+        })
+        .then(data => {
+          el.innerHTML = data;
+
+          // activate toggle 
+          const toggle = document.getElementById('drawerToggle');
+          const drawer = document.getElementById('drawer');
+          if (toggle && drawer) {
+            toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          }
+        })
+        .catch(error => {
+          el.innerHTML = `<p>Error loading ${file}</p>`;
+        });
+    });
+  });
+</script>
+    
+</body>
+</html>
