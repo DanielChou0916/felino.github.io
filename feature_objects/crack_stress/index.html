@@ -73,16 +73,16 @@
             <button class="copy-btn" title="Copy code">Copy</button>
             <div class="code-scroll">
               <pre><code>[Physics/SolidMechanics/QuasiStatic]
-          [./All]
-            add_variables                   = true
-            strain                          = FINITE
-            incremental                     = true
-            additional_generate_output      = 'stress_xx stress_yy stress_xy'
-            use_automatic_differentiation   = true
-            strain_base_name                = uncracked
-            decomposition_method            = EigenSolution
-          [../]
-        [../]</code></pre>
+    [./All]
+      add_variables                   = true
+      strain                          = FINITE
+      incremental                     = true
+      additional_generate_output      = 'stress_xx stress_yy stress_xy'
+      use_automatic_differentiation   = true
+      strain_base_name                = uncracked
+      decomposition_method            = EigenSolution
+    [../]
+  [../]</code></pre>
             </div>
           </div>
           
@@ -94,36 +94,36 @@
             <button class="copy-btn" title="Copy code">Copy</button>
             <div class="code-scroll">
               <pre><code>[Materials]
-          [./elasticity_tensor]
-            type                = ADComputeIsotropicElasticityTensor
-            poissons_ratio      = 0.2
-            youngs_modulus      = 7.0e4
-            base_name           = uncracked
-          [../]
-          [./degradation]
-            type                   = ADDerivativeParsedMaterial
-            property_name          = degradation
-            coupled_variables      = 'd'
-            expression             = '(1-d)^p*(1-k)+k'
-            constant_names         = 'p k'
-            constant_expressions   = '2 1e-6'
-            derivative_order       = 2
-          [../]
-          [./trial_stress]
-            type                = ADComputeFiniteStrainElasticStress
-            base_name           = uncracked
-          [../]
-          [./cracked_stress]
-            type                          = ADComputePFFStress
-            c                             = d
-            E_name                        = E_el
-            D_name                        = degradation
-            decomposition                 = none
-            use_current_history_variable  = true
-            uncracked_base_name           = uncracked
-            finite_strain_model           = true
-          [../]
-        []</code></pre>
+  [./elasticity_tensor]
+    type                = ADComputeIsotropicElasticityTensor
+    poissons_ratio      = 0.2
+    youngs_modulus      = 7.0e4
+    base_name           = uncracked
+  [../]
+  [./degradation]
+    type                   = ADDerivativeParsedMaterial
+    property_name          = degradation
+    coupled_variables      = 'd'
+    expression             = '(1-d)^p*(1-k)+k'
+    constant_names         = 'p k'
+    constant_expressions   = '2 1e-6'
+    derivative_order       = 2
+  [../]
+  [./trial_stress]
+    type                = ADComputeFiniteStrainElasticStress
+    base_name           = uncracked
+  [../]
+  [./cracked_stress]
+    type                          = ADComputePFFStress
+    c                             = d
+    E_name                        = E_el
+    D_name                        = degradation
+    decomposition                 = none
+    use_current_history_variable  = true
+    uncracked_base_name           = uncracked
+    finite_strain_model           = true
+  [../]
+[]</code></pre>
             </div>
           </div>
           
