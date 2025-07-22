@@ -66,8 +66,11 @@
             >anisotropic matrix</a> for details.
           </li>
           <li>
+            Assign \(\beta\) by <code>coef</code>, e.g., <code>coef = 30</code>.
+          </li>
+          <li>
             Provide a 3D normal vector with
-            <code>normal = "nx ny nz"</code>. For example, a 45° plane in the x–y plane uses
+            <code>normal = "nx ny nz"</code>. For example, a \(45^\circ\) plane being rotated along z-axis on the x-y plane uses
             <code>normal = "-0.7071 0.7071 0"</code>.
           </li>
           <li>
@@ -104,6 +107,8 @@
     input_type            = xy_angle
     xy_angle_deg          = 45.0
     coef                  = 30.0
+    normalize_director    = factorial_norm
+    factor                = 0.01
     output_name           = A_matrix
   [../]
 []</code></pre>
