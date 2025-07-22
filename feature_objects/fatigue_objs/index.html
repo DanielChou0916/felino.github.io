@@ -23,96 +23,100 @@
       <h1>Fatigue Energy Programming Object</h1>
     
       <p>
-        The <code>ComputeFatigueEnergy</code> (and its AD variant <code>ADComputeFatigueEnergy</code>) material
-        computes and outputs both the instantaneous fatigue energy and the accumulated fatigue energy.
-        It supports multiple calculation and accumulation modes—see the
-        <a
-          href="https://danielchou0916.github.io/felino.github.io/technical_contents/fatigue_estimation/"
-          target="_blank" rel="noopener"
-          style="color: #93EBFA; text-decoration: underline;"
-        >fatigue estimation</a> and
-        <a
-          href="https://danielchou0916.github.io/felino.github.io/technical_contents/fatigue_accumulation/"
-          target="_blank" rel="noopener"
-          style="color: #93EBFA; text-decoration: underline;"
-        >fatigue accumulation</a> pages for details.
+        The material <code>(AD)ComputeFatigueEnergy</code> serves as the fatigue-energy calculator.
+        It outputs the current fatigue energy and the accumulated fatigue energy simultaneously,
+        and it supports various modes to compute these values, as detailed in the
+        <a href="https://danielchou0916.github.io/felino.github.io/technical_contents/fatigue_estimation/"
+           target="_blank" rel="noopener"
+           style="color: #93EBFA; text-decoration: underline;">
+          fatigue estimation
+        </a>
+        and
+        <a href="https://danielchou0916.github.io/felino.github.io/technical_contents/fatigue_accumulation/"
+           target="_blank" rel="noopener"
+           style="color: #93EBFA; text-decoration: underline;">
+          fatigue accumulation
+        </a>
+        pages.
       </p>
     
-      <h2>Parameters</h2>
-      <ul>
-        <li>
-          <strong><code>energy_calculation</code></strong> (default <code>mean_load</code>):
-          choose between <code>mean_load</code>, <code>elastic_energy</code>, or <code>spectral_activation</code>.
-        </li>
-        <li>
-          <strong><code>accumulation_mode</code></strong> (default <code>Fatigue</code>):
-          options are <code>Monotonic</code> (testing only), <code>Fatigue</code>,
-          <code>FatigueICLA</code>, or <code>FatigueCLA</code>.
-        </li>
-        <li>
-          For <code>FatigueICLA</code> and <code>FatigueCLA</code>, you must supply
-          the cycle count variable via <code>N_cyc_variable = n_cycle</code>.
-        </li>
-        <li>
-          <code>bar_psi_name</code> / <code>acc_bar_psi_name</code>:
-          names for the instantaneous and accumulated fatigue-energy outputs.
-        </li>
-        <li>
-          <code>multiply_by_D</code> (default <code>false</code>):
-          if true, multiplies the instantaneous fatigue energy by the degradation function.
-        </li>
-        <li>
-          <code>finite_strain_model</code> (default <code>false</code>):
-          set to <code>true</code> to use the large-strain (linear-elastic) formulation.
-        </li>
-        <li>
-          <code>uncracked_base_name</code>:
-          prefix used to match the uncracked stress-strain fields (only needed when driving from
-          <code>ComputePFFStress</code>).
-        </li>
-      </ul>
+      <h2>Programming object and example usages</h2>
+      <div class="tcolorbox">
+        <h3>ComputeFatigueEnergy / ADComputeFatigueEnergy</h3>
+        <ul>
+          <li>
+            The default fatigue-energy calculation mode is <code>mean_load</code>.
+            Users may change <code>energy_calculation</code> to
+            <code>spectral_activation</code> or <code>elastic_energy</code>.
+          </li>
+          <li>
+            The <code>accumulation_mode</code> parameter determines how fatigue energy is accumulated.
+            Available options are
+            <code>Monotonic</code> (testing only, not recommended—remove fatigue settings to avoid clutter),
+            <code>Fatigue</code>,
+            <code>FatigueICLA</code>, and
+            <code>FatigueCLA</code>. The default is <code>Fatigue</code>.
+          </li>
+          <li>
+            If <code>accumulation_mode</code> is
+            <code>FatigueICLA</code> or <code>FatigueCLA</code>,
+            you must supply the cycle count variable, e.g.:
+            <code>N_cyc_variable = n_cycle</code>.
+          </li>
+          <li>
+            <code>acc_bar_psi_name</code> specifies the accumulated fatigue energy,
+            and <code>bar_psi_name</code> specifies the current fatigue energy.
+          </li>
+          <li>
+            The <code>finite_strain_model</code> option is supported but only for linear‐elastic large‐strain;
+            ensure your constitutive model remains linear.
+          </li>
+          <li>
+            <code>uncracked_base_name</code> must match the base name used by the trial‐stress object
+            when fatigue is driven from <code>ComputePFFStress</code>.
+            If you use <code>LinearElasticPFFractureStress</code> instead, you can omit this.
+          </li>
+        </ul>
     
-      <h2>Example Usage</h2>
-      <div class="code-copy-container">
-        <button class="copy-btn" title="Copy code">Copy</button>
-        <div class="code-scroll">
-          <pre><code>[Materials]
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+          <div class="code-scroll">
+            <pre><code>[Materials]
   [./fatigue_variable]
-    type                  = ComputeFatigueEnergy
-    uncracked_base_name   = uncracked
-    finite_strain_model   = true
-    multiply_by_D         = false
-    energy_calculation    = mean_load
-    accumulation_mode     = FatigueICLA
-    N_cyc_variable        = n_cycle
-    bar_psi_name          = current_fatigue
-    acc_bar_psi_name      = bar_alpha
+    type                = ComputeFatigueEnergy
+    uncracked_base_name = uncracked
+    finite_strain_model = true
+    multiply_by_D       = false
+    accumulation_mode   = FatigueICLA
+    N_cyc_variable      = n_cycle
+    bar_psi_name        = current_fatigue
+    acc_bar_psi_name    = bar_alpha
   [../]
 []</code></pre>
+          </div>
         </div>
-      </div>
     
-      <p>
-        The resulting <code>bar_alpha</code> can then be plugged into your chosen fatigue‐degradation function.
-        No special object is required—define it yourself. For example:
-      </p>
+        <p>
+          The accumulated fatigue energy <code>bar_alpha</code> can then feed any user‐defined
+          fatigue‐degradation function. No special object is required. For example:
+        </p>
     
-      <div class="math-block">
-        \[
-          f(\bar{\alpha}) =
-          \begin{cases}
-            1, & \bar{\alpha} < \alpha_{\text{crit}}, \\[0.5em]
-            \displaystyle
-            \left(\frac{2\,\alpha_{\text{crit}}}{\bar{\alpha} + \alpha_{\text{crit}}}\right)^{2},
-            & \bar{\alpha} \ge \alpha_{\text{crit}}.
-          \end{cases}
-        \]
-      </div>
+        <div class="math-block">
+          \[
+            f(\bar{\alpha}) =
+            \begin{cases}
+              1, & \bar{\alpha} < \alpha_{\text{crit}}, \\[0.5em]
+              \displaystyle
+              \Bigl(\tfrac{2\,\alpha_{\text{crit}}}{\bar{\alpha} + \alpha_{\text{crit}}}\Bigr)^{2},
+              & \bar{\alpha} \ge \alpha_{\text{crit}}.
+            \end{cases}
+          \]
+        </div>
     
-      <div class="code-copy-container">
-        <button class="copy-btn" title="Copy code">Copy</button>
-        <div class="code-scroll">
-          <pre><code>[Materials]
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+          <div class="code-scroll">
+            <pre><code>[Materials]
   [./fatigue_function]
     type                     = ParsedMaterial
     material_property_names  = 'bar_alpha alpha_critical'
@@ -120,9 +124,11 @@
     expression               = 'if(bar_alpha > alpha_critical, (2*alpha_critical/(bar_alpha + alpha_critical))^2, 1)'
   [../]
 []</code></pre>
+          </div>
         </div>
       </div>
     </section>
+    
     
     
     
