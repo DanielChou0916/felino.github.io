@@ -33,15 +33,12 @@
 
       <div class="tcolorbox">
 
-        <p><strong>Step 1: Clone the MOOSE Framework</strong></p>
-        <div class="code-copy-container">
-          <button class="copy-btn" title="Copy code">Copy</button>
-            <div class="code-scroll">
-          <pre><code>git clone https://github.com/idaholab/moose.git
-cd moose
-git submodule update --init --recursive</code></pre>
-            </div>
-        </div>
+        <p><strong>Step 1: Install the MOOSE Framework(visit the <a
+          href="https://mooseframework.inl.gov/getting_started/installation/index.html"
+          target="_blank"
+          rel="noopener"
+          style="color: #93EBFA; text-decoration: underline;"
+        >MOOSE official website</a>)</strong></p>
 
         <p><strong>Step 2: Clone Felino Inside MOOSE (Recommended in <code>projects/</code>)</strong></p>
         <div class="code-copy-container">
@@ -52,16 +49,7 @@ git clone https://github.com/DanielChou0916/felino.git</code></pre>
             </div>
         </div>
 
-        <p><strong>Step 3: Load the MOOSE Environment</strong></p>
-        <div class="code-copy-container">
-          <button class="copy-btn" title="Copy code">Copy</button>
-            <div class="code-scroll">
-          <pre><code>cd moose
-source scripts/moose_environ.sh</code></pre>
-            </div>
-        </div>
-
-        <p><strong>Step 4: Build the Felino Application</strong></p>
+        <p><strong>Step 3: Build the Felino Application</strong></p>
         <div class="code-copy-container">
           <button class="copy-btn" title="Copy code">Copy</button>
             <div class="code-scroll">
@@ -70,14 +58,14 @@ make -j$(nproc)</code></pre>
             </div>
         </div>
 
-        <p><strong>Step 5: Run an Example Simulation</strong></p>
+        <p><strong>Step 4: Run an Example Simulation</strong></p>
         <div class="code-copy-container">
           <button class="copy-btn" title="Copy code">Copy</button>
             <div class="code-scroll">
           <pre><code>./felino-opt -i examples/test/test_disp0.i</code></pre>
             </div>
         </div>
-
+        Once the <code>Finished Executing</code> message popping up, all is well now 🙂
         <p><strong>To Update MOOSE and Felino Later:</strong></p>
         <div class="code-copy-container">
           <button class="copy-btn" title="Copy code">Copy</button>
