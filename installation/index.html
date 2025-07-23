@@ -66,20 +66,26 @@ make -j$(nproc)</code></pre>
             </div>
         </div>
         Once the <code>Finished Executing</code> message appears, all is well 🙂!
-        <p><strong>To Update MOOSE and Felino Later:</strong></p>
+        <p><strong>To Update Felino Later:</strong></p>
         <div class="code-copy-container">
           <button class="copy-btn" title="Copy code">Copy</button>
             <div class="code-scroll">
-          <pre><code>cd moose
-git pull
-git submodule update --init --recursive
-
-cd ~/projects/felino
+          <pre><code>cd ~/projects/felino
 git pull
 make clean
 make -j$(nproc)</code></pre>
             </div>
         </div>
+
+        <p><strong>To delete Felino:</strong></p>
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+            <div class="code-scroll">
+          <pre><code>cd ~/projects
+rm -rf felino</code></pre>
+            </div>
+        </div>
+
 
         <p><strong>Notes:</strong> Ensure system dependencies (PETSc, libMesh, CMake, GCC/Clang C++14+). Use <code>felino-opt</code> for release runs and <code>felino-dbg</code> for debugging. 
           <a
