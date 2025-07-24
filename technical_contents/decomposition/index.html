@@ -19,185 +19,189 @@
 
   <!-- Main content -->
   <main class="sub-container">
-  <section id="overview">
-    <h1>Tension-Compression Asymmetry</h1>
-    <p>
-      The mechanical responses of materials under tension and compression are usually distitable, in order to capture the tension-compression asymmetry(so call anisotropic response),
-      The energy decomposition is adopted, here. In practice, stress or strain are decomposed into activated part \((\cdot)^+\) and inactivated part \((\cdot)^-\), by certain rule.
-      Then the elastic energy \(\psi^+\) corresponding to activated part is included in to phase-field governing equation.  
-    </p>
-    <ul class="outline-list">
-      <li><a href="#spectral-decomposition">Spectral / Deviatoric Decomposition</a></li>
-      <li><a href="#rce">Representative Crack Element (RCE)</a></li>
-      <li><a href="#drucker-prager">Drucker-Prager Decomposition</a></li>
-      <li><a href="#extra-force">Extra Driving Force Formulation</a></li>
-    </ul>
-  </section>
-  
-  <!-- 然后在每个 <section> 加上对应的 id，例如： -->
-  <section id="spectral-decomposition">
+    <section id="overview">
+      <h1>Tension-Compression Asymmetry</h1>
+      <p>
+        Materials often respond very differently when loaded in tension versus compression. To capture this
+        tension-compression asymmetry (sometimes called an "anisotropic" response), the strain or stress is
+        split into an <em>activated</em> (tensile) part \((\cdot)^+\) and an <em>inactivated</em>
+        (compressive) part \((\cdot)^-\). Only the activated energy \(\Psi^+\) drives crack growth in the
+        phase‐field equation.
+      </p>
+      <ul class="outline-list">
+        <li><a href="#spectral-decomposition">Spectral / Deviatoric Decomposition</a></li>
+        <li><a href="#rce">Representative Crack Element (RCE)</a></li>
+        <li><a href="#drucker-prager">Drucker-Prager Decomposition</a></li>
+        <li><a href="#extra-force">Extra Driving Force Formulation</a></li>
+      </ul>
+    </section>
+    
+    <section id="spectral-decomposition">
       <h2>Spectral / Deviatoric Decomposition</h2>
       <p>
-        In asymmetric response, elastic energy is split into activated (tensile) and inactivated (compressive) components.  
-        The total strain energy density is written  
+        Split the total elastic energy into activated (tensile) and inactivated (compressive) parts:
       </p>
       <div class="math-block">
         \[
-        \psi_s(\boldsymbol{\epsilon},d)
-        = \omega(d)\,\psi_e^+(\boldsymbol{\epsilon})
-        + \psi_e^-(\boldsymbol{\epsilon}),
+          \Psi_s(\epsilon, d)
+          = \omega(d)\,\Psi_e^+(\epsilon)
+          + \Psi_e^-(\epsilon)\,,
         \]
       </div>
       <p>
-        where the tensile and compressive parts are defined via spectral decomposition of the infinitesimal strain  
+        where the classical spectral (eigenvalue) split of infinitesimal strain \(\epsilon\) gives
       </p>
       <div class="math-block">
         \[
-          \psi_e^\pm(\boldsymbol{\epsilon})
-          = \frac12\,\lambda\,\langle\mathrm{tr}(\boldsymbol{\epsilon})\rangle_\pm^2
+          \Psi_e^\pm(\epsilon)
+          = \tfrac12\,\lambda\,\langle \mathrm{tr}(\epsilon)\rangle_\pm^2
           + \mu \sum_a \langle \epsilon_a\rangle_\pm^2,
           \quad
-          \langle x\rangle_\pm = \frac{x\pm|x|}{2}.
+          \langle x\rangle_\pm = \tfrac{x\pm|x|}{2}.
         \]
       </div>
       <p>
-        Activated energy <code>\(\psi_e^+\)</code> is responsible for driving crack growth, while inactivated energy <code>\(\psi_e^-\)</code> remains dormant under compression.  
-        A temporal derivative highlights how damage couples to energy:  
+        Here \(\langle\epsilon_a\rangle_+\) picks out tensile principal strains and
+        \(\langle\epsilon_a\rangle_-\) the compressive ones. The activated energy
+        \(\Psi_e^+\) powers crack driving, while \(\Psi_e^-\) remains dormant under compression.  A time
+        derivative of \(\Psi_s\) shows how damage couples to energy release:
       </p>
       <div class="math-block">
         \[
-          \dot{\psi}_s
-          = \bigl(\omega(d)\,\boldsymbol{\sigma}_0^+ + \boldsymbol{\sigma}_0^-\bigr)
-            : \dot{\boldsymbol{\epsilon}}
-          - Y\,\dot d,
+          \dot\Psi_s
+          = \bigl(\omega(d)\,\sigma_0^+ + \sigma_0^-\bigr)\!:\!\dot\epsilon
+          \;-\; Y\,\dot d,
           \quad
-          Y = -\,\psi_e^+\,\frac{\mathrm{d}\omega}{\mathrm{d}d}.
+          Y = -\,\Psi_e^+\,\frac{d\omega}{dd}\,,
         \]
       </div>
-
-  </section>
-  
-  <section id="rce">
+      <p>
+        where \(\sigma_0^\pm = \partial\Psi_e^\pm/\partial\epsilon\) are the stress contributions from
+        each part and \(Y\) is the fracture driving force.
+      </p>
+    </section>
+    
+    <section id="rce">
       <h2>Representative Crack Element (RCE)</h2>
       <p>
-        Asymmetric fracture is approximated by interpolating between the intact elastic state <code>\(\psi_0\)</code> and a fully cracked state <code>\(\psi_c\)</code>:
+        Approximate the asymmetric response by interpolating between an intact state \(\Psi_0\) and a fully
+        cracked state \(\Psi_c\):
       </p>
       <div class="math-block">
         \[
-          \psi_{\mathrm{elastic}}
-          = \omega(d)\,\bigl(\psi_0 - \psi_c\bigr) + \psi_c.
+          \Psi_{\mathrm{elastic}}
+          = \omega(d)\,\bigl(\Psi_0 - \Psi_c\bigr) + \Psi_c.
         \]
       </div>
       <p>
-        The strain jump that activates fracture is computed via directional projections  
+        Decompose the strain into a “jump” component that activates fracture:
       </p>
       <div class="math-block">
         \[
-          \boldsymbol{\epsilon}_{\mathrm{jump}}
-          = \sum_{i=1}^3 \Gamma_i\,\mathbf{P}_i,
+          \epsilon_{\mathrm{jump}}
+          = \sum_{i=1}^3 \Gamma_i\,P_i,
           \quad
-          \Delta\boldsymbol{\epsilon}
-          = \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\mathrm{jump}}.
+          \Delta\epsilon
+          = \epsilon - \epsilon_{\mathrm{jump}}.
         \]
       </div>
       <p>
-        Residual (inactivated) and activated energies follow as  
+        Then define residual (inactivated) and activated energies via their stresses:
       </p>
       <div class="math-block">
         \[
-          \psi_{\mathrm{res}}
-          = \tfrac12\,\boldsymbol{\sigma}_{\mathrm{res}} : \Delta\boldsymbol{\epsilon},
+          \Psi_{\mathrm{res}}
+          = \tfrac12\,\sigma_{\mathrm{res}} : \Delta\epsilon,
           \quad
-          \psi_{\mathrm{act}}
-          = \tfrac12\,\boldsymbol{\sigma}_{\mathrm{act}} : \boldsymbol{\epsilon}_{\mathrm{jump}},
+          \Psi_{\mathrm{act}}
+          = \tfrac12\,\sigma_{\mathrm{act}} : \epsilon_{\mathrm{jump}},
         \]
       </div>
       <p>
-        where  
+        with
       </p>
       <div class="math-block">
         \[
-          \boldsymbol{\sigma}_{\mathrm{res}}
-          = \mathbb{C} : \Delta\boldsymbol{\epsilon},
+          \sigma_{\mathrm{res}}
+          = \mathbb{C} : \Delta\epsilon,
           \quad
-          \boldsymbol{\sigma}_{\mathrm{act}}
-          = \mathbb{C} : \boldsymbol{\epsilon}_{\mathrm{jump}}.
+          \sigma_{\mathrm{act}}
+          = \mathbb{C} : \epsilon_{\mathrm{jump}}.
         \]
       </div>
+    </section>
     
-  </section>
-  
-  <section id="drucker-prager">
+    <section id="drucker-prager">
       <h2>Drucker-Prager Decomposition</h2>
       <p>
-        Asymmetric pressure-sensitive behavior is achieved by splitting strain energy via a Drucker-Prager criterion.  
-        The positive and negative parts are defined piecewise to enforce a yield surface on invariants:
+        Enforce pressure-dependent asymmetry by splitting energy based on the invariants
       </p>
       <div class="math-block">
         \[
-          I_1 = \mathrm{tr}(\boldsymbol{\epsilon}), 
+          I_1 = \mathrm{tr}(\epsilon), 
           \quad
-          J_2 = \tfrac12\,\mathrm{tr}\bigl(\boldsymbol{\epsilon}_{\mathrm{dev}}^2\bigr),
+          J_2 = \tfrac12\,\mathrm{tr}\!\bigl(\epsilon_{\mathrm{dev}}^2\bigr),
           \quad
-          B = \frac{1}{\sqrt{3}}\frac{\sigma_t - \sigma_c}{\sigma_t + \sigma_c}.
+          B = \tfrac1{\sqrt3}\,\frac{\sigma_t-\sigma_c}{\sigma_t+\sigma_c}.
         \]
       </div>
       <p>
-        The inactivated and activated energies are then given by:
+        Then piecewise define inactivated and activated energies to impose the Drucker-Prager yield:
       </p>
       <div class="math-block">
         \[
-          \psi_e^-
+          \Psi_e^-
           = 
           \begin{cases}
             0, & I_1 + 6B\sqrt{J_2} > 0,\\[0.5em]
-            \dfrac{K\mu}{18B^2K + 2\mu}\bigl(I_1 + 6B\sqrt{J_2}\bigr)^2, & \ldots,\\[0.5em]
+            \dfrac{K\mu}{18B^2K + 2\mu}\,\bigl(I_1 + 6B\sqrt{J_2}\bigr)^2, & \ldots,\\[0.5em]
             \tfrac12K\,I_1^2 + 2\mu\,J_2, & \ldots,
           \end{cases}
           \quad
-          \psi_e^+
+          \Psi_e^+
           = 
           \begin{cases}
             \tfrac12K\,I_1^2 + 2\mu\,J_2, & I_1 + 6B\sqrt{J_2} > 0,\\[0.5em]
-            \dfrac{(-3KB\,I_1 + 2\mu\sqrt{J_2})^2}{18B^2K + 2\mu}, & \ldots,\\[0.5em]
+            \dfrac{\bigl(-3KB\,I_1 + 2\mu\sqrt{J_2}\bigr)^2}{18B^2K + 2\mu}, & \ldots,\\[0.5em]
             0, & \ldots.
           \end{cases}
         \]
       </div>
       <p>
-        Pressure-dependent degradation of both tensile and compressive strengths is thus enforced, yielding an asymmetric response under varying hydrostatic stress states.
+        This enforces different degradation under tension and compression, capturing pressure‐sensitive
+        fracture behavior.
       </p>    
-  </section>
-  
-  <section id="extra-force">
+    </section>
+    
+    <section id="extra-force">
       <h2>Extra Driving Force Formulation</h2>
       <p>
-        Additional driving force <code>\(c_e\)</code> is introduced to model asymmetric compressive-shear behavior, especially for geomaterials.  
-        Governing equation becomes:
+        Add an extra term \(c_e\) to model compressive‐shear resistance in geomaterials. The phase‐field
+        equation becomes:
       </p>
       <div class="math-block">
         \[
-          \omega'(d)\,\psi_e(\boldsymbol{\epsilon})
-          + \frac{G_c}{c_0\,\ell}\,\alpha'(d)
+          \omega'(d)\,\Psi_e(\epsilon)
+          + \frac{G_c}{c_0\,l}\,\alpha'(d)
           + c_e
-          - \nabla\!\cdot\!\Bigl(\tfrac{2G_c\,\ell}{c_0}\,\nabla d\Bigr)
+          - \nabla\!\cdot\!\Bigl(\tfrac{2G_c\,l}{c_0}\,\nabla d\Bigr)
           = 0.
         \]
       </div>
       <p>
-        The term <code>\(c_e\)</code> is a function of stress/strain invariants and material strengths  
-        (tensile strength \(\sigma_t\), compressive strength \(\sigma_c\), crack-width coefficient),  
-        providing extra resistance under compression and shear.
+        Here \(c_e\) depends on stress/strain invariants and material strengths (\(\sigma_t\), \(\sigma_c\),
+        crack‐width coefficient), providing extra resistance under compression and shear.
       </p>
-  </section>
+    </section>
+    
 
   <section id="references">
     <h2>References</h2>
     <ul class="reference-list">
-      <li><a href="https://www.sciencedirect.com/science/article/pii/S0927025611004204" target="_blank" rel="noopener noreferrer">[1] Tonks, Michael R., et al. "An object-oriented finite element framework for multiphysics phase field simulations." Computational Materials Science 51.1 (2012): 20-29.</a></li>
-      <li><a href="https://onlinelibrary.wiley.com/doi/full/10.1002/nme.6244" target="_blank" rel="noopener noreferrer">[2] Storm, J., D. Supriatna, and M. Kaliske. "The concept of representative crack elements for phase‐field fracture: Anisotropic elasticity and thermo‐elasticity." International Journal for Numerical Methods in Engineering 121.5 (2020): 779-805.</a></li>
-      <li><a href="https://www.sciencedirect.com/science/article/pii/S0167844222002981" target="_blank" rel="noopener noreferrer">[3] Navidtehrani, Yousef, Covadonga Betegon, and Emilio Martinez-Paneda. "A general framework for decomposing the phase field fracture driving force, particularised to a Drucker–Prager failure surface." Theoretical and Applied Fracture Mechanics 121 (2022): 103555.</a></li>
-      <li><a href="https://www.sciencedirect.com/science/article/pii/S0020768324005298" target="_blank" rel="noopener noreferrer">[4] Liu, Chang, and Aditya Kumar. "Emergence of tension–compression asymmetry from a complete phase-field approach to brittle fracture." International Journal of Solids and Structures 309 (2025): 113170.</a></li>
+      <li><a href="https://www.sciencedirect.com/science/article/pii/S0927025611004204" target="_blank" rel="noopener noreferrer">Tonks, Michael R., et al. "An object-oriented finite element framework for multiphysics phase field simulations." Computational Materials Science 51.1 (2012): 20-29.</a></li>
+      <li><a href="https://onlinelibrary.wiley.com/doi/full/10.1002/nme.6244" target="_blank" rel="noopener noreferrer">Storm, J., D. Supriatna, and M. Kaliske. "The concept of representative crack elements for phase‐field fracture: Anisotropic elasticity and thermo‐elasticity." International Journal for Numerical Methods in Engineering 121.5 (2020): 779-805.</a></li>
+      <li><a href="https://www.sciencedirect.com/science/article/pii/S0167844222002981" target="_blank" rel="noopener noreferrer">Navidtehrani, Yousef, Covadonga Betegon, and Emilio Martinez-Paneda. "A general framework for decomposing the phase field fracture driving force, particularised to a Drucker-Prager failure surface." Theoretical and Applied Fracture Mechanics 121 (2022): 103555.</a></li>
+      <li><a href="https://www.sciencedirect.com/science/article/pii/S0020768324005298" target="_blank" rel="noopener noreferrer">Liu, Chang, and Aditya Kumar. "Emergence of tension-compression asymmetry from a complete phase-field approach to brittle fracture." International Journal of Solids and Structures 309 (2025): 113170.</a></li>
     </ul>
   </section>
   
