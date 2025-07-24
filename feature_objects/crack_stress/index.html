@@ -33,7 +33,7 @@
         </li>
         <li>
           <strong>From undamaged stress:</strong>
-          First compute the undamaged stress <code>σ₀</code> with another programming object, then feed it into
+          First compute the undamaged stress \(\boldsymbol{\sigma}_0\) with another programming object, then feed it into
           <code>(AD)ComputePFFStress</code> to obtain the damaged stress. This stress-based approach makes no small-strain or isotropy assumptions.
           <em>Note:</em> non-linear elasticity support is currently under development.
         </li>
@@ -64,6 +64,10 @@
               <code>stress_dev</code>,
               <code>rce</code>,
               <code>strain_dp</code>.
+            </li>
+            <li>
+              <code>decomposition_type = rce</code>:
+              supports AD version only. <code>LinearElasticPFFractureStress</code> doesn't have this mode.
             </li>
             <li>
               <code>use_current_history_variable</code>:
@@ -155,7 +159,7 @@
               <code>finite_strain_model</code>: set to <code>true</code> to switch on large-strain kinematics.
             </li>
             <li>
-              <code>use_current_history_variable</code>: set to <code>true</code> to use the current history variable instead of the previous timestep’s.
+              <code>use_current_history_variable</code>: set to <code>true</code> to use the current history variable instead of the previous timestep's.
             </li>
             <li>
               <code>E_name</code>, <code>D_name</code>, <code>I_name</code>: custom names for elastic energy, degradation, and indicator properties.

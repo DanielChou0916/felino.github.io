@@ -297,3 +297,45 @@ code {
 }
 
 
+
+
+/* 目录大纲样式: decomposition page */
+.outline-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 1rem 0 2rem;
+}
+.outline-list li {
+  margin: 0.5rem 0;
+}
+.outline-list a {
+  color: #23DAFA;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+/* reference */
+.reference-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 1rem 0 2rem;
+  font-size: 0.9rem;       /* 略小于正文 */
+  line-height: 1.4;        /* 行距稍密 */
+}
+.reference-list li {
+  position: relative;
+  padding-left: 1.5em;     
+  margin: 0.5rem 0;
+}
+.reference-list li::before {
+  content: counter(ref)".";
+  counter-increment: ref;
+  position: absolute;
+  left: 0;
+  color: #23DAFA;
+  font-weight: bold;
+}
+section#references {
+  counter-reset: ref;       /* 重置引用编号 */
+}
+
