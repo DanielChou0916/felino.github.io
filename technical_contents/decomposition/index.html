@@ -273,12 +273,12 @@
       <div class="math-block">
         \[
           \begin{aligned}
-            \boldsymbol{\sigma}
-            &= \frac{\partial \Psi_e}{\partial \boldsymbol{\epsilon}}
+            &\boldsymbol{\sigma}
+            = \frac{\partial \Psi_e}{\partial \boldsymbol{\epsilon}}
              = \frac{\partial \Psi_e}{\partial I_1}\,\mathbf{I}
              + \frac{\partial \Psi_e}{\partial J_2}\,\boldsymbol{\epsilon}_{\mathrm{dev}},\\
-            \frac{\partial I_1}{\partial \boldsymbol{\epsilon}}
-            &= \mathbf{I},\quad
+            &\frac{\partial I_1}{\partial \boldsymbol{\epsilon}}
+            = \mathbf{I},\quad
             \frac{\partial J_2}{\partial \boldsymbol{\epsilon}}
             = \boldsymbol{\epsilon}_{\mathrm{dev}}.
           \end{aligned}
@@ -294,30 +294,54 @@
 
       <div class="math-block">
         \[
-      &\frac{\partial \Psi_e}{\partial I_1(\bm{\epsilon})} = 2c_1\left(c_1I_1(\bm{\epsilon}) + c_2\sqrt{J_2(\bm{\epsilon})}\right) \\
-      &\frac{\partial \Psi_e}{\partial J_2(\bm{\epsilon})} = \frac{c_2}{\sqrt{J_2(\bm{\epsilon})}} \left(c_1I_1(\bm{\epsilon}) + c_2\sqrt{J_2(\bm{\epsilon})}\right) \\
-      &\therefore \bm{\sigma} = 2c_1 \left(c_1I_1(\bm{\epsilon}) + c_2 \sqrt{J_2(\bm{\epsilon})}\right) \mathbf{I} + \frac{c_2}{\sqrt{J_2(\bm{\epsilon})}} \left(c_1I_1(\bm{\epsilon}) + c_2 \sqrt{J_2(\bm{\epsilon})}\right) \bm{\epsilon}_{\text{dev}}
-      \]
-    </div>
+        \begin{aligned}
+          &\frac{\partial \Psi_e}{\partial I_1(\boldsymbol{\epsilon})}
+            = 2c_1\bigl(c_1 I_1(\boldsymbol{\epsilon}) + c_2\sqrt{J_2(\boldsymbol{\epsilon})}\bigr),\\
+          &\frac{\partial \Psi_e}{\partial J_2(\boldsymbol{\epsilon})}
+            = \frac{c_2}{\sqrt{J_2(\boldsymbol{\epsilon})}}
+              \bigl(c_1 I_1(\boldsymbol{\epsilon}) + c_2\sqrt{J_2(\boldsymbol{\epsilon})}\bigr),\\
+          &\therefore \boldsymbol{\sigma}
+            = 2c_1\bigl(c_1 I_1(\boldsymbol{\epsilon}) + c_2\sqrt{J_2(\boldsymbol{\epsilon})}\bigr)\mathbf{I}
+            + \frac{c_2}{\sqrt{J_2(\boldsymbol{\epsilon})}}
+              \bigl(c_1 I_1(\boldsymbol{\epsilon}) + c_2\sqrt{J_2(\boldsymbol{\epsilon})}\bigr)
+              \boldsymbol{\epsilon}_{\mathrm{dev}}.
+        \end{aligned}
+        \]
+      </div>
   
-  Which leads to:
+
+  <p>
+    Which leads to:
+  </p>
   <div class="math-block">
     \[
-  \bm{\sigma}^- &= \left\{
-  \begin{array}{ll}
-     0 & \text{for } -6B \sqrt{J_2(\bm{\epsilon})} < I_1(\bm{\epsilon}) \\ \\
-     \frac{K \mu \left( 2 \left( I_1(\bm{\epsilon}) + 6B \sqrt{J_2(\bm{\epsilon})} \right) \mathbf{I} + \frac{6B}{\sqrt{J_2(\bm{\epsilon})}} \left( I_1(\bm{\epsilon}) + 6B \sqrt{J_2(\bm{\epsilon})} \right) \bm{\epsilon}_{\text{dev}} \right)}{18 B^2 K + 2 \mu} & \text{for } -6B \sqrt{J_2(\bm{\epsilon})} \geq I_1(\bm{\epsilon}) \;\&\; 2\mu \sqrt{J_2(\bm{\epsilon})} \geq 3BKI_1(\bm{\epsilon}) \\ \\
-      KI_1(\bm{\epsilon}) \mathbf{I} + 2 \mu \bm{\epsilon}_{\text{dev}} & \text{for } 2 \mu \sqrt{J_2(\bm{\epsilon})} < 3BKI_1(\bm{\epsilon})
-  \end{array}\right. \\ \\
-  \bm{\sigma}^+ &= \left\{
-  \begin{array}{ll}
-     KI_1(\bm{\epsilon}) \mathbf{I} + 2 \mu \bm{\epsilon}_{\text{dev}} & \text{for } -6B \sqrt{J_2(\bm{\epsilon})} < I_1(\bm{\epsilon}) \\ \\
-     \frac{-6KB\left(-3KBI_1(\bm{\epsilon}) + 2 \mu \sqrt{J_2(\bm{\epsilon})}\right) \mathbf{I} + \frac{2 \mu}{\sqrt{J_2(\bm{\epsilon})}}\left(-3KB I_1(\bm{\epsilon}) + 2 \mu \sqrt{J_2(\bm{\epsilon})}\right) \bm{\epsilon}_{\text{dev}} }{18 B^2 K + 2 \mu} & \text{for } -6B \sqrt{J_2(\bm{\epsilon})} \geq I_1(\bm{\epsilon}) \;\&\; 2 \mu \sqrt{J_2(\bm{\epsilon})} \geq 3BKI_1(\bm{\epsilon}) \\ \\
-     0 & \text{for } 2 \mu \sqrt{J_2(\bm{\epsilon})} < 3BKI_1(\bm{\epsilon})
-  \end{array}\right.
-  \]
-</div>
-  Here, the extra input material parameter $B\leq 0$ is needed.
+    \begin{aligned}
+      \boldsymbol{\sigma}^- &= 
+        \begin{cases}
+          0, & -6B\sqrt{J_2(\boldsymbol{\epsilon})} < I_1(\boldsymbol{\epsilon}),\\[0.5em]
+          \dfrac{K\mu}{18B^2K + 2\mu}
+          \bigl(I_1(\boldsymbol{\epsilon}) + 6B\sqrt{J_2(\boldsymbol{\epsilon})}\bigr)^2, 
+            & -6B\sqrt{J_2(\boldsymbol{\epsilon})}\ge I_1(\boldsymbol{\epsilon})\;\wedge\;2\mu\sqrt{J_2(\boldsymbol{\epsilon})}\ge3BK\,I_1(\boldsymbol{\epsilon}),\\[0.5em]
+          K\,I_1(\boldsymbol{\epsilon})\,\mathbf{I} + 2\mu\,\boldsymbol{\epsilon}_{\mathrm{dev}},
+            & 2\mu\sqrt{J_2(\boldsymbol{\epsilon})}<3BK\,I_1(\boldsymbol{\epsilon}),
+        \end{cases}\\[1em]
+      \boldsymbol{\sigma}^+ &= 
+        \begin{cases}
+          K\,I_1(\boldsymbol{\epsilon})\,\mathbf{I} + 2\mu\,\boldsymbol{\epsilon}_{\mathrm{dev}},
+            & -6B\sqrt{J_2(\boldsymbol{\epsilon})}< I_1(\boldsymbol{\epsilon}),\\[0.5em]
+          \dfrac{-6KB\,\bigl(-3KB\,I_1(\boldsymbol{\epsilon}) + 2\mu\sqrt{J_2(\boldsymbol{\epsilon})}\bigr)\mathbf{I}
+                + \tfrac{2\mu}{\sqrt{J_2(\boldsymbol{\epsilon})}}
+                  \bigl(-3KB\,I_1(\boldsymbol{\epsilon}) + 2\mu\sqrt{J_2(\boldsymbol{\epsilon})}\bigr)\,\boldsymbol{\epsilon}_{\mathrm{dev}}}
+               {18B^2K + 2\mu},
+            & -6B\sqrt{J_2(\boldsymbol{\epsilon})}\ge I_1(\boldsymbol{\epsilon})\;\wedge\;2\mu\sqrt{J_2(\boldsymbol{\epsilon})}\ge3BK\,I_1(\boldsymbol{\epsilon}),\\[0.5em]
+          0, & 2\mu\sqrt{J_2(\boldsymbol{\epsilon})}<3BK\,I_1(\boldsymbol{\epsilon}).
+        \end{cases}
+    \end{aligned}
+    \]
+  </div>
+  <p>
+    Here, the extra input material parameter \(B \leq 0\) is needed.
+  </p>
   
 
     
@@ -341,8 +365,24 @@
       </div>
       <p>
         Here \(c_e\) depends on stress/strain invariants and material strengths (\(\sigma_t\), \(\sigma_c\),
-        crack-width coefficient), providing extra resistance under compression and shear, i.e., this approach allows users to include tensile and compressivle strength as parameters.
-      </p>
+        crack-width coefficient \(\delta^\varepsilon\)), providing extra resistance under compression and shear,
+      The \(c_e\) takes the format as follows:
+    </p>
+    <div class="math-block">
+      \[
+          c_e=\beta^\varepsilon_1 I_1+\beta^\varepsilon_2\sqrt{J_2}+\frac{1}{\omega(d)\sqrt{\omega(d)}}C
+          \]
+      </div>
+      where \(I_1\) \(J_2\) are damaged stress invariants, i.e.,
+      <div class="math-block">
+        \[
+      I_1(d,\bm\sigma_0) = \omega(d)\text{tr}(\bm\sigma_0);\quad
+      J_2(d,\bm\sigma_0) = \omega(d)^2\frac{1}{2}(\bm\sigma_{0(\text{dev})}: \bm\sigma_{0(\text{dev})})
+      \]
+    </div>
+      
+      The \(\beta^\varepsilon_1\) and \(\beta^\varepsilon_2\) are functions of \(\sigma_t\), \(\sigma_c\) and \(\delta^\varepsilon\), the correction terms \(C\) is normalized by degradation function for numerical stability.
+      i.e., this approach allows users to include tensile and compressivle strength as parameters.
     </section>
     
 
