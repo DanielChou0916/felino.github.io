@@ -350,40 +350,52 @@
     
     <section id="extra-force">
       <h2>Extra Driving Force Formulation</h2>
+    
       <p>
-        Add an extra term \(c_e\) to model compressive-shear resistance in geomaterials. The phase-field
-        equation becomes:
+        An additional term \(c_e\) models the extra compressive‐shear resistance found in geomaterials.  
+        The modified phase-field equation reads:
       </p>
       <div class="math-block">
         \[
-          \omega'(d)\,\Psi_e(\epsilon)
-          + \frac{G_c}{c_0\,l}\,\alpha'(d)
+          \omega'(d)\,\psi_e(\boldsymbol{\epsilon})
+          + \frac{G_c}{c_0\,\ell}\,\alpha'(d)
           + c_e
-          - \nabla\!\cdot\!\Bigl(\tfrac{2G_c\,l}{c_0}\,\nabla d\Bigr)
+          - \nabla\!\cdot\!\Bigl(\tfrac{2\,G_c\,\ell}{c_0}\,\nabla d\Bigr)
           = 0.
         \]
       </div>
+    
       <p>
-        Here \(c_e\) depends on stress/strain invariants and material strengths (\(\sigma_t\), \(\sigma_c\),
-        crack-width coefficient \(\delta^\varepsilon\)), providing extra resistance under compression and shear,
-      The \(c_e\) takes the format as follows:
-    </p>
-    <div class="math-block">
-      \[
-          c_e=\beta^\varepsilon_1 I_1+\beta^\varepsilon_2\sqrt{J_2}+\frac{1}{\omega(d)\sqrt{\omega(d)}}C
-          \]
-      </div>
-      where \(I_1\) \(J_2\) are damaged stress invariants, i.e.,
+        Here, \(c_e\) depends on the damage‐scaled stress invariants and material strengths (tensile strength \(\sigma_t\), compressive strength \(\sigma_c\)) as well as a crack‐width coefficient \(\delta^\varepsilon\). Its form is:
+      </p>
       <div class="math-block">
         \[
-      I_1(d,\bm\sigma_0) = \omega(d)\text{tr}(\bm\sigma_0);\quad
-      J_2(d,\bm\sigma_0) = \omega(d)^2\frac{1}{2}(\bm\sigma_{0(\text{dev})}: \bm\sigma_{0(\text{dev})})
-      \]
-    </div>
-      
-      The \(\beta^\varepsilon_1\) and \(\beta^\varepsilon_2\) are functions of \(\sigma_t\), \(\sigma_c\) and \(\delta^\varepsilon\), the correction terms \(C\) is normalized by degradation function for numerical stability.
-      i.e., this approach allows users to include tensile and compressivle strength as parameters.
-    </section>
+          c_e
+          = \beta_1^\varepsilon\,I_1
+          + \beta_2^\varepsilon\,\sqrt{J_2}
+          + \frac{C}{\omega(d)\,\sqrt{\omega(d)}},
+        \]
+      </div>
+    
+      <p>
+        The damaged‐stress invariants are defined by:
+      </p>
+      <div class="math-block">
+        \[
+          I_1(d,\boldsymbol{\sigma}_0)
+          = \omega(d)\,\mathrm{tr}\bigl(\boldsymbol{\sigma}_0\bigr),
+          \quad
+          J_2(d,\boldsymbol{\sigma}_0)
+          = \omega(d)^2\,\tfrac12\bigl(\boldsymbol{\sigma}_{0(\mathrm{dev})} : \boldsymbol{\sigma}_{0(\mathrm{dev})}\bigr).
+        \]
+      </div>
+    
+      <p>
+        The coefficients \(\beta_1^\varepsilon\) and \(\beta_2^\varepsilon\) are functions of \(\sigma_t\), \(\sigma_c\), and \(\delta^\varepsilon\).  
+        The normalization term \(C\) ensures numerical stability by scaling with \(\omega(d)\).  
+        This formulation incorporates both tensile and compressive strength into the driving force.
+      </p>
+    </section>    
     
 
   <section id="references">
