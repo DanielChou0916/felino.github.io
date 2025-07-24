@@ -39,53 +39,95 @@
     <section id="spectral-decomposition">
       <h2>Spectral / Deviatoric Decomposition</h2>
       <p>
-        Split the total elastic energy into activated (tensile) and inactivated (compressive) parts:
+        Split the elastic strain energy into activated (tensile) and inactivated (compressive) parts,
+        using either a strain‐based or stress‐based spectral decomposition.
       </p>
-      <div class="math-block">
-        \[
-          \Psi_s(\epsilon, d)
-          = \omega(d)\,\Psi_e^+(\epsilon)
-          + \Psi_e^-(\epsilon)\,,
-        \]
-      </div>
+    
+      <h3>Strain‐Based Decomposition</h3>
       <p>
-        where the classical spectral (eigenvalue) split of infinitesimal strain \(\epsilon\) gives
+        Decompose the infinitesimal strain tensor into its eigenpairs:
       </p>
       <div class="math-block">
         \[
-          \Psi_e^\pm(\epsilon)
-          = \tfrac12\,\lambda\,\langle \mathrm{tr}(\epsilon)\rangle_\pm^2
-          + \mu \sum_a \langle \epsilon_a\rangle_\pm^2,
+          \epsilon = \sum_a \epsilon_a\,\mathbf{n}_a\otimes\mathbf{n}_a,
           \quad
           \langle x\rangle_\pm = \tfrac{x\pm|x|}{2}.
         \]
       </div>
       <p>
-        Here \(\langle\epsilon_a\rangle_+\) picks out tensile principal strains and
-        \(\langle\epsilon_a\rangle_-\) the compressive ones. The activated energy
-        \(\Psi_e^+\) powers crack driving, while \(\Psi_e^-\) remains dormant under compression.  A time
-        derivative of \(\Psi_s\) shows how damage couples to energy release:
+        Then define the tensile and compressive energy densities:
       </p>
       <div class="math-block">
         \[
-          \dot\Psi_s
-          = \bigl(\omega(d)\,\sigma_0^+ + \sigma_0^-\bigr)\!:\!\dot\epsilon
-          \;-\; Y\,\dot d,
-          \quad
-          Y = -\,\Psi_e^+\,\frac{d\omega}{dd}\,,
+          \psi_e^\pm(\epsilon)
+          = \tfrac12\,\lambda\,\langle\mathrm{tr}(\epsilon)\rangle_\pm^2
+          + \mu \sum_a \langle \epsilon_a\rangle_\pm^2.
         \]
       </div>
       <p>
-        where \(\sigma_0^\pm = \partial\Psi_e^\pm/\partial\epsilon\) are the stress contributions from
-        each part and \(Y\) is the fracture driving force.
+        Corresponding stress contributions in principal directions:
       </p>
+      <div class="math-block">
+        \[
+          \sigma_a^\pm
+          = \frac{\partial \psi_e^\pm}{\partial \epsilon_a}
+          = \lambda\,\langle\mathrm{tr}(\epsilon)\rangle_\pm
+          + 2\mu\,\langle \epsilon_a\rangle_\pm,
+          \quad
+          \sigma_0^\pm = \sum_a \sigma_a^\pm\,\mathbf{n}_a\otimes\mathbf{n}_a.
+        \]
+      </div>
+    
+      <h3>Stress‐Based Decomposition</h3>
+      <p>
+        Alternatively, decompose the stress tensor into tensile and compressive parts via its eigenpairs:
+      </p>
+      <div class="math-block">
+        \[
+          \sigma = \sum_a \sigma_a\,\mathbf{n}_a\otimes\mathbf{n}_a,
+          \quad
+          \sigma_a^\pm = \langle \sigma_a \rangle_\pm.
+        \]
+      </div>
+      <p>
+        Then reconstruct the energy densities:
+      </p>
+      <div class="math-block">
+        \[
+          \psi_e^\pm(\epsilon)
+          = \tfrac12 \sum_a \sigma_a^\pm \,\epsilon_a.
+        \]
+      </div>
+    
+      <h3>Total Asymmetric Energy</h3>
+      <p>
+        Combine into the phase‐field split:
+      </p>
+      <div class="math-block">
+        \[
+          \psi_s(\epsilon, d)
+          = \omega(d)\,\psi_e^+(\epsilon)
+          + \psi_e^-(\epsilon).
+        \]
+      </div>
+      <p>
+        Damage couples through the driving force
+        \(Y = -\,\psi_e^+\,\frac{d\omega}{dd}\), so that
+      </p>
+      <div class="math-block">
+        \[
+          \dot\psi_s
+          = \bigl(\omega(d)\,\sigma_0^+ + \sigma_0^-\bigr)\!:\!\dot\epsilon
+          - Y\,\dot d.
+        \]
+      </div>
     </section>
     
     <section id="rce">
       <h2>Representative Crack Element (RCE)</h2>
+    
       <p>
-        Approximate the asymmetric response by interpolating between an intact state \(\Psi_0\) and a fully
-        cracked state \(\Psi_c\):
+        The Representative Crack Element (RCE) method interpolates between the intact elastic energy \(\Psi_0\) and a fully cracked state \(\Psi_c\), instead of directly splitting tension/compression:
       </p>
       <div class="math-block">
         \[
@@ -93,85 +135,164 @@
           = \omega(d)\,\bigl(\Psi_0 - \Psi_c\bigr) + \Psi_c.
         \]
       </div>
+    
       <p>
-        Decompose the strain into a “jump” component that activates fracture:
+        Compute the strain jump that activates fracture via directional projections \(\mathbf{P}_i\):
       </p>
       <div class="math-block">
         \[
-          \epsilon_{\mathrm{jump}}
-          = \sum_{i=1}^3 \Gamma_i\,P_i,
+          \boldsymbol{\epsilon}_{\mathrm{jump}}
+          = \sum_{i=1}^3 \Gamma_i\,\mathbf{P}_i,
           \quad
-          \Delta\epsilon
-          = \epsilon - \epsilon_{\mathrm{jump}}.
+          \Delta\boldsymbol{\epsilon}
+          = \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\mathrm{jump}}.
         \]
       </div>
+    
       <p>
-        Then define residual (inactivated) and activated energies via their stresses:
+        Split stress and energy into residual (inactivated) and activated parts:
       </p>
       <div class="math-block">
         \[
-          \Psi_{\mathrm{res}}
-          = \tfrac12\,\sigma_{\mathrm{res}} : \Delta\epsilon,
+          \begin{cases}
+            \boldsymbol{\sigma}_{\mathrm{res}}
+              = \mathbb{C} : \Delta\boldsymbol{\epsilon},\\[0.5em]
+            \boldsymbol{\sigma}_{\mathrm{act}}
+              = \mathbb{C} : \boldsymbol{\epsilon}_{\mathrm{jump}},
+          \end{cases}
           \quad
-          \Psi_{\mathrm{act}}
-          = \tfrac12\,\sigma_{\mathrm{act}} : \epsilon_{\mathrm{jump}},
+          \begin{cases}
+            \Psi_{\mathrm{res}}
+              = \tfrac12\,\boldsymbol{\sigma}_{\mathrm{res}} : \Delta\boldsymbol{\epsilon},\\[0.5em]
+            \Psi_{\mathrm{act}}
+              = \tfrac12\,\boldsymbol{\sigma}_{\mathrm{act}} : \boldsymbol{\epsilon}_{\mathrm{jump}}.
+          \end{cases}
         \]
       </div>
+    
       <p>
-        with
+        For isotropic materials, projection magnitudes are computed as:
       </p>
       <div class="math-block">
         \[
-          \sigma_{\mathrm{res}}
-          = \mathbb{C} : \Delta\epsilon,
-          \quad
-          \sigma_{\mathrm{act}}
-          = \mathbb{C} : \epsilon_{\mathrm{jump}}.
+          \begin{aligned}
+            \Gamma_1 &= \max\!\Bigl(
+              \tfrac{\lambda}{\lambda + 2\mu}\,\mathrm{tr}(\boldsymbol{\epsilon})
+              + \tfrac{2\mu}{\lambda + 2\mu}\,(\boldsymbol{\epsilon} : \mathbf{P}_1),\,0
+            \Bigr),\\
+            \Gamma_2 &= 2\,(\boldsymbol{\epsilon} : \mathbf{P}_2),\quad
+            \Gamma_3 = 2\,(\boldsymbol{\epsilon} : \mathbf{P}_3).
+          \end{aligned}
         \]
       </div>
+    
+      <p>
+        The projection tensors \(\mathbf{P}_i\) use the principal directions \(\mathbf{n}_i\):
+      </p>
+      <div class="math-block">
+        \[
+          \begin{cases}
+            \mathbf{P}_1 = \mathbf{n}_1 \otimes \mathbf{n}_1,\\[0.5em]
+            \mathbf{P}_2 = \tfrac12\bigl(\mathbf{n}_2 \otimes \mathbf{n}_1 + \mathbf{n}_1 \otimes \mathbf{n}_2\bigr),\\[0.5em]
+            \mathbf{P}_3 = \tfrac12\bigl(\mathbf{n}_3 \otimes \mathbf{n}_1 + \mathbf{n}_1 \otimes \mathbf{n}_3\bigr).
+          \end{cases}
+        \]
+      </div>
+    
+      <p>
+        By design, \(\Psi_{\mathrm{act}}\) (activated) drives crack growth, while \(\Psi_{\mathrm{res}}\) (inactivated) remains dormant.  
+        Here the crack normal \(\mathbf{n}_1\) is taken as the direction of maximum principal strain.
+      </p>
     </section>
     
+    
+    
     <section id="drucker-prager">
-      <h2>Drucker-Prager Decomposition</h2>
+      <h2>Drucker–Prager Decomposition</h2>
+    
       <p>
-        Enforce pressure-dependent asymmetry by splitting energy based on the invariants
+        A general approach derives the activated \(\Psi_e^+\) and inactivated \(\Psi_e^-\) energies from a Drucker–Prager failure surface (a pressure‐dependent criterion for geomaterials), coupled with the undamaged material response.
+      </p>
+    
+      <ol>
+        <li>
+          <strong>Tensile and compressive strengths</strong> share the same degradation:
+          <div class="math-block">
+            \[
+              \begin{cases}
+                \sigma_t = \omega(d)\,\sigma_t^0,\\
+                \sigma_c = \omega(d)\,\sigma_c^0.
+              \end{cases}
+            \]
+          </div>
+        </li>
+    
+        <li>
+          <strong>Strain invariants</strong> define the total (undamaged) elastic energy:
+          <div class="math-block">
+            \[
+              I_1(\boldsymbol{\epsilon}) = \mathrm{tr}(\boldsymbol{\epsilon}), 
+              \quad
+              J_2(\boldsymbol{\epsilon}) = \tfrac12\,\mathrm{tr}(\boldsymbol{\epsilon}_{\mathrm{dev}}^2).
+            \]
+          </div>
+          Hence
+          \(\Psi_e^+ + \Psi_e^- = \tfrac12\,K\,I_1^2 + 2\mu\,J_2\).
+        </li>
+    
+        <li>
+          <strong>Damaged strain energy</strong> follows the Drucker–Prager criterion 
+          \(\sqrt{J_2(\boldsymbol{\sigma})} = A + B\,I_1(\boldsymbol{\sigma})\). Three cases arise:
+          <div class="math-block">
+            \[
+              \Psi_e^- =
+              \begin{cases}
+                0, & -6B\sqrt{J_2} < I_1,\\
+                \dfrac{K\mu}{18B^2K + 2\mu}\bigl(I_1 + 6B\sqrt{J_2}\bigr)^2,
+                  & -6B\sqrt{J_2} \ge I_1 \;\&\; 2\mu\sqrt{J_2}\ge 3BK I_1,\\
+                \tfrac12\,K\,I_1^2 + 2\mu\,J_2, & 2\mu\sqrt{J_2}<3BK I_1,
+              \end{cases}
+              \quad
+              \Psi_e^+ =
+              \begin{cases}
+                \tfrac12\,K\,I_1^2 + 2\mu\,J_2, & -6B\sqrt{J_2} < I_1,\\
+                \dfrac{(-3KB\,I_1 + 2\mu\sqrt{J_2})^2}{18B^2K + 2\mu},
+                  & -6B\sqrt{J_2}\ge I_1 \;\&\; 2\mu\sqrt{J_2}\ge3BK I_1,\\
+                0, & 2\mu\sqrt{J_2}<3BK I_1.
+              \end{cases}
+            \]
+          </div>
+          where 
+          \(B = \tfrac{1}{\sqrt{3}}\tfrac{\sigma_t - \sigma_c}{\sigma_t + \sigma_c}\).
+        </li>
+      </ol>
+    
+      <p>
+        The damaged stress splits accordingly:
       </p>
       <div class="math-block">
         \[
-          I_1 = \mathrm{tr}(\epsilon), 
-          \quad
-          J_2 = \tfrac12\,\mathrm{tr}\!\bigl(\epsilon_{\mathrm{dev}}^2\bigr),
-          \quad
-          B = \tfrac1{\sqrt3}\,\frac{\sigma_t-\sigma_c}{\sigma_t+\sigma_c}.
+          \begin{aligned}
+            \boldsymbol{\sigma}
+            &= \frac{\partial \Psi_e}{\partial \boldsymbol{\epsilon}}
+             = \frac{\partial \Psi_e}{\partial I_1}\,\mathbf{I}
+             + \frac{\partial \Psi_e}{\partial J_2}\,\boldsymbol{\epsilon}_{\mathrm{dev}},\\
+            \frac{\partial I_1}{\partial \boldsymbol{\epsilon}}
+            &= \mathbf{I},\quad
+            \frac{\partial J_2}{\partial \boldsymbol{\epsilon}}
+            = \boldsymbol{\epsilon}_{\mathrm{dev}}.
+          \end{aligned}
         \]
       </div>
+    
       <p>
-        Then piecewise define inactivated and activated energies to impose the Drucker-Prager yield:
+        For the intermediate case  
+        \(-6B\sqrt{J_2}\ge I_1\;\&\;2\mu\sqrt{J_2}\ge3BK I_1\),  
+        \(\Psi_e=(c_1I_1 + c_2\sqrt{J_2})^2\) and
+        \(\boldsymbol{\sigma}\) is computed from its partial derivatives accordingly.
       </p>
-      <div class="math-block">
-        \[
-          \Psi_e^-
-          = 
-          \begin{cases}
-            0, & I_1 + 6B\sqrt{J_2} > 0,\\[0.5em]
-            \dfrac{K\mu}{18B^2K + 2\mu}\,\bigl(I_1 + 6B\sqrt{J_2}\bigr)^2, & \ldots,\\[0.5em]
-            \tfrac12K\,I_1^2 + 2\mu\,J_2, & \ldots,
-          \end{cases}
-          \quad
-          \Psi_e^+
-          = 
-          \begin{cases}
-            \tfrac12K\,I_1^2 + 2\mu\,J_2, & I_1 + 6B\sqrt{J_2} > 0,\\[0.5em]
-            \dfrac{\bigl(-3KB\,I_1 + 2\mu\sqrt{J_2}\bigr)^2}{18B^2K + 2\mu}, & \ldots,\\[0.5em]
-            0, & \ldots.
-          \end{cases}
-        \]
-      </div>
-      <p>
-        This enforces different degradation under tension and compression, capturing pressure‐sensitive
-        fracture behavior.
-      </p>    
     </section>
+    
     
     <section id="extra-force">
       <h2>Extra Driving Force Formulation</h2>
