@@ -26,8 +26,21 @@
         tension-compression asymmetry (sometimes called an "anisotropic" response), the strain or stress is
         split into an <em>activated</em> (tensile) part \((\cdot)^+\) and an <em>inactivated</em>
         (compressive) part \((\cdot)^-\). Only the activated energy \(\Psi^+\) drives crack growth in the
-        phase‐field equation.
+        phase-field equation. In a purely elastic formulation, the solid-mechanics driving energy
+        \(\Psi_s\), as a function of strain and damage, is
       </p>
+      <div class="math-block">
+        \[
+          \Psi_s(\epsilon, d)
+          = \omega(d)\,\Psi_e^+(\epsilon)
+          + \Psi_e^-(\epsilon).
+        \]
+      </div>
+      <p>
+        To enforce damage irreversibility, the history variable
+        \(\mathcal{H} = \max_{t'\le t}\!\bigl(\Psi_e^+(\epsilon(t'))\bigr)\)
+        is retained so that \(\Psi_s\) always uses the maximum tensile energy experienced.
+      </p>      
       <ul class="outline-list">
         <li><a href="#spectral-decomposition">Spectral / Deviatoric Decomposition</a></li>
         <li><a href="#rce">Representative Crack Element (RCE)</a></li>
@@ -124,50 +137,7 @@
         Here \(K\) is the bulk modulus and \(\mu\) the shear modulus. Positive/negative parts of the trace are 
         \(\langle x\rangle_\pm = (x\pm|x|)/2\).
       </p>
-    
-      <h3>Total Asymmetric Energy</h3>
-      <div class="math-block">
-        \[
-          \Psi_s(\epsilon,d)
-          = \omega(d)\,\Psi_e^+(\epsilon)
-          + \Psi_e^-(\epsilon).
-        \]
-      </div>
-      <p>
-        Damage couples through the driving force 
-        \(Y = -\,\Psi_e^+\,\dfrac{d\omega}{dd}\), giving
-      </p>
-      <div class="math-block">
-        \[
-          \dot\Psi_s
-          = \bigl(\omega(d)\,\boldsymbol{\sigma}_0^+ + \boldsymbol{\sigma}_0^-\bigr):\dot\boldsymbol{\epsilon}
-          - Y\,\dot d.
-        \]
-      </div>
-    </section>
 
-      <h3>Total Asymmetric Energy</h3>
-      <p>
-        Combine into the phase‐field split:
-      </p>
-      <div class="math-block">
-        \[
-          \Psi_s(\boldsymbol{\epsilon}, d)
-          = \omega(d)\,\Psi_e^+(\boldsymbol{\epsilon})
-          + \Psi_e^-(\boldsymbol{\epsilon}).
-        \]
-      </div>
-      <p>
-        Damage couples through the driving force
-        \(Y = -\,\Psi_e^+\,\frac{d\omega}{dd}\), so that
-      </p>
-      <div class="math-block">
-        \[
-          \dot\Psi_s
-          = \bigl(\omega(d)\,\boldsymbol{\sigma}_0^+ + \boldsymbol{\sigma}_0^-\bigr)\!:\!\dot\boldsymbol{\epsilon}
-          - Y\,\dot d.
-        \]
-      </div>
     </section>
     
     <section id="rce">
