@@ -49,7 +49,7 @@
       </p>
       <div class="math-block">
         \[
-          \epsilon = \sum_a \epsilon_a\,\mathbf{n}_a\otimes\mathbf{n}_a,
+        \boldsymbol{\epsilon} = \sum_a \boldsymbol{\epsilon}_a\,\mathbf{n}_a\otimes\mathbf{n}_a,
           \quad
           \langle x\rangle_\pm = \tfrac{x\pm|x|}{2}.
         \]
@@ -59,9 +59,9 @@
       </p>
       <div class="math-block">
         \[
-          \Psi_e^\pm(\epsilon)
-          = \tfrac12\,\lambda\,\langle\mathrm{tr}(\epsilon)\rangle_\pm^2
-          + \mu \sum_a \langle \epsilon_a\rangle_\pm^2.
+          \Psi_e^\pm(\boldsymbol{\epsilon})
+          = \tfrac12\,\lambda\,\langle\mathrm{tr}(\boldsymbol{\epsilon})\rangle_\pm^2
+          + \mu \sum_a \langle \boldsymbol{\epsilon}_a\rangle_\pm^2.
         \]
       </div>
       <p>
@@ -69,12 +69,12 @@
       </p>
       <div class="math-block">
         \[
-          \sigma_a^\pm
-          = \frac{\partial \Psi_e^\pm}{\partial \epsilon_a}
-          = \lambda\,\langle\mathrm{tr}(\epsilon)\rangle_\pm
-          + 2\mu\,\langle \epsilon_a\rangle_\pm,
+        \boldsymbol{\sigma}_a^\pm
+          = \frac{\partial \Psi_e^\pm}{\partial \boldsymbol{\epsilon}_a}
+          = \lambda\,\langle\mathrm{tr}(\boldsymbol{\epsilon})\rangle_\pm
+          + 2\mu\,\langle \boldsymbol{\epsilon}_a\rangle_\pm,
           \quad
-          \sigma_0^\pm = \sum_a \sigma_a^\pm\,\mathbf{n}_a\otimes\mathbf{n}_a.
+          \boldsymbol{\sigma}_0^\pm = \sum_a \boldsymbol{\sigma}_a^\pm\,\mathbf{n}_a\otimes\mathbf{n}_a.
         \]
       </div>
     
@@ -84,9 +84,9 @@
       </p>
       <div class="math-block">
         \[
-          \sigma = \sum_a \sigma_a\,\mathbf{n}_a\otimes\mathbf{n}_a,
+        \boldsymbol{\sigma} = \sum_a \boldsymbol{\sigma}_a\,\mathbf{n}_a\otimes\mathbf{n}_a,
           \quad
-          \sigma_a^\pm = \langle \sigma_a \rangle_\pm.
+          \boldsymbol{\sigma}_a^\pm = \langle \boldsymbol{\sigma}_a \rangle_\pm.
         \]
       </div>
       <p>
@@ -95,7 +95,7 @@
       <div class="math-block">
         \[
           \Psi_e^\pm(\epsilon)
-          = \tfrac12 \sum_a \sigma_a^\pm \,\epsilon_a.
+          = \tfrac12 \sum_a \boldsymbol{\sigma}_a^\pm \,\epsilon_a.
         \]
       </div>
       <h3>Volumetric–Deviatoric Decomposition</h3>
@@ -104,9 +104,9 @@
       </p>
       <div class="math-block">
         \[
-          \epsilon_{\mathrm{vol}} = \tfrac{1}{n}\,\mathrm{tr}(\epsilon)\,I,
+          \epsilon_{\mathrm{vol}} = \tfrac{1}{n}\,\mathrm{tr}(\boldsymbol{\epsilon})\,I,
           \quad
-          \epsilon_{\mathrm{dev}} = \epsilon - \epsilon_{\mathrm{vol}}.
+          \epsilon_{\mathrm{dev}} = \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\mathrm{vol}}.
         \]
       </div>
       <p>
@@ -114,10 +114,10 @@
       </p>
       <div class="math-block">
         \[
-          \Psi_e^+ = \tfrac12\,K \,\langle \mathrm{tr}(\epsilon)\rangle_+^2
-          + \mu\,(\epsilon_{\mathrm{dev}}:\epsilon_{\mathrm{dev}}),
+          \Psi_e^+ = \tfrac12\,K \,\langle \mathrm{tr}(\boldsymbol{\epsilon})\rangle_+^2
+          + \mu\,(\epsilon_{\mathrm{dev}}:\boldsymbol{\epsilon}_{\mathrm{dev}}),
           \quad
-          \Psi_e^- = \tfrac12\,K \,\langle \mathrm{tr}(\epsilon)\rangle_-^2.
+          \Psi_e^- = \tfrac12\,K \,\langle \mathrm{tr}(\boldsymbol{\epsilon})\rangle_-^2.
         \]
       </div>
       <p>
@@ -140,7 +140,7 @@
       <div class="math-block">
         \[
           \dot\Psi_s
-          = \bigl(\omega(d)\,\sigma_0^+ + \sigma_0^-\bigr):\dot\epsilon
+          = \bigl(\omega(d)\,\boldsymbol{\sigma}_0^+ + \boldsymbol{\sigma}_0^-\bigr):\dot\boldsymbol{\epsilon}
           - Y\,\dot d.
         \]
       </div>
@@ -152,9 +152,9 @@
       </p>
       <div class="math-block">
         \[
-          \Psi_s(\epsilon, d)
-          = \omega(d)\,\Psi_e^+(\epsilon)
-          + \Psi_e^-(\epsilon).
+          \Psi_s(\boldsymbol{\epsilon}, d)
+          = \omega(d)\,\Psi_e^+(\boldsymbol{\epsilon})
+          + \Psi_e^-(\boldsymbol{\epsilon}).
         \]
       </div>
       <p>
@@ -164,7 +164,7 @@
       <div class="math-block">
         \[
           \dot\Psi_s
-          = \bigl(\omega(d)\,\sigma_0^+ + \sigma_0^-\bigr)\!:\!\dot\epsilon
+          = \bigl(\omega(d)\,\boldsymbol{\sigma}_0^+ + \boldsymbol{\sigma}_0^-\bigr)\!:\!\dot\boldsymbol{\epsilon}
           - Y\,\dot d.
         \]
       </div>
