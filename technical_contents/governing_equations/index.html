@@ -30,7 +30,7 @@
         <li><strong>Heat Conduction:</strong> Solves for the temperature field \(T\) using a diffusion equation.</li>
       </ul>
       <p>
-        In the expressions below, \(\boldsymbol{N}\) denotes the shape functions, \(\boldsymbol{B}\) their spatial derivatives, and the subscript “e” indicates the element-wise nodal vector of primary variables.
+        In the expressions below, \(\boldsymbol{N}\) denotes the shape functions, \(\boldsymbol{B}\) their spatial derivatives, and the subscript "e" indicates the element-wise nodal vector of primary variables.
         <strong>Note: Felino currently focuses on loosely coupled (staggered-scheme) analyses only, meaning that the tangential stiffness terms between primary variables are always neglected.  
         Users who wish to implement a fully coupled analysis without automatic differentiation must derive and develop those coupling terms manually.</strong>
       </p>
@@ -41,9 +41,9 @@
       <section>
       <h2>Phase Field Fracture Model</h2>
       <p>
-        The phase-field damage equation couples the mechanical energy \(\psi^e\) from the elastic system with a degradation function \(g(d)\). In its simplest form (elastic energy only), \(g(d)\) is typically chosen as \((1-d)^2\), and the fracture toughness \(G_c\) and length scale \(\ell\) govern crack resistance and width. The crack-geometry function \(w(d)\) (sometimes denoted \(\alpha(d)\)) is normalized by
+        The phase-field damage equation couples the mechanical energy \(\Psi^e\) from the elastic system with a degradation function \(\omega(d)\). In its simplest form (elastic energy only), \(\omega(d)\) is typically chosen as \((1-d)^2\), and the fracture toughness \(G_c\) and length scale \(l\) govern crack resistance and width. The crack-geometry function \(\alpha(d)\) is normalized by
         \[
-          c_0 = \int_0^1 \sqrt{w(s)}\,ds.
+          c_0 = 4 \int_0^1 \sqrt{\alpha(s)}\,ds.
         \]
       </p>
       <p>
@@ -53,17 +53,17 @@
       <h3>Strong Form</h3>
       <div class="math-block">
         \[
-        g'(d)\,\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w'(d)
-        - \nabla \cdot \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \nabla d \right) = 0
+        \omega'(d)\,\Psi^e + \frac{G_c f(\bar{\alpha})}{c_0 l} \alpha'(d)
+        - \nabla \cdot \left( \frac{2 G_c f(\bar{\alpha}) l}{c_0} \nabla d \right) = 0
         \]
       </div>
 
       <h3>Weak Form</h3>
       <div class="math-block">
         \[
-        \int_\Omega \delta d \left[ g'(d)\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w'(d) \right] d\Omega
-        + \int_\Omega \nabla \delta d \cdot \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \nabla d \right) d\Omega -\int_{\Omega} \delta d\;
-      \nabla\left(\tfrac{2G_{c}f(\bar{\alpha})\,\ell}{c_{0}}\right)\cdot\nabla d\,d\Omega = 0
+        \int_\Omega \delta d \left[ \omega'(d)\Psi^e + \frac{G_c f(\bar{\alpha})}{c_0 l} \alpha'(d) \right] d\Omega
+        + \int_\Omega \nabla \delta d \cdot \left( \frac{2 G_c f(\bar{\alpha}) l}{c_0} \nabla d \right) d\Omega -\int_{\Omega} \delta d\;
+      \nabla\left(\tfrac{2G_{c}f(\bar{\alpha})\,l}{c_{0}}\right)\cdot\nabla d\,d\Omega = 0
         \]
       </div>
 
@@ -71,11 +71,11 @@
       <div class="math-block">
         \[
         \mathbf{r}_d =
-        \int_{\Omega_e} \boldsymbol{N}_d \left[ g'(d)\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w'(d) \right] d\Omega
-        + \int_{\Omega_e} \boldsymbol{B}_d^\mathsf{T} \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \right) \boldsymbol{B}_d \mathbf{d}_e \,d\Omega
+        \int_{\Omega_e} \boldsymbol{N}_d \left[ \omega'(d)\Psi^e + \frac{G_c f(\bar{\alpha})}{c_0 l} \alpha'(d) \right] d\Omega
+        + \int_{\Omega_e} \boldsymbol{B}_d^\mathsf{T} \left( \frac{2 G_c f(\bar{\alpha}) l}{c_0} \right) \boldsymbol{B}_d \mathbf{d}_e \,d\Omega
         -\int_{\Omega_{e}}
       \boldsymbol{N}_{d}
-      \Bigl[\nabla\left(\tfrac{2G_{c}f(\bar{\alpha})\,\ell}{c_{0}}\right)\cdot
+      \Bigl[\nabla\left(\tfrac{2G_{c}f(\bar{\alpha})\,l}{c_{0}}\right)\cdot
             \boldsymbol{B}_{d}\mathbf{d}_{e}\Bigr]\,d\Omega\]
       </div>
 
@@ -83,17 +83,17 @@
       <div class="math-block">
         \[
         \mathbf{K}_d =
-        \int_{\Omega_e} \boldsymbol{N}_d \left[ g''(d)\psi^e + \frac{G_c f(\bar{\alpha})}{c_0 \ell} w''(d) \right] \boldsymbol{N}_d^\mathsf{T} \,d\Omega
-        + \int_{\Omega_e} \boldsymbol{B}_d^\mathsf{T} \left( \frac{2 G_c f(\bar{\alpha}) \ell}{c_0} \right) \boldsymbol{B}_d \,d\Omega
-        -\int_{\Omega_{e}}\boldsymbol{N}_{d}\left[\nabla\!\left(\tfrac{2G_{c}f(\bar{\alpha})\,\ell}{c_{0}}\right)\cdot
+        \int_{\Omega_e} \boldsymbol{N}_d \left[ \omega''(d)\Psi^e + \frac{G_c f(\bar{\alpha})}{c_0 l} \alpha''(d) \right] \boldsymbol{N}_d^\mathsf{T} \,d\Omega
+        + \int_{\Omega_e} \boldsymbol{B}_d^\mathsf{T} \left( \frac{2 G_c f(\bar{\alpha}) l}{c_0} \right) \boldsymbol{B}_d \,d\Omega
+        -\int_{\Omega_{e}}\boldsymbol{N}_{d}\left[\nabla\!\left(\tfrac{2G_{c}f(\bar{\alpha})\,l}{c_{0}}\right)\cdot
         \boldsymbol{B}_{d}\right]\,d\Omega.
         \]
       </div>
       <p>
-        <strong>Note:</strong> By default, \(\psi^e\) denotes the elastic energy density.  
+        <strong>Note:</strong> By default, \(\Psi^e\) denotes the elastic energy density.  
         If additional physics—such as saturated poroelastic (poro-flow) effects—are included,  
-        \(\psi^e\) is extended to account for the accumulated pore-pressure energy.  
-        Hence, it is generally more accurate to call \(\psi^e\) the <em>fracture-driving energy</em> term.
+        \(\Psi^e\) is extended to account for the accumulated pore-pressure energy.  
+        Hence, it is generally more accurate to call \(\Psi^e\) the <em>fracture-driving energy</em> term.
       </p>
       
     </section>
@@ -143,7 +143,7 @@
      </div>
      <p>
       <strong>Note:</strong> In a phase-field fracture model, the damaged stress tensor is defined as
-      \(\boldsymbol{\sigma} = g(d)\,\boldsymbol{\sigma}_0\). The exact form depends on the chosen energy
+      \(\boldsymbol{\sigma} = \omega(d)\,\boldsymbol{\sigma}_0\). The exact form depends on the chosen energy
       decomposition (e.g., spectral decomposition of stress).
     </p>
     
