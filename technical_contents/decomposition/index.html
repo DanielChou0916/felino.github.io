@@ -263,7 +263,7 @@
             \]
           </div>
           where 
-          \(B = \tfrac{1}{\sqrt{3}}\tfrac{\sigma_t - \sigma_c}{\sigma_t + \sigma_c}\) serves as material strength parameter in this approach.
+          \(B = \tfrac{1}{\sqrt{3}}\tfrac{\sigma_t - \sigma_c}{\sigma_t + \sigma_c}\).
         </li>
       </ol>
     
@@ -291,6 +291,36 @@
         \(\Psi_e=(c_1I_1 + c_2\sqrt{J_2})^2\) and
         \(\boldsymbol{\sigma}\) is computed from its partial derivatives accordingly.
       </p>
+
+      <div class="math-block">
+        \[
+      &\frac{\partial \Psi_e}{\partial I_1(\bm{\epsilon})} = 2c_1\left(c_1I_1(\bm{\epsilon}) + c_2\sqrt{J_2(\bm{\epsilon})}\right) \\
+      &\frac{\partial \Psi_e}{\partial J_2(\bm{\epsilon})} = \frac{c_2}{\sqrt{J_2(\bm{\epsilon})}} \left(c_1I_1(\bm{\epsilon}) + c_2\sqrt{J_2(\bm{\epsilon})}\right) \\
+      &\therefore \bm{\sigma} = 2c_1 \left(c_1I_1(\bm{\epsilon}) + c_2 \sqrt{J_2(\bm{\epsilon})}\right) \mathbf{I} + \frac{c_2}{\sqrt{J_2(\bm{\epsilon})}} \left(c_1I_1(\bm{\epsilon}) + c_2 \sqrt{J_2(\bm{\epsilon})}\right) \bm{\epsilon}_{\text{dev}}
+      \]
+    </div>
+  
+  Which leads to:
+  <div class="math-block">
+    \[
+  \bm{\sigma}^- &= \left\{
+  \begin{array}{ll}
+     0 & \text{for } -6B \sqrt{J_2(\bm{\epsilon})} < I_1(\bm{\epsilon}) \\ \\
+     \frac{K \mu \left( 2 \left( I_1(\bm{\epsilon}) + 6B \sqrt{J_2(\bm{\epsilon})} \right) \mathbf{I} + \frac{6B}{\sqrt{J_2(\bm{\epsilon})}} \left( I_1(\bm{\epsilon}) + 6B \sqrt{J_2(\bm{\epsilon})} \right) \bm{\epsilon}_{\text{dev}} \right)}{18 B^2 K + 2 \mu} & \text{for } -6B \sqrt{J_2(\bm{\epsilon})} \geq I_1(\bm{\epsilon}) \;\&\; 2\mu \sqrt{J_2(\bm{\epsilon})} \geq 3BKI_1(\bm{\epsilon}) \\ \\
+      KI_1(\bm{\epsilon}) \mathbf{I} + 2 \mu \bm{\epsilon}_{\text{dev}} & \text{for } 2 \mu \sqrt{J_2(\bm{\epsilon})} < 3BKI_1(\bm{\epsilon})
+  \end{array}\right. \\ \\
+  \bm{\sigma}^+ &= \left\{
+  \begin{array}{ll}
+     KI_1(\bm{\epsilon}) \mathbf{I} + 2 \mu \bm{\epsilon}_{\text{dev}} & \text{for } -6B \sqrt{J_2(\bm{\epsilon})} < I_1(\bm{\epsilon}) \\ \\
+     \frac{-6KB\left(-3KBI_1(\bm{\epsilon}) + 2 \mu \sqrt{J_2(\bm{\epsilon})}\right) \mathbf{I} + \frac{2 \mu}{\sqrt{J_2(\bm{\epsilon})}}\left(-3KB I_1(\bm{\epsilon}) + 2 \mu \sqrt{J_2(\bm{\epsilon})}\right) \bm{\epsilon}_{\text{dev}} }{18 B^2 K + 2 \mu} & \text{for } -6B \sqrt{J_2(\bm{\epsilon})} \geq I_1(\bm{\epsilon}) \;\&\; 2 \mu \sqrt{J_2(\bm{\epsilon})} \geq 3BKI_1(\bm{\epsilon}) \\ \\
+     0 & \text{for } 2 \mu \sqrt{J_2(\bm{\epsilon})} < 3BKI_1(\bm{\epsilon})
+  \end{array}\right.
+  \]
+</div>
+  Here, the extra input material parameter $B\leq 0$ is needed.
+  
+
+    
     </section>
     
     
