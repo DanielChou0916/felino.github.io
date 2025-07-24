@@ -98,7 +98,54 @@
           = \tfrac12 \sum_a \sigma_a^\pm \,\epsilon_a.
         \]
       </div>
+      <h3>Volumetric–Deviatoric Decomposition</h3>
+      <p>
+        First separate the strain into its volumetric and deviatoric parts:
+      </p>
+      <div class="math-block">
+        \[
+          \epsilon_{\mathrm{vol}} = \tfrac{1}{n}\,\mathrm{tr}(\epsilon)\,I,
+          \quad
+          \epsilon_{\mathrm{dev}} = \epsilon - \epsilon_{\mathrm{vol}}.
+        \]
+      </div>
+      <p>
+        Then define
+      </p>
+      <div class="math-block">
+        \[
+          \Psi_e^+ = \tfrac12\,K \,\langle \mathrm{tr}(\epsilon)\rangle_+^2
+          + \mu\,(\epsilon_{\mathrm{dev}}:\epsilon_{\mathrm{dev}}),
+          \quad
+          \Psi_e^- = \tfrac12\,K \,\langle \mathrm{tr}(\epsilon)\rangle_-^2.
+        \]
+      </div>
+      <p>
+        Here \(K\) is the bulk modulus and \(\mu\) the shear modulus. Positive/negative parts of the trace are 
+        \(\langle x\rangle_\pm = (x\pm|x|)/2\).
+      </p>
     
+      <h3>Total Asymmetric Energy</h3>
+      <div class="math-block">
+        \[
+          \Psi_s(\epsilon,d)
+          = \omega(d)\,\Psi_e^+(\epsilon)
+          + \Psi_e^-(\epsilon).
+        \]
+      </div>
+      <p>
+        Damage couples through the driving force 
+        \(Y = -\,\Psi_e^+\,\dfrac{d\omega}{dd}\), giving
+      </p>
+      <div class="math-block">
+        \[
+          \dot\Psi_s
+          = \bigl(\omega(d)\,\sigma_0^+ + \sigma_0^-\bigr):\dot\epsilon
+          - Y\,\dot d.
+        \]
+      </div>
+    </section>
+
       <h3>Total Asymmetric Energy</h3>
       <p>
         Combine into the phase‐field split:
