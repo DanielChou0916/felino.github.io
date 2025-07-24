@@ -39,7 +39,7 @@
       <p>
         To enforce damage irreversibility, the history variable
         \(\mathcal{H} = \max_{t'\le t}\!\bigl(\Psi_e^+(\epsilon(t'))\bigr)\)
-        is retained so that \(\Psi_s\) always uses the maximum tensile energy experienced.
+        is retained so that \(\Psi_s\) always uses the maximum activated energy experienced.
       </p>      
       <ul class="outline-list">
         <li><a href="#spectral-decomposition">Spectral / Deviatoric Decomposition</a></li>
@@ -53,10 +53,10 @@
       <h2>Spectral / Deviatoric Decomposition</h2>
       <p>
         Split the elastic strain energy into activated (tensile) and inactivated (compressive) parts,
-        using either a strain‐based or stress‐based spectral decomposition.
+        using either a strain-based or stress-based spectral decomposition.
       </p>
     
-      <h3>Strain‐Based Decomposition</h3>
+      <h3>Strain‐Spectral Decomposition</h3>
       <p>
         Decompose the infinitesimal strain tensor into its eigenpairs:
       </p>
@@ -91,7 +91,7 @@
         \]
       </div>
     
-      <h3>Stress‐Based Decomposition</h3>
+      <h3>Stress‐Spectral Decomposition</h3>
       <p>
         Alternatively, decompose the stress tensor into tensile and compressive parts via its eigenpairs:
       </p>
@@ -111,7 +111,7 @@
           = \tfrac12 \sum_a \boldsymbol{\sigma}_a^\pm \,\epsilon_a.
         \]
       </div>
-      <h3>Volumetric–Deviatoric Decomposition</h3>
+      <h3>Strain Volumetric-Deviatoric Decomposition</h3>
       <p>
         First separate the strain into its volumetric and deviatoric parts:
       </p>
@@ -119,7 +119,7 @@
         \[
           \epsilon_{\mathrm{vol}} = \tfrac{1}{n}\,\mathrm{tr}(\boldsymbol{\epsilon})\,I,
           \quad
-          \epsilon_{\mathrm{dev}} = \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\mathrm{vol}}.
+          \boldsymbol{\epsilon}_{\mathrm{dev}} = \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\mathrm{vol}}.
         \]
       </div>
       <p>
@@ -225,10 +225,10 @@
     
     
     <section id="drucker-prager">
-      <h2>Drucker–Prager Decomposition</h2>
+      <h2>Drucker-Prager Decomposition</h2>
     
       <p>
-        A general approach derives the activated \(\Psi_e^+\) and inactivated \(\Psi_e^-\) energies from a Drucker–Prager failure surface (a pressure‐dependent criterion for geomaterials), coupled with the undamaged material response.
+        A general approach derives the activated \(\Psi_e^+\) and inactivated \(\Psi_e^-\) energies from a Drucker-Prager failure surface (a pressure‐dependent criterion for geomaterials), coupled with the undamaged material response.
       </p>
     
       <ol>
@@ -258,7 +258,7 @@
         </li>
     
         <li>
-          <strong>Damaged strain energy</strong> follows the Drucker–Prager criterion 
+          <strong>Damaged strain energy</strong> follows the Drucker-Prager criterion 
           \(\sqrt{J_2(\boldsymbol{\sigma})} = A + B\,I_1(\boldsymbol{\sigma})\). Three cases arise:
           <div class="math-block">
             \[
