@@ -116,7 +116,7 @@
       </p>
       <div class="math-block">
         \[
-          \epsilon_{\mathrm{vol}} = \tfrac{1}{n}\,\mathrm{tr}(\boldsymbol{\epsilon})\,I,
+        \boldsymbol{\epsilon}_{\mathrm{vol}} = \tfrac{1}{n}\,\mathrm{tr}(\boldsymbol{\epsilon})\,\mathbf{I},
           \quad
           \boldsymbol{\epsilon}_{\mathrm{dev}} = \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\mathrm{vol}}.
         \]
@@ -135,6 +135,36 @@
       <p>
         Here \(K\) is the bulk modulus and \(\mu\) the shear modulus.
       </p>
+
+
+      <h3>Stress Deviatoric Decomposition</h3>
+      <p>
+        Split the stress tensor into volumetric and deviatoric parts:
+      </p>
+      <div class="math-block">
+        \[
+          \boldsymbol{\sigma}_{\mathrm{vol}}
+          = \tfrac{1}{n}\,\mathrm{tr}(\boldsymbol{\sigma})\,\mathbf{I},
+          \quad
+          \boldsymbol{\sigma}_{\mathrm{dev}}
+          = \boldsymbol{\sigma} - \boldsymbol{\sigma}_{\mathrm{vol}}.
+        \]
+      </div>
+      <p>
+        Then reconstruct the elastic energy densities based on the corresponding strain invariants:
+      </p>
+      <div class="math-block">
+        \[
+          \Psi_e^+
+          = \tfrac12\,\boldsymbol{\sigma}_{\mathrm{vol}} : \boldsymbol{\epsilon}
+          + \mu\,\boldsymbol{\sigma}_{\mathrm{dev}} : \boldsymbol{\epsilon}_{\mathrm{dev}},
+          \quad
+          \Psi_e^-
+          = \tfrac12\,\boldsymbol{\sigma}_{\mathrm{vol}} : \boldsymbol{\epsilon}.
+        \]
+      \]
+      </div>
+      
 
     </section>
     
