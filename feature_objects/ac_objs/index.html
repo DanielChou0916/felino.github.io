@@ -30,9 +30,9 @@
       <div class="math-block">
         \[
           \dot d = -L\Bigl(
-            g'(d)\,\psi^e
-            + \frac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w'(d)
-            - \nabla\!\cdot\!\Bigl(\frac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\,
+            \omega'(d)\,\Psi^e
+            + \frac{G_c\,f(\bar\alpha)}{c_0\,l}\,\alpha'(d)
+            - \nabla\!\cdot\!\Bigl(\frac{2\,G_c\,f(\bar\alpha)\,l}{c_0}\,
             \bar{\mathbf{A}}\cdot\nabla d\Bigr)
           \Bigr)
         \]
@@ -46,14 +46,14 @@
           +\;
           \underbrace{
             L\,\Bigl(
-              g'(d)\,\psi^e
-              + \tfrac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w'(d)
+              \omega'(d)\,\Psi^e
+              + \tfrac{G_c\,f(\bar\alpha)}{c_0\,l}\,\alpha'(d)
             \Bigr)
           }_{\text{AllenCahn/ADAllenCahn}}
           \;-\;
           \underbrace{
             L\,\Bigl(
-              \nabla\!\cdot\!\bigl(\tfrac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\,
+              \nabla\!\cdot\!\bigl(\tfrac{2\,G_c\,f(\bar\alpha)\,l}{c_0}\,
               \bar{\mathbf{A}}\cdot\nabla d\bigr)
             \Bigr)
           }_{\text{ACInterfaceGradKappa/ADACInterfaceGradKappa}}=0
@@ -63,7 +63,7 @@
       
       <ul class="annotation-list">
         <li><strong>TimeDerivative/ADTimeDerivative:</strong> computes the time derivative \(\dot d\).</li>
-        <li><strong>AllenCahn/ADAllenCahn:</strong> handles the reaction term \(g'(d)\,\psi^e + \frac{G_c\,f(\bar\alpha)}{c_0\,\ell}w'(d)\).</li>
+        <li><strong>AllenCahn/ADAllenCahn:</strong> handles the reaction term \(\omega'(d)\,\Psi^e + \frac{G_c\,f(\bar\alpha)}{c_0\,l}\alpha'(d)\).</li>
         <li><strong>ACInterfaceGradKappa/ADACInterfaceGradKappa:</strong> handles the diffusion term \(\nabla\cdot(\dots)\).</li>
       </ul>
       
