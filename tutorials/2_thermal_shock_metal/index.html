@@ -29,19 +29,21 @@
   </p>
   <ul class="notation-list">
     <li><strong>Provide a standard setup for thermal-fatigue simulations.</strong></li>
-    <li><strong>Compare results for different temperature jumps <var>\(\Delta T\)</var>. The number of cycles depends on applied \(\Delta T\).</strong></li>
+    <li><strong>Compare results for different temperature jumps \(\Delta T\).</strong></li>
   </ul>
-
+  <p>
+    <strong>Notes:</strong> AT2 model, i.e., \(\alpha(d) = d^2\) and \(c_0 = 2\) is used, and the number of cycles depends on applied \(\Delta T\).
+  </p>
 
       <h2>Material parameters and boundary conditions</h2>
    <div class="flex-table">
   <!-- 左侧：图片或其他说明 -->
-  <div class="flex-image" style="flex: 1 1 57.5%;">
+  <div class="flex-image" style="flex: 1 1 55%;">
     <img src="tur2.png" alt="Thermal Shock" class="gif-border">
   </div>
 
   <!-- 右侧：两张参数表 -->
-  <div class="flex-data" style="flex: 1 1 42.5%;">
+  <div class="flex-data" style="flex: 1 1 45%;">
     <table>
       <thead>
         <tr><th>Parameter</th><th>Value</th></tr>
@@ -55,7 +57,7 @@
             <tr><td>Thermal Expansion \(\alpha_{\mathrm{thermal}}\)</td><td>8\(\times\)10\(^{-6}\) mm/mm\(\cdot\)K</td></tr>
             <tr><td>Thermal Conductivity \(k_0\)</td><td>0.5 (J/10s)/mm\(\cdot\)K</td></tr>
             <tr><td>Max Temperature \(T_{\max}\)</td><td>1000 K</td></tr>
-            <tr><td>Critical Energy Release Rate \(G_c\)</td><td>2.7 MPa\(\cdot\)mm</td></tr>
+            <tr><td>Crack Energy Release Rate \(G_c\)</td><td>2.7 MPa\(\cdot\)mm</td></tr>
             <tr><td>Crack Band Width \(l\)</td><td>0.01 mm</td></tr>
           </tbody>
     </table>
