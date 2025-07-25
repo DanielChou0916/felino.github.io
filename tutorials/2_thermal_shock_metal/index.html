@@ -36,26 +36,29 @@
       <h2>Material parameters and boundary conditions</h2>
    <div class="flex-table">
   <!-- 左侧：图片或其他说明 -->
-  <div class="flex-image" style="flex: 1 1 55%;">
+  <div class="flex-image" style="flex: 1 1 60%;">
     <img src="tur2.png" alt="Thermal Shock" class="gif-border">
   </div>
 
   <!-- 右侧：两张参数表 -->
-  <div class="flex-data" style="flex: 1 1 45%;">
+  <div class="flex-data" style="flex: 1 1 40%;">
     <table>
       <thead>
         <tr><th>Parameter</th><th>Value</th></tr>
       </thead>
-      <tbody>
-        <tr><td>Young's Modulus \(E\)</td><td>340,000 MPa</td></tr>
-        <tr><td>Poisson's Ratio \(\nu\)</td><td>0.22</td></tr>
-        <tr><td>Thermal Expansion \(\alpha_{\mathrm{thermal}}\)</td><td>8e\(^{-6}\) m/m\(\cdot\)K</td></tr>
-        <tr><td>Reference Temperature \(T_{\mathrm{ref}}\)</td><td>300 K</td></tr>
-        <tr><td>Max Temperature \(T_{\max}\)</td><td>1000 K</td></tr>
-        <tr><td>Critical Energy Release Rate \(G_c\)</td><td>2.7 MPa\(\cdot\)mm</td></tr>
-        <tr><td>Crack Band Width \(l\)</td><td>0.01 mm</td></tr>
-        <tr><td>Degradation Function Coef. \(C_0\)</td><td>2</td></tr>
-      </tbody>
+        <tbody>
+          <tr><td>Young's Modulus \(E\)</td><td>210,000 MPa</td></tr>
+          <tr><td>Poisson's Ratio \(\nu\)</td><td>0.3</td></tr>
+          <tr><td>Reference Temperature \(T_{\mathrm{ref}}\)</td><td>300 K</td></tr>
+          <tr><td>Density \(\rho\)</td><td>7.85\times 10^{-6}\ \mathrm{kg/mm^3}</td></tr>
+          <tr><td>Specific Heat Capacity \(c\)</td><td>460 J/(kg\(\cdot\)K)</td></tr>
+          <tr><td>Thermal Expansion \(\alpha_{\mathrm{thermal}}\)</td><td>8\times 10^{-6}\ \mathrm{mm/mm\cdot K}</td></tr>
+          <tr><td>Thermal Conductivity \(k_0\)</td><td>0.5 (J/10s)/\(\mathrm{mm\cdot K}\)</td></tr>
+          <tr><td>Max Temperature \(T_{\max}\)</td><td>1000 K</td></tr>
+          <tr><td>Critical Energy Release Rate \(G_c\)</td><td>2.7 MPa\(\cdot\)mm</td></tr>
+          <tr><td>Crack Band Width \(l\)</td><td>0.01 mm</td></tr>
+          <tr><td>Degradation Function Coefficient \(C_0\)</td><td>2</td></tr>
+        </tbody>
     </table>
 
     <table>
@@ -64,7 +67,7 @@
       </thead>
       <tbody>
         <tr><td>Loading Period</td><td>0.2</td></tr>
-        <tr><td>Number of Cycles</td><td>400</td></tr>
+        <tr><td>Number of Cycles</td><td>Depends on \(\Delta T\)</td></tr>
         <tr><td>Critical Fatigue Threshold \(\alpha_{\mathrm{crit}}\)</td><td>45 MPa</td></tr>
         <tr><td>Mean-Load Mode \((R,n)\)</td><td>(0.5, 0.5)</td></tr>
         <tr><td>Accumulation Mode</td><td>ICLA</td></tr>
@@ -82,8 +85,8 @@
       </div>
       
       <h2>Input Files</h2>    
-      The input files of this tutorial are available in the repo:
-      <ul class="reference-list">
+      The input files of this tutorial are available:
+      <ul class="input-list">
         <li><a href="https://github.com/DanielChou0916/felino/blob/main/tutorials/tur2_thermal_shock/fatigue_load_disp.i" target="_blank" rel="noopener noreferrer"><strong>Equilibrium:</strong> felino/tutorials/tur2_thermal_shock/fatigue_load_disp.i</a></li>
         <li><a href="https://github.com/DanielChou0916/felino/blob/main/tutorials/tur2_thermal_shock/fatigue_load_f.i" target="_blank" rel="noopener noreferrer"><strong>Damage Diffusion:</strong> felino/tutorials/tur2_thermal_shock/fatigue_load_f.i</a></li>
         <li><a href="https://github.com/DanielChou0916/felino/blob/main/tutorials/tur2_thermal_shock/fatigue_load_T.i" target="_blank" rel="noopener noreferrer"><strong>Heat Conduction:</strong> felino/tutorials/tur2_thermal_shock/fatigue_load_T.i</a></li>

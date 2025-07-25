@@ -340,6 +340,29 @@ section#references {
 }
 
 
+/* for input files */
+.input-list {
+  list-style: none;
+  counter-reset: inputRef;
+  padding-left: 0;
+  margin: 1rem 0 2rem;
+}
+.input-list li {
+  position: relative;
+  padding-left: 1.5em;
+  counter-increment: inputRef;
+  margin: 0.5rem 0;
+}
+.input-list li::before {
+  content: counter(inputRef) ".";
+  position: absolute;
+  left: 0;
+  color: #23DAFA;
+  font-weight: bold;
+}
+
+
+
 /* ==== 左图右表等高布局 ==== */
 /* 容器：大屏左右并排，手机上下堆叠 */
 .flex-table {
