@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Intro region */
 .intro-section {
   background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
@@ -405,3 +406,412 @@ section#references {
 }
 
 
+=======
+/* Intro region */
+.intro-section {
+  background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  padding: 2rem 1.5rem;
+  border-left: 4px solid #0097C9;
+  border-radius: 8px;
+  max-width: 1000px;
+  margin: 2rem auto;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  color: #EEE;
+}
+
+.intro-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #23DAFA;
+  text-align: left;
+}
+
+.intro-section p {
+  margin-bottom: 1rem;
+  text-align: justify;
+  color: #32FAD5
+}
+
+/* sub-pages format */
+.sub-container {
+  background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.06);
+  color: #DFF;
+  /*display: block;*/       
+}
+
+
+.sub-container h1 {
+  color: #23DAFA;
+  margin-top: 2rem;
+  font-size: 2rem;     
+  text-align: center;   
+}
+
+
+.sub-container h2 {
+  color: #23DAFA;
+  margin-top: 2rem;
+}
+
+.sub-container p {
+  color: #A7FDEB;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+.sub-container a {
+  color: #23DAFA;        
+  text-decoration: underline;  
+}
+
+.sub-container .tcolorbox a {
+  color: #32FAD5;
+  text-decoration: underline;
+}
+
+
+.tagline {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  line-height: 1.7;
+  font-size: 1rem;
+  text-align: left; /* 取消 text-align: center */
+}
+
+
+
+.logo-container {
+  display: block;  
+  text-align: center;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
+  border-radius: 8px;
+  max-width: 220px;    /* 根据 logo 大小微调 */
+}
+
+.logo {
+  max-width: 200px;
+  width: 100%;
+  display: inline-block;
+}
+
+/* background */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
+  color: #FFF;
+  overflow-x: hidden;
+}
+
+/* drawer */
+.drawer {
+  position: fixed;
+  top: 0; right: 0;
+  width: 0;
+  height: 100vh;
+  background: rgba(15, 32, 39, 0.95);
+  overflow: hidden;
+  transition: width 0.3s ease;
+  z-index: 1000;
+  padding-top: 60px;
+}
+.drawer.open {
+  width: 335px;
+}
+.drawer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.drawer li {
+  margin: 20px;
+}
+.drawer a {
+  color: #23DAFA;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* 抽屉开关按钮 */
+.drawer-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+
+/* 90% width */
+.img-wrap {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 90%;
+  margin: 1.5rem auto;
+}
+.img-wrap img {
+  max-width: 100%;
+  height: auto;
+}
+/* stack  */
+.img-wrap.stack {
+  flex-direction: column;
+}
+
+/* cell phone view */
+@media (max-width: 600px) {
+  .drawer.open { width: 350px; }
+  .img-wrap.stack img { max-width: 100%; }
+}
+
+/* Dropdown submenu inside drawer */
+.drawer ul li {
+  position: relative;
+}
+
+.drawer ul li .submenu {
+  display: none;
+  margin-top: 5px;
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 2px solid #23DAFA;
+}
+
+.drawer ul li:hover .submenu {
+  display: block;
+}
+
+.drawer ul li .submenu li {
+  margin: 10px 0;
+}
+
+.gif-border {
+  max-width: 85%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), 
+              0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+
+.math-block {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  border-left: 3px solid #23DAFA;
+  background: rgba(255,255,255,0.02);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.alg-block {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.1rem;
+  margin: 0.25rem 0;               /* 竖直间距改小 */
+  border: 3px solid #23DAFA;      /* 四边都要线 */
+  background: rgba(255,255,255,0.02);
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  white-space: pre;
+  text-align: left;
+  line-height: 1.0;               /* 缩小空行距离 */
+}
+
+
+/* 容器：只负责定位按钮和留白 */
+.code-copy-container {
+  position: relative;
+  margin: 0.5rem 0;       /* 上下间距 */
+  padding: 1rem;          /* 四边留白 */
+  max-width: 100%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.1);       /* 半透明深色底 */
+  border: 2px dashed #23DAFA;           /* 浅色虚线边框 */
+}
+
+/* 滚动区：真正的横向滚动 */
+.code-copy-container .code-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;     /* 隐藏垂直滚动 */
+  -webkit-overflow-scrolling: touch;
+  background: rgba(255, 255, 255, 0.05); /* 半透明浅色底 */
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+/* 保证 <pre> 至少和容器同宽，滚动才会生效 */
+.code-copy-container .code-scroll pre {
+  display: block;
+  min-width: 100%;
+  margin: 0;              /* 去掉默认 <pre> 外边距 */
+  padding: 0;             /* 内边距统一给外层处理 */
+  white-space: pre;       /* 保留缩进和换行 */
+  font-family: 'Courier New', monospace;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+/* 固定定位按钮 */
+.code-copy-container .copy-btn {
+  z-index: 10;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #23DAFA;
+  border: none;
+  color: #0F2027;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+.code-copy-container .copy-btn:hover {
+  opacity: 1;
+}
+
+/* 可选：WebKit 浏览器下去掉竖向滚动条的小轨道 */
+.code-copy-container .code-scroll::-webkit-scrollbar:vertical {
+  z-index: 0; display: none;
+}
+/* recover <code> </code> shrinking issue */
+/* 全局保留不动 */
+code {
+  font-size: inherit ;
+  line-height: inherit;
+}
+/* 子页强制覆盖 */
+.sub-container code {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+
+
+
+/* 目录大纲样式: decomposition page */
+.outline-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 1rem 0 2rem;
+}
+.outline-list li {
+  margin: 0.5rem 0;
+}
+.outline-list a {
+  color: #23DAFA;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+/* reference */
+.reference-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 1rem 0 2rem;
+  font-size: 0.9rem;       /* 略小于正文 */
+  line-height: 1.4;        /* 行距稍密 */
+}
+.reference-list li {
+  position: relative;
+  padding-left: 1.5em;     
+  margin: 0.5rem 0;
+}
+.reference-list li::before {
+  content: counter(ref)".";
+  counter-increment: ref;
+  position: absolute;
+  left: 0;
+  color: #23DAFA;
+  font-weight: bold;
+}
+section#references {
+  counter-reset: ref;       /* 重置引用编号 */
+}
+
+
+/* ==== 左图右表等高布局 ==== */
+/* 容器：大屏左右并排，手机上下堆叠 */
+.flex-table {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+/* 左侧图 */
+.flex-table .flex-image {
+  flex: 1 1 45%;
+  text-align: center;
+}
+.flex-table .flex-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+.flex-table .figure-caption {
+  margin-top: 0.5rem;
+  color: #23DAFA;
+  font-size: 0.9rem;
+}
+
+/* 右侧表格 */
+.flex-table .flex-data {
+  flex: 1 1 55%;
+  overflow-x: auto; /* 防止极端长表在小视窗下溢出 */
+}
+.flex-table .flex-data table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255,255,255,0.05);
+  color: #E0F7FA;
+}
+.flex-table .flex-data th,
+.flex-table .flex-data td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  text-align: left;
+}
+.flex-table .flex-data th {
+  background: rgba(35,218,250,0.2);
+  color: #FFF;
+  font-weight: 600;
+}
+.flex-table .flex-data tr:nth-child(even) td {
+  background: rgba(255,255,255,0.02);
+}
+
+/* 手机端：上下堆叠 */
+@media (max-width: 600px) {
+  .flex-table {
+    flex-direction: column;
+  }
+  .flex-table .flex-image,
+  .flex-table .flex-data {
+    flex: none;
+    width: 100%;
+  }
+}
+
+
+>>>>>>> bc50e24 (Save working changes)

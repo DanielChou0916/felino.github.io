@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,3 +80,86 @@ Advanced features include an adaptive cycle-jump algorithm for accelerating high
 
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Felino</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- drawer -->
+  <div include-html="drawer_intro.html"></div>
+
+  <main class="main-content">
+    <!-- Logo -->
+  <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5332565" 
+     class="logo-container" 
+     target="_blank" 
+     rel="noopener noreferrer">
+    <img src="felino_inverted.png" alt="Felino Logo" class="logo" />
+  </a>
+
+
+
+<!-- intro -->
+<section class="intro-section">
+<h2>An Open-Source Phase-Field Platform for Metallic and Geomaterial Fatigue Analysis</h2>
+<p>
+Fatigue failure occurs far more frequently in real-world applications—across metals, rocks, concrete and other geomaterials—than monotonic fracture, yet it remains underrepresented in most computational modeling frameworks.
+
+Despite the abundance of ad hoc assumptions in academic theories, their practical validity still requires thorough validation in realistic multiphysics settings.
+
+Felino bridges this gap by enabling coupled simulations of phase-field fracture, mechanical equilibrium, and heat conduction—and extending seamlessly from metal fatigue to geomaterial behavior (e.g. rock, soil and concrete).
+
+Advanced features include an adaptive cycle-jump algorithm for accelerating high-cycle fatigue analysis and anisotropic material modeling (so-called asymmetric response) for both additively manufactured components and pressure-sensitive geomaterials.
+</p>
+<p>Felino's goal is to provide a unified platform for numerical fatigue and geomaterial analysis, bringing state-of-the-art research tools closer to industry-relevant applications.</p>
+</section>
+
+
+
+    <!-- GIF -->
+  <div class="gif-container">
+    <h3 style="text-align: center; margin-bottom: 0.5rem; color: #23DAFA;">
+      Three Points Bending Test for Anisotropic Steel
+    </h3>  
+    <img src="3D_as3pbt_fatigue.gif" alt="ASTP Bending Simulation" class="gif-border">
+  </div>
+
+  </main>
+<!-- drawer loading script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const includeElements = document.querySelectorAll("[include-html]");
+
+    includeElements.forEach(el => {
+      const file = el.getAttribute("include-html");
+      fetch(file)
+        .then(response => {
+          if (!response.ok) throw new Error(`Could not fetch ${file}`);
+          return response.text();
+        })
+        .then(data => {
+          el.innerHTML = data;
+
+          // 重要：插入完成後，要啟動 toggle 功能
+          const toggle = document.getElementById('drawerToggle');
+          const drawer = document.getElementById('drawer');
+          if (toggle && drawer) {
+            toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          }
+        })
+        .catch(error => {
+          el.innerHTML = `<p>Error loading ${file}</p>`;
+        });
+    });
+  });
+</script>
+
+</body>
+</html>
+>>>>>>> bc50e24 (Save working changes)
