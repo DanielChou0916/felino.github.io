@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tutorial 1 | Felino</title>
+  <title>Tutorial 2 | Felino</title>
   <link rel="stylesheet" href="../../style.css" />
   <!-- MathJax for LaTeX support -->
   <script
@@ -21,29 +21,27 @@
   <main class="sub-container">
 
     <section>
-      <h1>Fatigue Behavior Under Thermal Shock</h1>
-      <p>
-        A 1 mm \(\times\) 1 mm Single Edge-Notch Tension fatigue test is set up on this page (again), this time, the effect of thermal shock is considered.
-        Instead of cyclic displacement, the cyclic stress is applied on the top-left corner. And the top is heating up after approximaterly 15 loading cycles.
-        Objectives are:
-      </p>
-      <ul class="notation-list">
-        <li>
-          <strong>Provide the standard format for thermal fatigue simulation for users.</strong>
-        </li>
-        <li>
-          <strong>Compare results under different temperature increment \(\Delta T\).</strong>
-        </li>
-      </ul>   
+  <h1>Fatigue Behavior Under Thermal Shock</h1>
+  <p>
+    A 1 mm \(\times\) 1 mm Single Edge-Notch Tension fatigue test is repeated here, this time under thermal shock.  
+    Instead of controlling displacement, a cyclic stress is applied at the top-left corner, and the top surface heats up after approximately 15 loading cycles.  
+    Objectives:
+  </p>
+  <ul class="notation-list">
+    <li><strong>Provide a standard setup for thermal-fatigue simulations.</strong></li>
+    <li><strong>Compare results for different temperature jumps <var>ΔT</var>.</strong></li>
+  </ul>
+
+
       <h2>Material parameters and boundary conditions</h2>
    <div class="flex-table">
   <!-- 左侧：图片或其他说明 -->
-  <div class="flex-image">
+  <div class="flex-image" style="flex: 1 1 60%;">
     <img src="tur2.png" alt="Thermal Shock" class="gif-border">
   </div>
 
   <!-- 右侧：两张参数表 -->
-  <div class="flex-data">
+  <div class="flex-data" style="flex: 1 1 40%;">
     <h3>System Parameters</h3>
     <table>
       <thead>
@@ -58,7 +56,6 @@
         <tr><td>Critical Energy Release Rate \(G_c\)</td><td>2.7 MPa\(\cdot\)mm</td></tr>
         <tr><td>Crack Band Width \(l\)</td><td>0.01 mm</td></tr>
         <tr><td>Degradation Function Coef. \(C_0\)</td><td>2</td></tr>
-        <tr><td>Mobility \(L\)</td><td>1e\(^{4}\)</td></tr>
       </tbody>
     </table>
 
@@ -70,7 +67,6 @@
       <tbody>
         <tr><td>Loading Period</td><td>0.2</td></tr>
         <tr><td>Number of Cycles</td><td>400</td></tr>
-        <tr><td>End Time</td><td>\${fparse period * num_cycle}</td></tr>
         <tr><td>Critical Fatigue Threshold \(\alpha_{\mathrm{crit}}\)</td><td>45 MPa</td></tr>
         <tr><td>Mean-Load Mode \((R,n)\)</td><td>(0.5, 0.5)</td></tr>
         <tr><td>Accumulation Mode</td><td>ICLA</td></tr>
@@ -99,12 +95,7 @@
     <section id="references">
       <h2>References</h2>
       <ul class="reference-list">
-<<<<<<< HEAD
-        <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5291375" target="_blank" rel="noopener noreferrer">Chou, Daniel T., and Roya Darabi. "Felino: A Modular Open-Access Software for High-Cycle Fatigue Simulation Via Phase-Field Methods." Available at SSRN 5291375 (2025).</a></li>
-        <li><a href="https://www.sciencedirect.com/science/article/pii/S0142112325001677" target="_blank" rel="noopener noreferrer">Azinpour, Erfan, et al. "High-cycle fatigue analysis of laser-based directed energy deposition maraging steels: Combined phase field and experimental studies." International Journal of Fatigue 198 (2025): 108970.</a></li>
-=======
         <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5332565" target="_blank" rel="noopener noreferrer">Chou, Daniel T. and Darabi, Roya, Felino: An Open-Source Phase-Field Framework for High-Cycle Thermo-Mechanical Fatigue Crack Nucleation and Growth.</a></li>
->>>>>>> bc50e24 (Save working changes)
       </ul>
     </section>
 
