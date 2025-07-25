@@ -20,25 +20,22 @@
   <!-- Main content -->
   <main class="sub-container">
 
-    <section>
-      <h1>Asymmetric Three Points Bending Fatigue Test</h1>
-      <p>
-        The computational domain measures $100\,\text{mm} \times 5\,\text{mm} \times 20\,\text{mm}$. 
-        On the right-hand side (positive $x$ direction), three vertically aligned holes are introduced, 
-        extending along the $y$ direction. In the $z$ direction, 
-        two support points are placed on the bottom surface—one as a hinge and the other as a roller—while a prescribed vertical displacement $u_{z(\max)} = 0.01\,\text{mm}$ 
-        is applied at the center of the top surface. 
-        Anisotropy is incorporated by assigning a weak-plane inclination angle $\theta$ in the $x$–$z$ plane. The objectives are:
-      </p>
-      <ul class="notation-list">
-        <li>
-          <strong>Check the capacity of 3D fatigue test. And provide a standard input file for users.</strong>
-        </li>
-        <li>
-          <strong>Examinate the functionality of anisotropy director object.</strong>
-        </li>
-      </ul>   
-      <h2>Material parameters and boundary conditions</h2>
+  <section>
+    <h1>Asymmetric Three-Point Bending Fatigue Test</h1>
+    <p>
+      The test uses a \(100\,\text{mm}\times5\,\text{mm}\times20\,\text{mm}\) block. Three through-holes run along the \(y\)-axis on the face that perpendicular to y-axis.  
+      On the bottom, two support points are set: a hinge at one end and a roller at the other.  
+      A vertical displacement of \(u_{z,\mathrm{max}}=0.01\,\text{mm}\) is applied at the midpoint of the top surface.  
+      To introduce directional weakness, a plane inclined by angle \(\theta\) is defined in the xz plane.
+    </p>
+    <ul class="notation-list">
+      <li><strong>Demonstrate 3D fatigue capability.</strong></li>
+      <li><strong>Show how the anisotropy-director object handles a tilted weak plane.</strong></li>
+    </ul>
+
+
+      
+    <h2>Material parameters and boundary conditions</h2>
 
    <div class="flex-table" style="flex-direction: column;">
         <div class="flex-image" style="width: 80%; flex: none; text-align: center; margin: 0 auto;">

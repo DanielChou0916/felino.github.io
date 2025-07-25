@@ -117,7 +117,7 @@ body {
   padding-top: 60px;
 }
 .drawer.open {
-  width: 335px;
+  width: 350px;
 }
 .drawer ul {
   list-style: none;
@@ -166,7 +166,7 @@ body {
 
 /* cell phone view */
 @media (max-width: 600px) {
-  .drawer.open { width: 350px; }
+  .drawer.open { width: 360px; }
   .img-wrap.stack img { max-width: 100%; }
 }
 
