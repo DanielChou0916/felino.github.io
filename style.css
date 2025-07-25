@@ -339,3 +339,41 @@ section#references {
   counter-reset: ref;       /* 重置引用编号 */
 }
 
+
+/* ==== 左图右表等高布局 ==== */
+.flex-equal {
+  display: flex;
+  align-items: stretch;   /* 保证左右两列等高 */
+  gap: 1rem;              /* 列间距，可按需调整 */
+}
+
+.flex-equal .flex-img,
+.flex-equal .flex-table {
+  /* 允许滚动溢出内容 */
+  overflow: auto;
+}
+
+/* 图片栏：保持内容宽度或者给定一个最大宽度 */
+.flex-equal .flex-img {
+  flex: 0 0 auto;          /* 固定宽度或内容随图片宽度变化 */
+  max-width: 40%;          /* 可选，根据设计调整 */
+}
+
+/* 表格栏：占用剩余空间 */
+.flex-equal .flex-table {
+  flex: 1 1 0;
+  /* 如果表格过宽，横向滚动 */
+  overflow-x: auto;
+}
+
+/* 在手机小屏上改为上下堆叠 */
+@media (max-width: 600px) {
+  .flex-equal {
+    flex-direction: column;
+  }
+  .flex-equal .flex-img,
+  .flex-equal .flex-table {
+    max-width: 100%;
+    width: 100%;
+  }
+}

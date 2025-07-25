@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutorial 1 | Felino</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <!-- MathJax for LaTeX support -->
+  <script
+    type="text/javascript"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  ></script>
+</head>
+<body>
+
+  <!-- drawer -->
+  <div include-html="../../drawer_sub.html"></div>
+
+  <!-- Main content -->
+  <main class="sub-container">
+
+    <section>
+      <h1>Single Edge-Notch Tension (SENT) Fatigue Analysis</h1>
+      <p>
+        A \(1 \text{mm}\times 1\text{mm}\) Single Edge-Notch Tension fatigue test is conducted in the presented page.
+        The goals are
+      </p>
+      <ul class="notation-list">
+        <li><strong>Show capability of <code>Felino</code> to capture degradation fracture patterns of fatigue behavior.</strong> </li>
+        <li><strong>Compare results from different fatigue energy counting.</strong></li>
+      </ul>
+      <h2>Material parameters and boundary conditions</h2>
+      <div class="flex-equal">
+        <div class="flex-img">
+          <img src="tur1.png" alt="SENT_fatigue_bcs" class="gif-border">
+          <h3 style="text-align:center; color:#23DAFA; margin-top:0.5rem;">Domain and Boundary Conditions</h3>
+        </div>
+        <div class="flex-table">
+          <table>
+            <thead>
+              <tr><th>Parameters</th><th>Values</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Young's Modulus \(E\)</td><td>210,000 MPa</td></tr>
+              <tr><td>Poisson's Ratio \(nu\)</td><td>0.3</td></tr>
+              <tr><td>Critical Energy Release Rate \(G_c\)</td><td>2.7 kJ/m\(^2\)(MPa\(\cdot\)mm)</td></tr>
+              <tr><td>Crack Band Width \(l\)</td><td>0.016 mm</td></tr>
+              <tr><td>Crack Geometric Function \(\alpha(d)\)</td><td>\(d\)</td></tr>
+              <tr><td>Normalization Coefficient \(c_0\)</td><td>2.6666667</td></tr>
+              <tr><td>Critical Fatigue Threshold \(\alpha_{\text{critical}}\)</td><td>62.5 MPa</td></tr>
+              <tr><td>Mean Load Fatigue Energy Parameters</td><td>\( (R,n)=(0.5,0.5)  \)</td></tr>
+              <!-- … -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+
+
+    </section>
+    
+    <section id="references">
+      <h2>References</h2>
+      <ul class="reference-list">
+        <li><a href="https://onlinelibrary.wiley.com/doi/full/10.1002/nag.3933" target="_blank" rel="noopener noreferrer">Hakimzadeh, Maryam, et al. "Phase‐Field Modeling of Fracture Under Compression and Confinement in Anisotropic Geomaterials." International Journal for Numerical and Analytical Methods in Geomechanics 49.4 (2025): 1319-1335.</a></li>
+        <li><a href="https://link.springer.com/article/10.1007/s00161-023-01260-6" target="_blank" rel="noopener noreferrer">Pranavi, D., A. Rajagopal, and J. N. Reddy. "Phase field modeling of anisotropic fracture." Continuum Mechanics and Thermodynamics 36.5 (2024): 1267-1282.</a></li>
+      </ul>
+    </section>
+
+<!-- drawer loading script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const includeElements = document.querySelectorAll("[include-html]");
+
+    includeElements.forEach(el => {
+      const file = el.getAttribute("include-html");
+      fetch(file)
+        .then(response => {
+          if (!response.ok) throw new Error(`Could not fetch ${file}`);
+          return response.text();
+        })
+        .then(data => {
+          el.innerHTML = data;
+
+          // activate toggle 
+          const toggle = document.getElementById('drawerToggle');
+          const drawer = document.getElementById('drawer');
+          if (toggle && drawer) {
+            toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          }
+        })
+        .catch(error => {
+          el.innerHTML = `<p>Error loading ${file}</p>`;
+        });
+    });
+  });
+</script>
+    
+</body>
+</html>

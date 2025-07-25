@@ -23,8 +23,8 @@
     <section>
       <h1>Anisotropy in the Phase-Field Model</h1>
       <p>
-        To introduce directional preference into the phase-field equation, we insert an anisotropic tensor
-        \(\bar{\mathbf{A}}\). The strong form then reads:
+        To introduce directional preference into the phase-field equation, an anisotropic tensor
+        \(\bar{\mathbf{A}}\) is imposed. The strong form then reads:
       </p>
       <div class="math-block">
         \[
@@ -36,14 +36,14 @@
         \]
       </div>
       <p>
-        Below we first introduce the anisotropic tensor \(\bar{\mathbf{A}}\), then present the FEM
-        discretization step by step.
+        Below the anisotropic tensor \(\bar{\mathbf{A}}\) is introduced, then the FEM
+        discretization steps are presented.
       </p>
     
       <h2>Anisotropic Matrix</h2>
       <p>
-        We start with the simpler tensor
-        \(\mathbf{A}\), defined by
+        The anisotropic tensor
+        \(\mathbf{A}\), is defined by
       </p>
       <div class="math-block">
         \[
@@ -59,27 +59,27 @@
         <code>Felino</code> highlights two points:
         <ol>
           <li>
-            In 3D there are infinitely many tangential directions, so we use a projection of
-            \(\mathbf{n}\) to define a compact form for \(\mathbf{n}^t\).
+            In 3D there are infinitely many tangential directions, so a projection of
+            \(\mathbf{n}\) to define a compact form for \(\mathbf{n}^t\) is adopted.
+            <div class="math-block">
+              \[
+                \mathbf{A} = \mathbf{I} + \beta\bigl(\mathbf{I} - \mathbf{n}\otimes\mathbf{n}\bigr)
+              \]
+            </div>
           </li>
           <li>
             A large \(\beta\) not only increases anisotropy but also makes the material resist
-            fracture more strongly, which can lead to unexpected behavior. To avoid that, we normalize
-            \(\mathbf{A}\) before use:
+            fracture more strongly, which can lead to unexpected behavior. To avoid that, normalization approaches on
+            \(\mathbf{A}\) are presented.
           </li>
         </ol>
       </p>
-      <div class="math-block">
-        \[
-          \mathbf{A} = \mathbf{I} + \beta\bigl(\mathbf{I} - \mathbf{n}\otimes\mathbf{n}\bigr)
-        \]
-      </div>
     
       <p><code>Felino</code> offers three ways to normalize \(\mathbf{A}\):</p>
       <ol>
         <li>
           <strong>Trace normalization:</strong>
-          We scale \(\mathbf{A}\) so that its trace equals the spatial dimension \(n_{\rm dim}\).
+          In this approach, \(\mathbf{A}\) is normalized by its trace dividing dimension to ensure its trace equals the spatial dimension \(n_{\rm dim}\).
           In practice:
           <div class="math-block">
             \[
@@ -91,7 +91,7 @@
         </li>
         <li>
           <strong>Determinant normalization:</strong>
-          We divide \(\mathbf{A}\) by its determinant to the power \(1/n_{\rm dim}\), ensuring
+          In this approach, \(\mathbf{A}\) is divided by its determinant to the power \(1/n_{\rm dim}\), ensuring
           \(\det(\bar{\mathbf{A}})=1\):
           <div class="math-block">
             \[
@@ -103,7 +103,7 @@
         </li>
         <li>
           <strong>Empirical scaling:</strong>
-          We simply multiply by a user‐chosen factor \(e_f\):
+          In this approach, \(\mathbf{A}\) is scaled by simply multiplying a user-chosen factor \(e_f\):
           <div class="math-block">
             \[
               \bar{\mathbf{A}} = e_f \,\mathbf{A}
