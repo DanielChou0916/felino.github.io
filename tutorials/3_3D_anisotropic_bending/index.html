@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tutorial 1 | Felino</title>
+  <title>Tutorial 3 | Felino</title>
   <link rel="stylesheet" href="../../style.css" />
   <!-- MathJax for LaTeX support -->
   <script
@@ -21,29 +21,34 @@
   <main class="sub-container">
 
     <section>
-      <h1>Single Edge-Notch Tension (SENT) Fatigue Analysis</h1>
+      <h1>Asymmetric Three Points Bending Fatigue Test</h1>
       <p>
-        A 1 mm \(\times\) 1 mm Single Edge-Notch Tension fatigue test is set up on this page. The objectives are:
+        The computational domain measures $100\,\text{mm} \times 5\,\text{mm} \times 20\,\text{mm}$. 
+        On the right-hand side (positive $x$ direction), three vertically aligned holes are introduced, 
+        extending along the $y$ direction. In the $z$ direction, 
+        two support points are placed on the bottom surface—one as a hinge and the other as a roller—while a prescribed vertical displacement $u_{z(\max)} = 0.01\,\text{mm}$ 
+        is applied at the center of the top surface. 
+        Anisotropy is incorporated by assigning a weak-plane inclination angle $\theta$ in the $x$–$z$ plane. The objectives are:
       </p>
       <ul class="notation-list">
         <li>
-          <strong>Demonstrate Felino's ability to reproduce fatigue-driven crack patterns.</strong>
+          <strong>Check the capacity of 3D fatigue test. And provide a standard input file for users.</strong>
         </li>
         <li>
-          <strong>Compare results under different fatigue-energy accumulation schemes.</strong>
+          <strong>Examinate the functionality of anisotropy director object.</strong>
         </li>
       </ul>   
       <h2>Material parameters and boundary conditions</h2>
-      <div class="flex-table">
-        <div class="flex-image" style="flex: 1 1 45%;">
+      <div class="flex-table" style="flex-direction: column;">
+        <div class="flex-image" style="flex: 1 1 80%;">
           <img
-          src="tur1.png"
+          src="tur3.png"
           alt="Boundary Conditions"
           style="width: auto;"
           class="gif-border"
         >
         </div>
-        <div class="flex-data" style="flex: 1 1 55%;">
+        <div class="flex-data" style="flex: 1 1 80%;">
           <table>
             <thead>
               <tr><th>Parameters</th><th>Values</th></tr>
@@ -52,28 +57,30 @@
                 <tr><td>Young's Modulus \(E\)</td><td>210{,}000 MPa</td></tr>
                 <tr><td>Poisson's Ratio \(\nu\)</td><td>0.3</td></tr>
                 <tr><td>Critical Energy Release Rate \(G_c\)</td><td>2.7 MPa\(\cdot\)mm</td></tr>
-                <tr><td>Crack Band Width \(l\)</td><td>0.016 mm</td></tr>
+                <tr><td>Crack Band Width \(l\)</td><td>0.5 mm</td></tr>
                 <tr><td>Crack Geometric Function \(\alpha(d)\)</td><td>\(d^2\)</td></tr>
                 <tr><td>Normalization Coefficient \(C_0\)</td><td>2</td></tr>
                 <tr><td>Critical Fatigue Threshold \(\alpha_{\mathrm{critical}}\)</td><td>62.5 MPa</td></tr>
+                <tr><td>Anisotropic Amplifier \(\beta\)</td><td>30</td></tr>
+                <tr><td>Anisotropic Normalization </td><td>Determinant Norm</td></tr>
                 <tr><td>Mean Load Fatigue Energy Parameters</td><td>\((R,n)=(0.5,\,0.5)\)</td></tr>
                 <tr><td>Fatigue Accumulation Mode</td><td>ICLA</td></tr>
-                <tr><td>Loading Period</td><td>0.01</td></tr>
-                <tr><td>Number of Cycles</td><td>38,000</td></tr>
+                <tr><td>Loading Period</td><td>0.0005</td></tr>
+                <tr><td>Number of Cycles</td><td>600,000</td></tr>
               </tbody>
           </table>
         </div>
       </div>
       <h2>Animation</h2>
       <div class="gif-container">
-        <img src="t1gif.gif" alt="SENT pulling animation" class="gif-border" style="width: 100%; max-width: 100%;">
+        <img src="t3gif.gif" alt="ASTPB animation" class="gif-border" style="width: 100%; max-width: 100%;">
       </div>
       
       <h2>Input Files</h2>    
       The input files of this tutorial are available:
       <ul class="input-list">
-        <li><a href="https://github.com/DanielChou0916/felino/blob/main/tutorials/tur1_SENT_fatigue/NA_grad_kappa_disp.i" target="_blank" rel="noopener noreferrer"><strong>Equilibrium:</strong> felino/tutorials/tur1_SENT_fatigue/NA_grad_kappa_disp.i</a></li>
-        <li><a href="https://github.com/DanielChou0916/felino/blob/main/tutorials/tur1_SENT_fatigue/NA_grad_kappa_f.i" target="_blank" rel="noopener noreferrer"><strong>Damage Diffusion:</strong> felino/tutorials/tur1_SENT_fatigue/NA_grad_kappa_f.i</a></li>
+        <li><a href="https://github.com/DanielChou0916/felino/blob/main/tutorials/tur1_SENT_fatigue/NA_grad_kappa_disp.i" target="_blank" rel="noopener noreferrer"><strong>Equilibrium:</strong> felino/tutorials/tur3_</a></li>
+        <li><a href="https://github.com/DanielChou0916/felino/blob/main/tutorials/tur1_SENT_fatigue/NA_grad_kappa_f.i" target="_blank" rel="noopener noreferrer"><strong>Damage Diffusion:</strong> felino/tutorials/tur3_</a></li>
       </ul>
 
     </section>
@@ -81,8 +88,7 @@
     <section id="references">
       <h2>References</h2>
       <ul class="reference-list">
-        <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5291375" target="_blank" rel="noopener noreferrer">Chou, Daniel T., and Roya Darabi. "Felino: A Modular Open-Access Software for High-Cycle Fatigue Simulation Via Phase-Field Methods." Available at SSRN 5291375 (2025).</a></li>
-        <li><a href="https://www.sciencedirect.com/science/article/pii/S0142112325001677" target="_blank" rel="noopener noreferrer">Azinpour, Erfan, et al. "High-cycle fatigue analysis of laser-based directed energy deposition maraging steels: Combined phase field and experimental studies." International Journal of Fatigue 198 (2025): 108970.</a></li>
+        <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5291375" target="_blank" rel="noopener noreferrer">No reference yet</a></li>
       </ul>
     </section>
 
