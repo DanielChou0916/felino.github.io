@@ -340,63 +340,68 @@ section#references {
 }
 
 
-/* ==== 左图右表等高布局（修正版） ==== */
-/* 整个左右并排容器 */
+/* ==== 左图右表等高布局 ==== */
+/* 容器：大屏左右并排，手机上下堆叠 */
 .flex-table {
   display: flex;
-  align-items: stretch;      /* 两边高度拉到一样 */
+  align-items: flex-start;
   gap: 1.5rem;
   margin: 2rem 0;
 }
-/* 手机上上下堆叠 */
-@media (max-width: 600px) {
-  .flex-table {
-    flex-direction: column;
-  }
-}
 
-/* 左侧图像区 */
-.flex-table .flex-img {
-  flex: 1;                   /* 占同等比 */
-  display: flex;             /* 让子元素垂直居中 */
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* 左侧图 */
+.flex-table .flex-image {
+  flex: 1 1 50%;
+  text-align: center;
 }
-/* 去掉 .gif-border 的 max-width 限制，让它在 flex 区最大化 */
-.flex-table .flex-img img {
-  width: auto;
+.flex-table .flex-image img {
   max-width: 100%;
-  height: 100%;
-  object-fit: contain;       /* 保持比例填满容器 */
+  height: auto;
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
 }
-
-/* 右侧表格区 */
-.flex-table .flex-table {
-  flex: 1;                   /* 同样占等比 */
-  overflow-x: auto; 
+.flex-table .figure-caption {
+  margin-top: 0.5rem;
+  color: #23DAFA;
+  font-size: 0.9rem;
 }
-.flex-table .flex-table table {
+
+/* 右侧表格 */
+.flex-table .flex-data {
+  flex: 1 1 50%;
+  overflow-x: auto; /* 防止极端长表在小视窗下溢出 */
+}
+.flex-table .flex-data table {
   width: 100%;
   border-collapse: collapse;
   background: rgba(255,255,255,0.05);
   color: #E0F7FA;
 }
-.flex-table .flex-table th,
-.flex-table .flex-table td {
+.flex-table .flex-data th,
+.flex-table .flex-data td {
   padding: 0.5rem 0.75rem;
   border: 1px solid rgba(255,255,255,0.15);
   text-align: left;
 }
-.flex-table .flex-table th {
+.flex-table .flex-data th {
   background: rgba(35,218,250,0.2);
   color: #FFF;
   font-weight: 600;
 }
-.flex-table .flex-table tr:nth-child(even) td {
+.flex-table .flex-data tr:nth-child(even) td {
   background: rgba(255,255,255,0.02);
+}
+
+/* 手机端：上下堆叠 */
+@media (max-width: 600px) {
+  .flex-table {
+    flex-direction: column;
+  }
+  .flex-table .flex-image,
+  .flex-table .flex-data {
+    flex: none;
+    width: 100%;
+  }
 }
 
 
