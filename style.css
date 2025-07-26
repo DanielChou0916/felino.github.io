@@ -191,6 +191,10 @@ body {
   margin: 10px 0;
 }
 
+.gif-container {
+  text-align: center;  /* 父容器文本居中 */
+}
+
 .gif-border {
   max-width: 85%;
   height: auto;
