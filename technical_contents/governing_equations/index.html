@@ -28,6 +28,7 @@
         <li><strong>Phase-Field Fracture Model:</strong> Describes damage via a continuous variable \(d\) (with \(0 \le d \le 1\)) and incorporates fatigue mechanisms.</li>
         <li><strong>Mechanical Equilibrium:</strong> Solves for the displacement field \(\mathbf{u}\).</li>
         <li><strong>Heat Conduction:</strong> Solves for the temperature field \(T\) using a diffusion equation.</li>
+        <li><strong>Porosflow in Saturated Porous Media:</strong> Solves for the pore-pressure \(p_w\) using a diffusion equation.</li>
       </ul>
       <p>
         In the expressions below, \(\boldsymbol{N}\) denotes the shape functions, \(\boldsymbol{B}\) their spatial derivatives, and the subscript "e" indicates the element-wise nodal vector of primary variables.
@@ -209,11 +210,13 @@
         \(\mathbf{K}_w\) is the water permeability tensor, and \(\mathbf{g}\) is the gravitational acceleration vector. The Biot modulus \(M\) is defined by the Biot coefficient \(\alpha_w\), porosity \(\phi\), 
         and the bulk modulus of both the solid phase \(K_s\) (or drained bulk modulus of solid skeleton \(K_s^*\)) and pore water \(K_w\). The relationship between \(\alpha_w\), \(K_s^*\), and \(K_s\) is given as \(\alpha_w = 1 - \frac{K_s^*}{K_s}\).
          The Biot modulus \(M\) can be expressed as:
+         </p> 
       <div class="math-block">
         \[
         \frac{1}{M} = \frac{\alpha_w - \phi}{K_s} + \frac{\phi}{K_w} = \frac{(1-\alpha_w)(\alpha_w - \phi)}{K_s^*} + \frac{\phi}{K_w}.
         \]
-      </div>    
+      </div>  
+      <p> 
       The drained bulk modulus of solid skeleton \(K_s^*\) is sometimes denoted as \(K\), e.g., the official documentation of 
       <a href="https://mooseframework.inl.gov/source/materials/PorousFlowConstantBiotModulus.html" target="_blank" rel="noopener noreferrer">MOOSE poros flow</a>.
       </p>
@@ -223,6 +226,10 @@
         \int_\Omega\frac{\dot{p}_w}{M}+\alpha_w\nabla\cdot\dot{\mathbf{u}}- \frac{1}{\rho_w}\nabla\cdot\left[\frac{\mathbf{K}_w\rho_w}{\mu_w}\cdot(\nabla p_w+\rho_w \mathbf{g})\right]\;d\Omega = 0
         \]
       </div>
+
+      <p>
+        where \(\mathbf{g}\) is the gravitational acceleration vector, following the sign convention of classical solid mechanics (negative in the downward direction).
+      </p>
 
       <h3>Weak Form</h3>
       <div class="math-block">
