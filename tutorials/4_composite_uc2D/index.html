@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutorial 4 | Felino</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <!-- MathJax for LaTeX support -->
+  <script
+    type="text/javascript"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  ></script>
+</head>
+<body>
+
+  <!-- drawer -->
+  <div include-html="../../drawer_sub.html"></div>
+
+  <!-- Main content -->
+  <main class="sub-container">
+
+<section>
+  <h1>2D Uniaxial Compression Test on a Composite Material</h1>
+  <p>
+    This test uses a \(100\,\text{mm}\times 100\,\text{mm}\) 2D composite material model with a matrix-inclusion structure.
+    The uniaxial compression is applied by fixing \(u_y\) at the bottom edge and constraining \(u_x\) at a single point on the bottom edge to prevent rigid body motion.
+    A prescribed negative \(u_y\) displacement is applied on the top edge to impose compressive loading.
+    The objectives of this example are:
+  </p>
+  <ul class="notation-list">
+    <li><strong>To demonstrate the geomaterial fracture modeling capabilities of Felino.</strong></li>
+    <li><strong>To compare convergence behavior using different phase-field driving energy formulations.</strong></li>
+    <li><strong>To evaluate three models: Representative Crack Element (RCE), Drucker-Prager decomposition, and the Extra Driving Force formulation.</strong></li>
+  </ul>
+
+  <h2>Material Parameters and Boundary Conditions</h2>
+  <p>
+    Material parameters are listed in the format (aggregate, cement). For example, Young's modulus is given as \(E = (E_\text{agg}, E_\text{ce})\).
+  </p>
+
+  <div class="flex-table" style="flex-direction: column;">
+    <div class="flex-image" style="width: 80%; flex: none; text-align: center; margin: 0 auto;">
+      <img src="tur4.png" alt="Boundary Conditions" class="gif-border" style="max-width:100%; height:auto;">
+    </div>
+    <div class="flex-data" style="width: 80%; flex: none; overflow-x:auto; margin: 0 auto;">
+      
+      <!-- General material parameters -->
+      <table style="width:100%;">
+        <thead>
+          <tr><th>Parameter</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Young's Modulus \(E\)</td><td>50,000 MPa, 25,000 MPa</td></tr>
+          <tr><td>Poisson's Ratio \(\nu\)</td><td>0.2, 0.2</td></tr>
+          <tr><td>Critical Energy Release Rate \(G_c\)</td><td>0.03 MPa·mm, 0.0125 MPa·mm</td></tr>
+          <tr><td>Crack Band Width \(l\)</td><td>0.2 mm, 0.2 mm</td></tr>
+          <tr><td>Crack Geometry Function \(\alpha(d)\)</td><td>\(d\)</td></tr>
+          <tr><td>Normalization Coefficient \(c_0\)</td><td>2.666667</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Drucker-Prager parameter -->
+      <table>
+        <thead>
+          <tr><th>Drucker-Prager Decomposition</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Drucker-Prager Parameter \(B\)</td><td>-0.484, -0.2</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Extra Driving Force parameters -->
+      <table>
+        <thead>
+          <tr><th>Extra Driving Force</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Compressive Strength \(\sigma_\text{c}\)</td><td>80 MPa, 30 MPa</td></tr>
+          <tr><td>Tensile Strength \(\sigma_\text{t}\)</td><td>7 MPa, 2.5 MPa</td></tr>
+          <tr><td>Crack-Width Coefficient \(\delta^\varepsilon\)</td><td>0.16, 1.0</td></tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <h2>Animation and Results</h2>
+  <div class="gif-container">
+    <img src="t4gif.gif" alt="Uniaxial compression animation" class="gif-border" style="width: 100%; max-width: 100%;">
+  </div>
+
+  <h2>Input Files</h2>
+  <p>
+    The input files for this tutorial are available below:
+  </p>
+  <ul class="input-list">
+    <li><a href="https://github.com/DanielChou0916/felino/blob/main/tutorials/tur4_uniaxial_compression/rce" target="_blank" rel="noopener noreferrer"><strong>RCE:</strong> tutorials/tur4_uniaxial_compression/rce</a></li>
+    <li><a href="https://github.com/DanielChou0916/felino/blob/main/tutorials/tur4_uniaxial_compression/strain_dp" target="_blank" rel="noopener noreferrer"><strong>Drucker-Prager Decomposition:</strong> tutorials/tur4_uniaxial_compression/strain_dp</a></li>
+    <li><a href="https://github.com/DanielChou0916/felino/blob/main/tutorials/tur4_uniaxial_compression/Ce" target="_blank" rel="noopener noreferrer"><strong>Extra Driving Force:</strong> tutorials/tur4_uniaxial_compression/Ce</a></li>
+  </ul>
+</section>
+
+    
+  <section id="references">
+    <h2>References</h2>
+    <ul class="reference-list">
+      <li><a href="https://onlinelibrary.wiley.com/doi/full/10.1002/nme.6244" target="_blank" rel="noopener noreferrer">Storm, J., D. Supriatna, and M. Kaliske. "The concept of representative crack elements for phase-field fracture: Anisotropic elasticity and thermo-elasticity." International Journal for Numerical Methods in Engineering 121.5 (2020): 779-805.</a></li>
+      <li><a href="https://www.sciencedirect.com/science/article/pii/S0167844222002981" target="_blank" rel="noopener noreferrer">Navidtehrani, Yousef, Covadonga Betegon, and Emilio Martinez-Paneda. "A general framework for decomposing the phase field fracture driving force, particularised to a Drucker-Prager failure surface." Theoretical and Applied Fracture Mechanics 121 (2022): 103555.</a></li>
+      <li><a href="https://www.sciencedirect.com/science/article/pii/S0020768324005298" target="_blank" rel="noopener noreferrer">Liu, Chang, and Aditya Kumar. "Emergence of tension-compression asymmetry from a complete phase-field approach to brittle fracture." International Journal of Solids and Structures 309 (2025): 113170.</a></li>
+    </ul>
+  </section>
+
+<!-- drawer loading script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const includeElements = document.querySelectorAll("[include-html]");
+
+    includeElements.forEach(el => {
+      const file = el.getAttribute("include-html");
+      fetch(file)
+        .then(response => {
+          if (!response.ok) throw new Error(`Could not fetch ${file}`);
+          return response.text();
+        })
+        .then(data => {
+          el.innerHTML = data;
+
+          // activate toggle 
+          const toggle = document.getElementById('drawerToggle');
+          const drawer = document.getElementById('drawer');
+          if (toggle && drawer) {
+            toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          }
+        })
+        .catch(error => {
+          el.innerHTML = `<p>Error loading ${file}</p>`;
+        });
+    });
+  });
+</script>
+    
+</body>
+</html>

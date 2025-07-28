@@ -43,9 +43,11 @@
       <h2>Phase Field Fracture Model</h2>
       <p>
         The phase-field damage equation couples the mechanical energy \(\Psi^e\) from the elastic system with a degradation function \(\omega(d)\). In its simplest form (elastic energy only), \(\omega(d)\) is typically chosen as \((1-d)^2\), and the fracture toughness \(G_c\) and length scale \(l\) govern crack resistance and width. The crack-geometry function \(\alpha(d)\) is normalized by
+      <div class="math-block">
         \[
           c_0 = 4 \int_0^1 \sqrt{\alpha(s)}\,ds.
         \]
+      </div>
       </p>
       <p>
         Fatigue effects enter via a degradation term \(f(\bar\alpha)\), where \(\bar\alpha\) represents the accumulated fatigue energy over the loading history. When \(f(\bar\alpha)=1\) and \(\nabla f(\bar\alpha)=0\), the model reduces to the standard phase-field damage equation.
