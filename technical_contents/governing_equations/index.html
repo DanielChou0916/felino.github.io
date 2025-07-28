@@ -178,10 +178,11 @@
       <div class="math-block">
         \[
         \mathbf{r}_T =
-        \mathbf{M}_e \dot{\mathbf{T}}_e
-        + \mathbf{K}_e \mathbf{T}_e
-        - \mathbf{f}^{\text{body}}_e
-        + \mathbf{f}^{\text{flux}}_e
+        \int_{\Omega_{e}}\rho c\,
+        \boldsymbol{N}_{T}\boldsymbol{N}_{T}^{\mathsf{T}}\,d\Omega \dot{\mathbf{T}}_e
+        + \int_{\Omega_{e}}\boldsymbol{B}_{T}^{\mathsf{T}} k \boldsymbol{B}_{T}\,d\Omega \mathbf{T}_e
+        - \int_{\Omega_{e}}\rho r\,\boldsymbol{N}_{T}\,d\Omega
+        - \int_{\Gamma_{e}}\boldsymbol{N}_{T}\,k\nabla T\!\cdot\!\mathbf{n}\,d\Gamma
         \]
       </div>
 
