@@ -186,17 +186,79 @@
         \]
       </div>
 
-      <h3>Element Stiffness</h3>
+      <h3>Element Stiffness\(\mathbf{K}_T\) and Mass \(\mathbf{M}_T\)</h3>
       <div class="math-block">
         \[
-        \mathbf{K}_e =
-        \int_{\Omega_e} \boldsymbol{B}_T^\mathsf{T} k \boldsymbol{B}_T \, d\Omega
+        \mathbf{K}_T =
+        \int_{\Omega_e} \boldsymbol{B}_T^\mathsf{T} k \boldsymbol{B}_T \, d\Omega,\quad
+        \mathbf{M}_e = 
+        \int_{\Omega_{e}}\rho c\,\boldsymbol{N}_{T}\boldsymbol{N}_{T}^{\mathsf{T}}\,d\Omega
         \]
       </div>
     </section>
 
     <hr>
 
+    <section>
+      <h2>Porosflow in Saturated Porous Media</h2>
+      <p>
+        Poromechanics aims to provide a comprehensive understanding of the mechanical response of porous media by accounting for the effect of water pressure.
+        The strong form is based on the mass conservation for the liquid phase and solid phase, the linear elastic constitutive law of representative elementary volume (REV), and Darcy's law.  
+        The primary variable  is the pore pressure \(p_w\), \(\alpha_w\) is the Biot coefficient describing the ratio of the fluid volume gained 
+        (or lost) in a material element to the volume change of that element when the pore pressure changes, \(\mathbf{u}\) is the displacement vector (from momentum balance equation), \(\rho_w\) is the fluid density, 
+        \(\mathbf{K}_w\) is the water permeability tensor, and \(\mathbf{g}\) is the gravitational acceleration vector. The Biot modulus \(M\) is defined by the Biot coefficient \(\alpha_w\), porosity \(\phi\), 
+        and the bulk modulus of both the solid phase \(K_s\) (or drained bulk modulus of solid skeleton \(K_s^*\)) and pore water \(K_w\). The relationship between \(\alpha_w\), \(K_s^*\), and \(K_s\) is given as \(\alpha_w = 1 - \frac{K_s^*}{K_s}\).
+         The Biot modulus \(M\) can be expressed as:
+      <div class="math-block">
+        \[
+        \frac{1}{M} = \frac{\alpha_w - \phi}{K_s} + \frac{\phi}{K_w} = \frac{(1-\alpha_w)(\alpha_w - \phi)}{K_s^*} + \frac{\phi}{K_w}.
+        \]
+      </div>    
+      The drained bulk modulus of solid skeleton \(K_s^*\) is sometimes denoted as \(K\), e.g., the official documentation of 
+      <a href="https://mooseframework.inl.gov/source/materials/PorousFlowConstantBiotModulus.html" target="_blank" rel="noopener noreferrer">MOOSE poros flow</a>.
+      </p>
+      <h3>Strong Form</h3>
+      <div class="math-block">
+        \[
+        \int_\Omega\frac{\dot{p}_w}{M}+\alpha_w\nabla\cdot\dot{\mathbf{u}}- \frac{1}{\rho_w}\nabla\cdot\left[\frac{\mathbf{K}_w\rho_w}{\mu_w}\cdot(\nabla p_w+\rho_w \mathbf{g})\right]\;d\Omega = 0
+        \]
+      </div>
+
+      <h3>Weak Form</h3>
+      <div class="math-block">
+        \[
+        \int_\Omega\delta p_w\frac{\dot{p}_w}{M}+\delta p_w\alpha_w\nabla\cdot\dot{\mathbf{u}}\;d\Omega 
+        + \int_\Omega\nabla\delta p_w \cdot \left[\frac{\mathbf{K}_w\rho_w}{\mu_w}\cdot(\nabla p_w+\rho_w \mathbf{g})\right] d\Omega 
+        -\int_\Gamma  \mathbf{n}\cdot \left[\delta p_w\frac{\mathbf{K}_w\rho_w}{\mu_w}\cdot(\nabla p_w+\rho_w \mathbf{g})\right] d\Gamma = 0
+        \]
+      </div>
+
+      <h3>Element Residual</h3>
+      <div class="math-block">
+        \[
+        \mathbf{r}_{p_w} =
+        \int_\Omega\boldsymbol{N}_{p_w}\frac{\dot{p}_w}{M}\,d\Omega
+        +\int_\Omega \boldsymbol{N}_{p_w}\alpha_w\nabla\cdot\dot{\mathbf{u}}\,d\Omega
+        +\int_\Omega \boldsymbol{B}_{p_w}^\mathsf{T}
+        \Bigl[\frac{\mathbf{K}_w\rho_w}{\mu_w}\cdot\bigl(\boldsymbol{B}_{p_w}\mathbf{p}_{w,e}+\rho_w\mathbf{g}\bigr)\Bigr]\,d\Omega
+        -\int_\Gamma\boldsymbol{N}_{p_w}\,\mathbf{n}\cdot
+        \Bigl[\frac{\mathbf{K}_w\rho_w}{\mu_w}\cdot\bigl(\boldsymbol{B}_{p_w}\mathbf{p}_{w,e}+\rho_w\mathbf{g}\bigr)\Bigr]\,d\Gamma.
+        \]
+      </div>
+
+      <h3>Element Stiffness\(\mathbf{K}_{p_w}\) and Mass \(\mathbf{M}_{p_w}\)</h3>
+      <div class="math-block">
+        \[
+        \mathbf{K}_{p_w} =\int_\Omega
+        \boldsymbol{B}_{p_w}^\mathsf{T}\frac{\mathbf{K}_w\rho_w}{\mu_w}\boldsymbol{B}_{p_w}\,d\Omega, 
+        \quad
+        \mathbf{M}_{p_w} = \int_\Omega \frac{1}{M}
+        \boldsymbol{N}_{p_w} \boldsymbol{N}_{p_w}^\mathsf{T}\,d\Omega
+        \]
+      </div>
+    </section>
+  
+    <hr>
   </main>
 
 <!-- drawer loading script -->
