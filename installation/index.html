@@ -58,14 +58,16 @@ make -j$(nproc)</code></pre>
             </div>
         </div>
         Here, <code>$(nproc)</code> stands for number of cpu on your device. In case fo you have no idea about this, please try "<code>make -j 4</code>"~
-        <p><strong>Step 4: Run an Example Simulation</strong></p>
+        <p><strong>Step 4: Run an installation check</strong></p>
         <div class="code-copy-container">
           <button class="copy-btn" title="Copy code">Copy</button>
             <div class="code-scroll">
-          <pre><code>./felino-opt -i examples/test/test_disp0.i</code></pre>
+          <pre><code>cd ~/projects/felino
+chmod +x felino_test.sh
+./felino_test.sh</code></pre>
             </div>
         </div>
-        Once the "<code>Finished Executing</code>" message appears, all is well 🙂!
+        Once the "<code>[Felino] (='V'=) Installation test PASSED.</code>" message appears, all is well 🙂!
         <p><strong>To Update Felino Later:</strong></p>
         <div class="code-copy-container">
           <button class="copy-btn" title="Copy code">Copy</button>
