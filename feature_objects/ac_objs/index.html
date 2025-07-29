@@ -56,7 +56,7 @@
               \nabla\!\cdot\!\bigl(\tfrac{2\,G_c\,f(\bar\alpha)\,l}{c_0}\,
               \bar{\mathbf{A}}\cdot\nabla d\bigr)
             \Bigr)
-          }_{\text{ACInterfaceGradKappa/ADACInterfaceGradKappa}}=0
+          }_{\text{ACInterfaceAniso/ADACInterfaceAniso}}=0
         \]
       </div>
       
@@ -64,7 +64,7 @@
       <ul class="annotation-list">
         <li><strong>TimeDerivative/ADTimeDerivative:</strong> computes the time derivative \(\dot d\).</li>
         <li><strong>AllenCahn/ADAllenCahn:</strong> handles the reaction term \(\omega'(d)\,\Psi^e + \frac{G_c\,f(\bar\alpha)}{c_0\,l}\alpha'(d)\).</li>
-        <li><strong>ACInterfaceGradKappa/ADACInterfaceGradKappa:</strong> handles the diffusion term \(\nabla\cdot(\dots)\).</li>
+        <li><strong>ACInterfaceAniso/ADACInterfaceAniso:</strong> handles the diffusion term \(\nabla\cdot(\dots)\).</li>
       </ul>
       
     
@@ -73,15 +73,13 @@
       <div class="tcolorbox">
         <h3>PFNonconservedAction</strong></h3>
         <p>
-          This action object pipelines three kernels—<code>ACInterfaceGradKappa</code>,
+          This action object pipelines three kernels—<code>ACInterfaceAniso</code>,
           <code>TimeDerivative</code>, and <code>AllenCahn</code>—to solve the Allen–Cahn equation.
-          The <code>ACInterfaceGradKappa</code> kernel is at the heart of <code>Felino</code>.
+          The <code>ACInterfaceAniso</code> kernel is at the heart of <code>Felino</code>.
           <code>PFNonconservedAction</code> offers these options:
         </p>
         <ul>
           <li>Set <code>use_automatic_differentiation = true</code> to enable automatic differentiation (AD).</li>
-          <li>Set <code>use_grad_kappa = true</code> to include spatial gradients of non-constant material parameters.</li>
-          <li>Handle gradient terms (\(\nabla\kappa\)) via <code>AuxKernels</code> and <code>AuxVariables</code>.</li>
           <li>Auto-detect mesh dimension (e.g. requires <code>grad_kappa_z</code> in 3D).</li>
           <li>Anisotropic PFF support is experimental. Set <code>use_anisotropic_matrix = true</code> and
               specify <code>anisotropic_matrix = A_matrix</code>.</li>
@@ -98,9 +96,6 @@
     mobility                     = L
     variable_mobility            = false
     use_automatic_differentiation = true
-    use_grad_kappa               = true
-    grad_kappa_x                 = dkappa_dx
-    grad_kappa_y                 = dkappa_dy
     use_anisotropic_matrix       = true
     anisotropic_matrix           = A_matrix
   [../]
@@ -108,14 +103,12 @@
           </div>
         </div>
     
-        <h3>ACInterfaceGradKappa/ADACInterfaceGradKappa</h3>
+        <h3>ACInterfaceAniso/ADACInterfaceAniso</h3>
         <p>
           This kernel handles the phase-field diffusion term (the Laplacian of \(d\)).
           It also includes:
         </p>
         <ul>
-          <li>Set <code>use_grad_kappa = true</code> for spatial gradients of non-constant parameters.</li>
-          <li>Handle \(\nabla\kappa\) via <code>AuxKernels</code> and <code>AuxVariables</code>.</li>
           <li>Auto-detect mesh dimension (e.g. <code>grad_kappa_z</code> for 3D).</li>
           <li>Anisotropic PFF: set <code>use_anisotropic_matrix = true</code> and
               <code>anisotropic_matrix_name = A_matrix</code>.</li>
@@ -126,15 +119,11 @@
           <button class="copy-btn" title="Copy code">Copy</button>
           <div class="code-scroll">
             <pre><code>[Kernels]
-  [./ac_interface_gradkappa]
-    type                       = ADACInterfaceGradKappa
+  [./ac_interface_Aniso]
+    type                       = ADACInterfaceAniso
     variable                   = d
     mob_name                   = L
     kappa_name                 = kappa_op
-    #args                      = <code>T</code>   # no need for constant L
-    grad_kappa_x               = grad_kappa_x
-    grad_kappa_y               = grad_kappa_y
-    use_grad_kappa             = true
     variable_L                 = false
     use_anisotropic_matrix     = true
     anisotropic_matrix_name    = A_matrix
