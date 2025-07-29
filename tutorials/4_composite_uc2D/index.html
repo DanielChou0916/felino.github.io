@@ -86,8 +86,25 @@
   </div>
 
   <h2>Animation and Results</h2>
+  <ul class="notation-list">
+    <li>The animation takes approximately 15-20 seconds to complete because the Drucker-Prager decomposition model requires a smaller step size for convergence.</li>
+    <li>The Drucker-Prager and extra driving force models use additional material parameters, providing users with greater flexibility to incorporate the concept of "material strength."</li>
+    <li>This tutorial is simply a demonstration; users should keep in mind that calibration is always necessary in practice.</li>
+  </ul>  
   <div class="gif-container">
     <img src="tur4gif.gif" alt="Uniaxial compression animation" class="gif-border" style="width: 100%; max-width: 100%;">
+  </div>
+
+  <div class="flex-table">
+    <div class="flex-image" style="flex: 1 1 33%;">
+      <img src="nl_N.png" alt="number of iteration" class="gif-border" style="max-width:100%; height:auto;">
+    </div>
+    <div class="flex-image" style="flex: 1 1 33%;">
+      <img src="dt.png" alt="time step size" class="gif-border" style="max-width:100%; height:auto;">
+    </div>
+    <div class="flex-image" style="flex: 1 1 33%;">
+      <img src="sigma.png" alt="reaction stress" class="gif-border" style="max-width:100%; height:auto;">
+    </div>
   </div>
 
   <h2>Input Files</h2>
