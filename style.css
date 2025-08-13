@@ -195,7 +195,7 @@ body {
   text-align: center;  /* 父容器文本居中 */
 }
 
-.gif-border {
+.gif-border-intro {
   width: 65%;
   height: auto;
   display: block;
@@ -205,6 +205,15 @@ body {
               0 0 30px rgba(255, 255, 255, 0.1);
 }
 
+.gif-border {
+  width: 85%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), 
+              0 0 30px rgba(255, 255, 255, 0.1);
+}
 
 .math-block {
   overflow-x: auto;
