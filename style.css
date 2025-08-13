@@ -196,7 +196,7 @@ body {
 }
 
 .gif-border {
-  max-width: 85%;
+  width: 85%;
   height: auto;
   display: block;
   margin: 0 auto;
