@@ -219,7 +219,7 @@
       <h3>Strong Form</h3>
       <div class="math-block">
         \[
-        \int_\Omega\frac{\dot{p}_w}{M}+\alpha_w\nabla\cdot\dot{\mathbf{u}}- \frac{1}{\rho_w}\nabla\cdot\left[\frac{\mathbf{K}_w\rho_w}{\mu_w}\cdot(\nabla p_w+\rho_w \mathbf{g})\right]\;d\Omega = 0
+        \int_\Omega \rho_w \frac{\dot{p}_w}{M}+\rho_w\alpha_w\nabla\cdot\dot{\mathbf{u}}- \nabla\cdot\left[\frac{\mathbf{K}_w\rho_w}{\mu_w}\cdot(\nabla p_w+\rho_w \mathbf{g})\right]\;d\Omega = 0
         \]
       </div>
 
@@ -230,7 +230,7 @@
       <h3>Weak Form</h3>
       <div class="math-block">
         \[
-        \int_\Omega\delta p_w\frac{\dot{p}_w}{M}+\delta p_w\alpha_w\nabla\cdot\dot{\mathbf{u}}\;d\Omega 
+        \int_\Omega\delta p_w \rho_w \frac{\dot{p}_w}{M}\;d\Omega  + \int_\Omega\delta p_w \rho_w \alpha_w\nabla\cdot\dot{\mathbf{u}}\;d\Omega 
         + \int_\Omega\nabla\delta p_w \cdot \left[\frac{\mathbf{K}_w\rho_w}{\mu_w}\cdot(\nabla p_w+\rho_w \mathbf{g})\right] d\Omega 
         -\int_\Gamma  \mathbf{n}\cdot \left[\delta p_w\frac{\mathbf{K}_w\rho_w}{\mu_w}\cdot(\nabla p_w+\rho_w \mathbf{g})\right] d\Gamma = 0
         \]
@@ -240,8 +240,8 @@
       <div class="math-block">
         \[
         \mathbf{r}_{p_w} =
-        \int_\Omega\boldsymbol{N}_{p_w}\frac{\dot{p}_w}{M}\,d\Omega
-        +\int_\Omega \boldsymbol{N}_{p_w}\alpha_w\nabla\cdot\dot{\mathbf{u}}\,d\Omega
+        \int_\Omega\boldsymbol{N}_{p_w}\rho_w\frac{\dot{p}_w}{M}\,d\Omega
+        +\int_\Omega \boldsymbol{N}_{p_w}\rho_w\alpha_w\nabla\cdot\dot{\mathbf{u}}\,d\Omega
         +\int_\Omega \boldsymbol{B}_{p_w}^\mathsf{T}
         \Bigl[\frac{\mathbf{K}_w\rho_w}{\mu_w}\cdot\bigl(\boldsymbol{B}_{p_w}\mathbf{p}_{w,e}+\rho_w\mathbf{g}\bigr)\Bigr]\,d\Omega
         -\int_\Gamma\boldsymbol{N}_{p_w}\,\mathbf{n}\cdot
