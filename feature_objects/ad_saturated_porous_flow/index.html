@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Programming Objects: Pore Pressure Diffusion | Felino</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <!-- MathJax for LaTeX support -->
+  <script
+    type="text/javascript"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  ></script>
+</head>
+<body>
+
+  <!-- drawer -->
+  <div include-html="../../drawer_sub.html"></div>
+
+  <!-- Main content -->
+  <main class="sub-container">
+    <section>
+      <h1>AD Saturated Poromechanics Programming Objects</h1>
+    
+      <p>
+        In <code>Felino</code>, I added a small set of AD kernels to assemble saturated pore-pressure diffusion with automatic differentiation. The governing balance I target is:
+      </p>
+    
+      <div class="math-block">
+        \[
+        \rho_w\,\frac{\dot p_w}{M}
+        \;+\;\rho_w\,\alpha_w\,\nabla\!\cdot\!\dot{\mathbf{u}}
+        \;-\;\nabla\!\cdot\!\Big[\frac{\rho_w}{\mu_w}\,\mathbf{K}_w\cdot\big(\nabla p_w+\rho_w\mathbf{g}\big)\Big]
+        \;=\;0 \quad \text{in } \Omega .
+        \]
+      </div>
+
+      <p>
+        The element weak residual (ignoring the boundary integral from diffusion) is:
+      </p>
+
+      <div class="math-block">
+        \[
+        \mathbf{r}_{p_w} =
+        \int_\Omega \boldsymbol{N}_{p_w}\,\rho_w\,\frac{\dot p_w}{M}\,d\Omega
+        \;+\;\int_\Omega \boldsymbol{N}_{p_w}\,\rho_w\,\alpha_w\,\nabla\!\cdot\!\dot{\mathbf{u}}\,d\Omega
+        \;+\;\int_\Omega \boldsymbol{B}_{p_w}^\mathsf{T}
+        \Big[\frac{\rho_w}{\mu_w}\,\mathbf{K}_w\cdot\big(\boldsymbol{B}_{p_w}\mathbf{p}_{w,e}+\rho_w\mathbf{g}\big)\Big]\,d\Omega .
+        \]
+      </div>
+    
+      <p>These terms are split across four kernels:</p>
+
+      <div class="math-block">
+        \[
+        \underbrace{\int_\Omega\!\boldsymbol{N}_{p_w}\,\rho_w\,\tfrac{\dot p_w}{M}\,d\Omega}_{\text{ADHydroTimeDerivative}}
+        +\underbrace{\int_\Omega\!\boldsymbol{N}_{p_w}\,\rho_w\,\alpha_w\,\nabla\!\cdot\!\dot{\mathbf{u}}\,d\Omega}_{\text{ADHydroVolStrainCoupling}}
+        +\underbrace{\int_\Omega\!\boldsymbol{B}_{p_w}^\mathsf{T}
+        \big[\tfrac{\rho_w}{\mu_w}\,\mathbf{K}_w\cdot \boldsymbol{B}_{p_w}\mathbf{p}_{w,e}\big]\,d\Omega}_{\text{ADHydroDiffusion}}
+        +\underbrace{\int_\Omega\!\boldsymbol{B}_{p_w}^\mathsf{T}
+        \big[\tfrac{\rho_w}{\mu_w}\,\mathbf{K}_w\cdot \rho_w\mathbf{g}\big]\,d\Omega}_{\text{ADHydroGravity}}
+        \]
+      </div>
+            
+      <ul class="annotation-list">
+        <li><strong>ADHydroTimeDerivative</strong>: time term \(\rho\,\dot p/M\). Uses AD so off-diagonal Jacobians are automatic.</li>
+        <li><strong>ADHydroVolStrainCoupling</strong>: volumetric-strain source \(\rho\,\alpha\,\dot\varepsilon_v\). I provide \(\dot\varepsilon_v\) from a small AD material.</li>
+        <li><strong>ADHydroDiffusion</strong>: symmetric diffusion \(\nabla N:\big(\frac{\rho}{\mu}\mathbf{K}\nabla p\big)\). Works with anisotropic \(\mathbf{K}\) (Rank-2 tensor).</li>
+        <li><strong>ADHydroGravity</strong>: gravity head contribution \(\nabla N:\big(\frac{\rho}{\mu}\mathbf{K}\,\rho\mathbf{g}\big)\). Sign follows the usual convention (downward \(g_y&lt;0\)).</li>
+        <li><strong>ADMechanicsBiotPressure</strong>: couples \(p\) back into the solid via effective stress (not expanded here).</li> 
+      </ul>
+      
+    
+      <h2>Programming object and example usages</h2>
+    
+      <div class="tcolorbox">
+        <h3>ADHydroTimeDerivative / ADHydroVolStrainCoupling / ADHydroDiffusion</h3>
+        <p>
+          Minimal 2D poromechanics setup — pressure <code>p</code> plus solid displacements \((u_x,u_y)\). I keep names explicit for clarity.
+        </p>
+        <ul>
+          <li><code>variable = p</code> selects pressure DOF and its test function; AD handles all cross-derivatives.</li>
+          <li>Time term needs <code>fluid_density</code> and <code>biot_modulus</code> (material props), units consistent (e.g. kg/m³, Pa, s).</li>
+          <li>Volumetric-strain source needs <code>biot_coefficient</code> and <code>vol_strain_rate</code> from a material (my <code>ADHydroStrainRate</code>).</li>
+          <li>Diffusion needs <code>fluid_density</code>, <code>fluid_viscosity</code>, and a tensor <code>permeability_tensor</code> (AD RankTwoTensor).</li>
+          <li>Gravity term is optional (same property set as diffusion). If you add it, pass your \(\mathbf{g}\) vector with your sign convention.</li>
+        </ul>
+    
+        <div class="code-copy-container">
+          <button class="copy-btn" title="Copy code">Copy</button>
+          <div class="code-scroll">
+            <pre><code>[Kernels]
+  [poro_x]
+    type = ADMechanicsBiotPressure
+    p_eff_variable = p
+    biot_coef_name = biot_coefficient
+    variable = disp_x
+    component = 0
+  []
+  [poro_y]
+    type = ADMechanicsBiotPressure
+    p_eff_variable = p
+    biot_coef_name = biot_coefficient
+    variable = disp_y
+    component = 1
+  []
+  [TimeDerivative]
+    type = ADHydroTimeDerivative
+    variable = p
+    fluid_density = fluid_density
+    biot_modulus = biot_modulus
+  []
+  [Laplace_term]
+    type = ADHydroDiffusion
+    variable = p
+    fluid_density = fluid_density
+    fluid_viscosity = fluid_viscosity
+    permeability_tensor = permeability_tensor
+  []
+  [vol_strain_coupling]
+    type = ADHydroVolStrainCoupling
+    variable = p
+    fluid_density = fluid_density
+    biot_coefficient = biot_coefficient
+    vol_strain_rate = vol_strain_rate
+  [] 
+[]</code></pre>
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+    
+  </main>
+
+  <!-- Copy button script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const codeEl = btn.nextElementSibling;
+          const text = codeEl.innerText.trim();
+          navigator.clipboard.writeText(text).then(() => {
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 1500);
+          });
+        });
+      });
+      // drawer include
+      const includeEls = document.querySelectorAll('[include-html]');
+      includeEls.forEach(el => {
+        fetch(el.getAttribute('include-html'))
+          .then(r => r.ok ? r.text() : Promise.reject(r.statusText))
+          .then(html => {
+            el.innerHTML = html;
+            const toggle = document.getElementById('drawerToggle');
+            const drawer = document.getElementById('drawer');
+            if (toggle && drawer) toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          })
+          .catch(err => el.innerHTML = `<p>Error loading drawer: ${err}</p>`);
+      });
+    });
+  </script>
+</body>
+</html>
