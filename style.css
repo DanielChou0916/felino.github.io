@@ -167,7 +167,14 @@ body {
 /* cell phone view */
 @media (max-width: 600px) {
   .drawer.open { width: 370px; }
-  .img-wrap.stack img { max-width: 100%; }
+
+  /* 所有圖片在手機上 100% 寬度 */
+  .img-wrap img,
+  .gif-border,
+  .gif-border-intro {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 }
 
 /* Dropdown submenu inside drawer */
