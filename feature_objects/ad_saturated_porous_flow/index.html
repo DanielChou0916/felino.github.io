@@ -56,7 +56,7 @@
         \underbrace{\int_\Omega\!\boldsymbol{N}_{p_w}\,\rho_w\,\tfrac{\dot p_w}{M}\,d\Omega}_{\text{ADHydroTimeDerivative}}
         +\underbrace{\int_\Omega\!\boldsymbol{N}_{p_w}\,\rho_w\,\alpha_w\,\nabla\!\cdot\!\dot{\mathbf{u}}\,d\Omega}_{\text{ADHydroVolStrainCoupling}}
         +\underbrace{\int_\Omega\!\boldsymbol{B}_{p_w}^\mathsf{T}
-        \big[\tfrac{\mathbf{K}_ww}{\mu_w}\,\cdot \boldsymbol{B}_{p_w}\mathbf{p}_{w,e}\big]\,d\Omega}_{\text{ADHydroDiffusion}}
+        \big[\tfrac{\mathbf{K}_w}{\mu_w}\,\cdot \boldsymbol{B}_{p_w}\mathbf{p}_{w,e}\big]\,d\Omega}_{\text{ADHydroDiffusion}}
         +\underbrace{\int_\Omega\!\boldsymbol{B}_{p_w}^\mathsf{T}
         \big[\tfrac{\mathbf{K}_w}{\mu_w}\,\cdot \rho_w\mathbf{g}\big]\,d\Omega}_{\text{ADHydroGravity}}
         \]
@@ -79,7 +79,7 @@
           Minimal 2D poromechanics setup — pressure <code>p</code> plus solid displacements \((u_x,u_y)\). I keep names explicit for clarity.
         </p>
         <ul>
-          <li><code>mass_flux = false</code>(default) excludes the fluid density from governing equation, which stands for volumetric flux. This is highly recommanded due to including \(\rho_w\) as mass flux equation will usually lead to convergence issue.
+          <li><code>mass_flux = false</code>(default) excludes the fluid density from governing equation, which stands for volumetric flux. This is highly recommended due to including \(\rho_w\) as mass flux equation will usually lead to convergence issue.
           In case of <code>mass_flux = true</code>, the governing equation becomes
             <div class="math-block">
               \[
