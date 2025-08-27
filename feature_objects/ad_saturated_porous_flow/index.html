@@ -28,9 +28,9 @@
     
       <div class="math-block">
         \[
-        \rho_w\,\frac{\dot p_w}{M}
-        \;+\;\rho_w\,\alpha_w\,\nabla\!\cdot\!\dot{\mathbf{u}}
-        \;-\;\nabla\!\cdot\!\Big[\frac{\rho_w}{\mu_w}\,\mathbf{K}_w\cdot\big(\nabla p_w+\rho_w\mathbf{g}\big)\Big]
+        \frac{\dot p_w}{M}
+        \;+\;\alpha_w\,\nabla\!\cdot\!\dot{\mathbf{u}}
+        \;-\frac{1}{\rho_w}\;\nabla\!\cdot\!\Big[\frac{\rho_w\mathbf{K}_w}{\mu_w}\,\cdot\big(\nabla p_w+\rho_w\mathbf{g}\big)\Big]
         \;=\;0 \quad \text{in } \Omega .
         \]
       </div>
@@ -42,10 +42,10 @@
       <div class="math-block">
         \[
         \mathbf{r}_{p_w} =
-        \int_\Omega \boldsymbol{N}_{p_w}\,\rho_w\,\frac{\dot p_w}{M}\,d\Omega
-        \;+\;\int_\Omega \boldsymbol{N}_{p_w}\,\rho_w\,\alpha_w\,\nabla\!\cdot\!\dot{\mathbf{u}}\,d\Omega
-        \;+\;\int_\Omega \boldsymbol{B}_{p_w}^\mathsf{T}
-        \Big[\frac{\rho_w}{\mu_w}\,\mathbf{K}_w\cdot\big(\boldsymbol{B}_{p_w}\mathbf{p}_{w,e}+\rho_w\mathbf{g}\big)\Big]\,d\Omega .
+        \int_\Omega \boldsymbol{N}_{p_w}\,\frac{\dot p_w}{M}\,d\Omega
+        \;+\;\int_\Omega \boldsymbol{N}_{p_w}\,\alpha_w\,\nabla\!\cdot\!\dot{\mathbf{u}}\,d\Omega
+        \;+\;\int_\Omega \frac{1}{\rho_w}\, \boldsymbol{B}_{p_w}^\mathsf{T}
+        \Big[\frac{\rho_w\mathbf{K}_w}{\mu_w}\,\cdot\big(\boldsymbol{B}_{p_w}\mathbf{p}_{w,e}+\rho_w\mathbf{g}\big)\Big]\,d\Omega .
         \]
       </div>
     
@@ -56,17 +56,17 @@
         \underbrace{\int_\Omega\!\boldsymbol{N}_{p_w}\,\rho_w\,\tfrac{\dot p_w}{M}\,d\Omega}_{\text{ADHydroTimeDerivative}}
         +\underbrace{\int_\Omega\!\boldsymbol{N}_{p_w}\,\rho_w\,\alpha_w\,\nabla\!\cdot\!\dot{\mathbf{u}}\,d\Omega}_{\text{ADHydroVolStrainCoupling}}
         +\underbrace{\int_\Omega\!\boldsymbol{B}_{p_w}^\mathsf{T}
-        \big[\tfrac{\rho_w}{\mu_w}\,\mathbf{K}_w\cdot \boldsymbol{B}_{p_w}\mathbf{p}_{w,e}\big]\,d\Omega}_{\text{ADHydroDiffusion}}
+        \big[\tfrac{\mathbf{K}_ww}{\mu_w}\,\cdot \boldsymbol{B}_{p_w}\mathbf{p}_{w,e}\big]\,d\Omega}_{\text{ADHydroDiffusion}}
         +\underbrace{\int_\Omega\!\boldsymbol{B}_{p_w}^\mathsf{T}
-        \big[\tfrac{\rho_w}{\mu_w}\,\mathbf{K}_w\cdot \rho_w\mathbf{g}\big]\,d\Omega}_{\text{ADHydroGravity}}
+        \big[\tfrac{\mathbf{K}_w}{\mu_w}\,\cdot \rho_w\mathbf{g}\big]\,d\Omega}_{\text{ADHydroGravity}}
         \]
       </div>
             
       <ul class="annotation-list">
-        <li><strong>ADHydroTimeDerivative</strong>: time term \(\rho\,\dot p/M\). Uses AD so off-diagonal Jacobians are automatic.</li>
-        <li><strong>ADHydroVolStrainCoupling</strong>: volumetric-strain source \(\rho\,\alpha\,\dot\varepsilon_v\). I provide \(\dot\varepsilon_v\) from a small AD material.</li>
-        <li><strong>ADHydroDiffusion</strong>: symmetric diffusion \(\nabla N:\big(\frac{\rho}{\mu}\mathbf{K}\nabla p\big)\). Works with anisotropic \(\mathbf{K}\) (Rank-2 tensor).</li>
-        <li><strong>ADHydroGravity</strong>: gravity head contribution \(\nabla N:\big(\frac{\rho}{\mu}\mathbf{K}\,\rho\mathbf{g}\big)\). Sign follows the usual convention (downward \(g_y&lt;0\)).</li>
+        <li><strong>ADHydroTimeDerivative</strong>: time term \(\dot p/M\). Uses AD so off-diagonal Jacobians are automatic.</li>
+        <li><strong>ADHydroVolStrainCoupling</strong>: volumetric-strain source \(\alpha\,\dot\varepsilon_v\). I provide \(\dot\varepsilon_v\) from a small AD material.</li>
+        <li><strong>ADHydroDiffusion</strong>: symmetric diffusion \(\nabla N:\big(\frac{\mathbf{K}}{\mu}\nabla p\big)\). Works with anisotropic \(\mathbf{K}\) (Rank-2 tensor).</li>
+        <li><strong>ADHydroGravity</strong>: gravity head contribution \(\nabla N:\big(\frac{\mathbf{K}}{\mu}\,\rho\mathbf{g}\big)\). Sign follows the usual convention (downward \(g_y&lt;0\) for 2D and \(g_z&lt;0\) for 3D).</li>
         <li><strong>ADMechanicsBiotPressure</strong>: couples \(p\) back into the solid via effective stress (not expanded here).</li> 
       </ul>
       
@@ -79,6 +79,17 @@
           Minimal 2D poromechanics setup — pressure <code>p</code> plus solid displacements \((u_x,u_y)\). I keep names explicit for clarity.
         </p>
         <ul>
+          <li><code>mass_flux = false</code>(default) excludes the fluid density from governing equation, which stands for volumetric flux. This is highly recommanded due to including \(\rho_w\) as mass flux equation will usually lead to convergence issue.
+          In case of <code>mass_flux = true</code>, the governing equation becomes
+            <div class="math-block">
+              \[
+              \rho_w\,\frac{\dot p_w}{M}
+              \;+\;\rho_w\,\alpha_w\,\nabla\!\cdot\!\dot{\mathbf{u}}
+              \;-\;\nabla\!\cdot\!\Big[\frac{\rho_w}{\mu_w}\,\mathbf{K}_w\cdot\big(\nabla p_w+\rho_w\mathbf{g}\big)\Big]
+              \;=\;0 \quad \text{in } \Omega .
+              \]
+            </div>
+          </li>
           <li><code>variable = p</code> selects pressure DOF and its test function; AD handles all cross-derivatives.</li>
           <li>Time term needs <code>fluid_density</code> and <code>biot_modulus</code> (material props), units consistent (e.g. kg/m³, Pa, s).</li>
           <li>Volumetric-strain source needs <code>biot_coefficient</code> and <code>vol_strain_rate</code> from a material (my <code>ADHydroStrainRate</code>).</li>
