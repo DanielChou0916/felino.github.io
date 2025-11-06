@@ -28,9 +28,9 @@
       </p>
       <div class="math-block">
         \[
-          g'(d)\,\psi^e
-          + \frac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w'(d)
-          - \nabla\cdot\Bigl(\frac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\,
+          \omega'(d)\,\Psi^e
+          + \frac{G_c\,f(\bar\alpha)}{c_0\,l}\,\alpha'(d)
+          - \nabla\cdot\Bigl(\frac{2\,G_c\,f(\bar\alpha)\,l}{c_0}\,
           \bar{\mathbf{A}} \cdot \nabla d\Bigr)
           = 0
         \]
@@ -121,16 +121,16 @@
       <div class="math-block">
         \[
           \int_\Omega \delta d \Bigl[
-            g'(d)\,\psi^e
-            + \frac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w'(d)
+            \omega'(d)\,\Psi^e
+            + \frac{G_c\,f(\bar\alpha)}{c_0\,l}\,\alpha'(d)
           \Bigr] d\Omega
           \;+\;
           \int_\Omega \nabla\delta d \,\cdot\,
-          \Bigl(\frac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\,
+          \Bigl(\frac{2\,G_c\,f(\bar\alpha)\,l}{c_0}\,
           \bar{\mathbf{A}}\cdot \nabla d\Bigr) d\Omega
           \;-\;
           \int_\Omega \delta d\,
-          \nabla\Bigl(\tfrac{2G_c\,f(\bar\alpha)\,\ell}{c_0}\Bigr)
+          \nabla\Bigl(\tfrac{2G_c\,f(\bar\alpha)\,l}{c_0}\Bigr)
           \cdot(\bar{\mathbf{A}}\cdot\nabla d)\,d\Omega
           = 0
         \]
@@ -139,12 +139,12 @@
         \[
           \mathbf{r}_d
           = \int_{\Omega_e} \mathbf{N}_d \Bigl[
-              g'(d)\,\psi^e
-              + \frac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w'(d)
+              \omega'(d)\,\Psi^e
+              + \frac{G_c\,f(\bar\alpha)}{c_0\,l}\,\alpha'(d)
             \Bigr] d\Omega
           \;+\;
           \int_{\Omega_e}
-            \Bigl(\frac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\Bigr)
+            \Bigl(\frac{2\,G_c\,f(\bar\alpha)\,l}{c_0}\Bigr)
             \mathbf{B}_d^\mathsf{T}\,
             \bar{\mathbf{A}}\,
             \mathbf{B}_d\,
@@ -152,7 +152,7 @@
           \;-\;
           \int_{\Omega_e}
             \mathbf{N}_d\,
-            \Bigl[\nabla\bigl(\tfrac{2G_c\,f(\bar\alpha)\,\ell}{c_0}\bigr)\cdot
+            \Bigl[\nabla\bigl(\tfrac{2G_c\,f(\bar\alpha)\,l}{c_0}\bigr)\cdot
             \bar{\mathbf{A}}\,
             \mathbf{B}_d\,\mathbf{d}_e\Bigr]\,d\Omega
         \]
@@ -162,20 +162,20 @@
           \mathbf{K}_d
           = \int_{\Omega_e} \mathbf{N}_d
             \Bigl[
-              g''(d)\,\psi^e
-              + \frac{G_c\,f(\bar\alpha)}{c_0\,\ell}\,w''(d)
+              g''(d)\,\Psi^e
+              + \frac{G_c\,f(\bar\alpha)}{c_0\,l}\,w''(d)
             \Bigr]
             \mathbf{N}_d^\mathsf{T} \,d\Omega
           \;+\;
           \int_{\Omega_e}
-            \Bigl(\frac{2\,G_c\,f(\bar\alpha)\,\ell}{c_0}\Bigr)
+            \Bigl(\frac{2\,G_c\,f(\bar\alpha)\,l}{c_0}\Bigr)
             \mathbf{B}_d^\mathsf{T}\,
             \bar{\mathbf{A}}\,
             \mathbf{B}_d \,d\Omega
           \;-\;
           \int_{\Omega_e}
             \mathbf{N}_d
-            \Bigl[\nabla\bigl(\tfrac{2G_c\,f(\bar\alpha)\,\ell}{c_0}\bigr)\cdot
+            \Bigl[\nabla\bigl(\tfrac{2G_c\,f(\bar\alpha)\,l}{c_0}\bigr)\cdot
             \bar{\mathbf{A}}\,
             \mathbf{B}_d\Bigr]\,d\Omega.
         \]
