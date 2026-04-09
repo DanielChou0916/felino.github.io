@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutorial 4 | Felino</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <!-- MathJax for LaTeX support -->
+  <script
+    type="text/javascript"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  ></script>
+</head>
+<body>
+
+  <!-- drawer -->
+  <div include-html="../../drawer_sub.html"></div>
+
+  <!-- Main content -->
+  <main class="sub-container">
+
+<section>
+  <h1>3D Simulations for Composite Material</h1>
+  <p>
+    This test uses a concrete cylinder 2D model which is a matrix-inclusion structure to demonstrate a case of 3D simulations.
+  </p>
+  <ul class="notation-list">
+    <li><strong>To provide an example set of three dimensional simulations.</strong></li>
+    <li><strong>To double check that combination of two materials should lead to numerical results that bonded within the strength range of two materials.</strong></li>
+  </ul>
+
+  <h2>Material Parameters and Boundary Conditions</h2>
+  <p>
+    Material parameters are listed in the format (aggregate, cement). For example, Young's modulus is given as \(E = (E_\text{agg}; E_\text{ce})\).
+  </p>
+
+  <div class="flex-table">
+    <div class="flex-image" style="flex: 1 1 52.5%;">
+      <img src="tur4.png" alt="Boundary Conditions" class="gif-border" style="max-width:100%; height:auto;">
+    </div>
+    <div class="flex-data" style="flex: 1 1 47.5%;">
+
+      
+    <!-- Geometry parameters -->
+    <table>
+      <thead>
+        <tr><th>Geometry</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Specimen Shape</td><td>Cylinder</td></tr>
+        <tr><td>Diameter (mm)</td><td>50.56</td></tr>
+        <tr><td>Radius (mm)</td><td>25.28</td></tr>
+        <tr><td>Height (mm)</td><td>93.68</td></tr>
+        <tr><td>Aggregate Volume Fraction</td><td>0.062</td></tr>
+        <!--<tr><td>Z Range (mm)</td><td>\(-46.84 \sim 46.84\)</td></tr> -->
+      </tbody>
+    </table>
+
+    <!-- General material parameters -->
+    <table>
+      <thead>
+        <tr><th>Parameter</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Young's Modulus \(E\) (MPa)</td><td>50,000; 25,000</td></tr>
+        <tr><td>Poisson's Ratio \(\nu\)</td><td>0.20; 0.20</td></tr>
+        <tr><td>Critical Energy Release Rate \(G_c\) (MPa\(\cdot\)mm)</td><td>0.03; 0.0125</td></tr>
+        <tr><td>Crack Band Width \(l\) (mm)</td><td>1.5; 1.5</td></tr>
+        <tr><td>Crack Geometry Function \(\alpha(d)\)</td><td>\(d\)</td></tr>
+        <tr><td>Normalization Coefficient \(c_0\)</td><td>2.666666667</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Extra Driving Force parameters -->
+    <table>
+      <thead>
+        <tr><th>Extra Driving Force</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Compressive Strength \(\sigma_\text{c}\) (MPa)</td><td>80; 30</td></tr>
+        <tr><td>Tensile Strength \(\sigma_\text{t}\) (MPa)</td><td>7; 2.5</td></tr>
+        <tr><td>Crack-Width Coefficient \(\delta^\varepsilon\)</td><td>0.16; 0.64</td></tr>
+      </tbody>
+    </table>
+
+    </div>
+  </div>
+
+  <h2>Animation and Results</h2>
+  <ul class="notation-list">
+    <li>Under construction :)</li>
+  </ul> 
+  <div class="gif-container">
+    <img src="uc3d.gif" alt="3D Brazilian splitting animation" class="gif-border" style="width: 100%; max-width: 100%;">
+  </div> 
+  <div class="gif-container">
+    <img src="bz.gif" alt="3D Brazilian splitting animation" class="gif-border" style="width: 100%; max-width: 100%;">
+  </div>
+
+  <div class="flex-table">
+    <div class="flex-image" style="flex: 1 1 50%;">
+      <img src="nl_N.png" alt="number of iteration" class="gif-border" style="max-width:100%; height:auto;">
+    </div>
+    <div class="flex-image" style="flex: 1 1 50%;">
+      <img src="dt.png" alt="time step size" class="gif-border" style="max-width:100%; height:auto;">
+    </div>
+  </div>
+
+  <h2>Input Files</h2>
+  <p>
+    The input files for this tutorial are available below:
+  </p>
+  <ul class="input-list">
+    <li><a href="https://github.com/DanielChou0916/felino/blob/main/tutorials/tur5_3d_composite/uc" target="_blank" rel="noopener noreferrer"><strong>Uniaxial Compression</strong></a></li>
+    <li><a href="https://github.com/DanielChou0916/felino/blob/main/tutorials/tur5_3d_composite/bz" target="_blank" rel="noopener noreferrer"><strong>Brazilian splitting</strong></a></li>
+  </ul>
+</section>
+
+    
+  <section id="references">
+    <h2>References</h2>
+    <ul class="reference-list">
+      <li><a href="https://www.nature.com/articles/s41598-024-59554-x" target="_blank" rel="noopener noreferrer">Chou, D., Etcheverry, M. & Arson, C. Three-dimensional biphase fabric estimation from 2D images by deep learning. Sci Rep 14, 8957 (2024).</a></li>
+    </ul>
+  </section>
+
+<!-- drawer loading script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const includeElements = document.querySelectorAll("[include-html]");
+
+    includeElements.forEach(el => {
+      const file = el.getAttribute("include-html");
+      fetch(file)
+        .then(response => {
+          if (!response.ok) throw new Error(`Could not fetch ${file}`);
+          return response.text();
+        })
+        .then(data => {
+          el.innerHTML = data;
+
+          // activate toggle 
+          const toggle = document.getElementById('drawerToggle');
+          const drawer = document.getElementById('drawer');
+          if (toggle && drawer) {
+            toggle.addEventListener('click', () => drawer.classList.toggle('open'));
+          }
+        })
+        .catch(error => {
+          el.innerHTML = `<p>Error loading ${file}</p>`;
+        });
+    });
+  });
+</script>
+    
+</body>
+</html>
