@@ -23,11 +23,12 @@
 <section>
   <h1>3D Simulations for Composite Material</h1>
   <p>
-    This test uses a concrete cylinder 2D model which is a matrix-inclusion structure to demonstrate a case of 3D simulations.
+    This example considers a three-dimensional concrete cylinder with a matrix-inclusion structure. 
+    Two types of simulations are performed: a uniaxial compression test and a Brazilian splitting test.
   </p>
   <ul class="notation-list">
-    <li><strong>To provide an example set of three dimensional simulations.</strong></li>
-    <li><strong>To double check that combination of two materials should lead to numerical results that bonded within the strength range of two materials.</strong></li>
+    <li><strong>To provide a representative example of three-dimensional simulations.</strong></li>
+    <li><strong>To verify that the composite response remains bounded by the strength limits of its constituent materials.</strong></li>
   </ul>
 
   <h2>Material Parameters and Boundary Conditions</h2>
@@ -37,7 +38,7 @@
 
   <div class="flex-table">
     <div class="flex-image" style="flex: 1 1 52.5%;">
-      <img src="tur4.png" alt="Boundary Conditions" class="gif-border" style="max-width:100%; height:auto;">
+      <img src="tur5.png" alt="Boundary Conditions" class="gif-border" style="max-width:100%; height:auto;">
     </div>
     <div class="flex-data" style="flex: 1 1 47.5%;">
 
@@ -87,25 +88,37 @@
     </div>
   </div>
 
-  <h2>Animation and Results</h2>
+  <h2>Results and Post-processing</h2>
   <ul class="notation-list">
     <li>Under construction :)</li>
   </ul> 
   <div class="gif-container">
     <img src="uc3d.gif" alt="3D Brazilian splitting animation" class="gif-border" style="width: 100%; max-width: 100%;">
   </div> 
+
   <div class="gif-container">
     <img src="bz.gif" alt="3D Brazilian splitting animation" class="gif-border" style="width: 100%; max-width: 100%;">
   </div>
 
   <div class="flex-table">
     <div class="flex-image" style="flex: 1 1 50%;">
-      <img src="nl_N.png" alt="number of iteration" class="gif-border" style="max-width:100%; height:auto;">
+      <img src="ucss_curve.png" alt="UC-stress-strain curve" class="gif-border" style="max-width:100%; height:auto;">
     </div>
     <div class="flex-image" style="flex: 1 1 50%;">
-      <img src="dt.png" alt="time step size" class="gif-border" style="max-width:100%; height:auto;">
+      <img src="bzfd_curve.png" alt="BZ-force-displacement curve" class="gif-border" style="max-width:100%; height:auto;">
     </div>
   </div>
+
+  The uniaxial compression stress-strain curve shows the compressive strength of concrete column is approximately 49.32 MPa. 
+  From the Brazilian splitting force-displacement curve, the peak loading response is approximately 30,595 in the model-consistent force unit.
+  Using the peak loading quantity extracted from the simulation, the tensile strength is estimated as
+  <div class="math-block">
+  \[
+  \sigma_t = \frac{2P_{max}}{\pi H D} = \frac{2\times 30595}{\pi \times 93.68 \times 50.56} \approx 4.11 MPa
+  \]
+</div>
+  This result indicates that even a small inclusion volume fraction (0.062) with higher strength can significantly enhance the overall mechanical response of the composite.
+  Both results are consistent with the expected composite behavior, where the effective strength is bounded between those of the weakest and strongest constituents.
 
   <h2>Input Files</h2>
   <p>
